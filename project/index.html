@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
     <title>Echoes of Frequency</title>
 </head>
 <body>
     <div id="overlay">
+        <video id="startVideo" src="videos/startScreen.mp4" autoplay muted loop></video>
         <div id="startScreen">
-        <h1>Echoes of Frequency</h1>
-        <p>Press Click to Start</p>
+        <h1 id="startTitle">Echoes of Frequency</h1>
 
         </div>
+        <p id="startText" onclick="navigateToLobby()">Press Click to Start</p>
     </div>
 
     
