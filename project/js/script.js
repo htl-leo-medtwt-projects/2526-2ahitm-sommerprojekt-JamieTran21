@@ -18,7 +18,7 @@ function navigateToLobby(){
         <div id="WorldSelecter">
         <div id="PracticeRange"><p>Practice Range</p></div>
             <div id="worldIcon">
-                <img src="./img/World_The_Xianzhou_Luofu.png" alt="worldIcon">
+                <img onclick="navigateToPlanets()" src="./img/World_The_Xianzhou_Luofu.png" alt="worldIcon">
             </div>
             <div id="ConfirmButton"><p>Confirm Planet</p></div>
         </div>
@@ -53,12 +53,24 @@ function navigateToWish(){
         <div id="wishingInfo">    
         <h1>${featuredCharacterName}</h1>
         <p id="infoText">Every <mark>10x</mark> Wish gives a chance to obtain a 5-star character!<hr>
-        <p>Guranteed 5-star character after 80 wishes</p>
-        <p id="wishRemaining">Wishes Remaining: ${wishRemaining}</p>
-
+            <div id="pityCounter">
+                <p>Guranteed 5-star character after <mark> 80 </mark> wishes</p><hr>
+                <p id="wishRemaining">Wishes Till 5-Star: <mark> ${wishRemaining}</mark></p>
+            </div>
+        </div>
         <div id="wishing">
            <p>10x</p> <img src="./img/Item_Wishing_Style_1.png" alt="Other Characters">
         </div>
+    </div>
+
+    <div id="wishingCharacters">
+        <div id="wishingCharacter1">
+        </div>
+        <div id="wishingCharacter2">
+        </div>
+    </div>
+    <div id="backToLobbyButton" onclick="navigateToLobby()">
+        <p>Back to Lobby</p>
     </div>
     `
  
@@ -68,5 +80,19 @@ function navigateToWish(){
   
 
 
+
+}
+
+function navigateToPlanets(){
+    overlay.innerHTML = `<div id="planetsScreen">
+    </div>
+    <div id="planets"><div id="planet1"><p>The Xianzhou Luofu</p></div>
+    <div id="planet2"><p>Planet 2</p></div>
+    <div id="planet3"><p>Planet 3</p></div>
+    </div>
+    <div id="backToLobbyButton" onclick="navigateToLobby()">
+        <p>Back to Lobby</p>
+    </div>
+    `
 
 }
