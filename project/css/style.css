@@ -16,6 +16,88 @@ body{
     padding: 0;
 }
 
+#overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1;
+}
+
+
+
+#PracticeRange{
+    border-radius: 3%;
+    color: white;
+    position: relative;
+    width: 20vw;
+    margin-left: auto ;
+    margin-right: auto;
+    left: 1vw;
+    bottom: 1vw;
+    font-size: 1.5rem;
+    padding: 1%;
+    text-align: center;
+    background-color: gray;
+    cursor: pointer;
+}
+
+
+#WorldSelecter{
+    transform: scale(0.8);
+    border-radius: 3%;
+    padding: 3%;
+    position: relative;
+    backdrop-filter: blur(15px);
+    top: 22vw;
+    width: 28vw;
+    right: 3vw;
+}
+#ConfirmButton{
+    font-size: 1.5rem;
+    border-radius: 3%;
+    position: relative;
+    text-align: center;
+    bottom: 3vw;
+    padding: 1%;
+    background-color: #2596be;
+    color: black;
+    cursor: pointer;
+    width: 20vw;
+    margin-left: auto ;
+    margin-right: auto;
+}
+
+
+#worldIcon{
+
+    position: relative;
+    width: 25vw;
+    bottom: 4vw;
+    right: 2vw;
+    animation: wobble 5s both infinite;
+
+}
+
+@keyframes wobble {
+
+    0%{transform: translateX(1vw) scale(1);}
+    50%{transform: translateX(1.25vw) scale(1.03) rotate(3deg);}
+    100%{transform: translateX(1vw) scale(1) rotate(0deg);}
+    
+}
+
+#worldIcon img{
+    transform: scale(0.7);
+
+}
+
+
+#lobbyScreen{
+}
+
 #startVideo{
   position: absolute;
   top: 0;
