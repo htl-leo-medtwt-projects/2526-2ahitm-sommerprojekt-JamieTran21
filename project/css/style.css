@@ -139,17 +139,38 @@ body{
    background-size: cover;
    background-position: center;
    cursor: pointer;
+   transition: background-image 0.3s ease;
+
+}
+#Character1:hover{
+   border-radius: 3%;
+   background-image: url(../gif/AemethHover.gif);
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-position: center;
+   cursor: pointer;
 
 }
 
 #Character2{
-border-radius: 3%;
+   border-radius: 3%;
    background-image: url(../img/Castorice_Splash_Art.png);
    background-repeat: no-repeat;
    background-size: 300%;
    background-position: 40% 50% ;
    cursor: pointer;
+   transition: background-image 0.3s ease;
 
+}
+
+#Character2:hover{
+    border-radius: 3%;
+    background-image: url(../gif/CastoriceHover.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    
 }
 
 #Character3{
@@ -160,6 +181,16 @@ border-radius: 3%;
    background-position: center;
    cursor: pointer;
 }
+
+#Character3:hover{
+    border-radius: 3%;
+    background-image: url(../gif/QiuyuanHover.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: left;
+    cursor: pointer;   
+}
+
 
 #TeamLevel{
     position: absolute;
