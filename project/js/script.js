@@ -2,16 +2,18 @@ let overlay = document.getElementById("overlay");
 let Character1Name = "Aemeath";
 let Character2Name = "Castorice";
 let Character3Name = "Qiuyuan";
+let featuredCharacterName = "Dan Heng";
 let TeamLevelNumber = 3;
+let wishRemaining = 70;
 
 
 function navigateToLobby(){
    
     overlay.innerHTML = `<div id="lobbyScreen">
         <div id="navbar">
-            <img id="wishingIcon" src="./img/Icon_Wishing.png" alt="Wish">
-            <img id="teamLineupIcon" src="./img/Icon_TeamLineup.png" alt="Team Lineup">
-            <img id="charactersIcon" src="./img/Icon_Characters.png" alt="Characters">
+            <img onclick="navigateToWish()" id="wishingIcon" src="./img/Icon_Wishing.png" alt="Wish">
+            <img onclick="navigateToTeamLineup()" id="teamLineupIcon" src="./img/Icon_TeamLineup.png" alt="Team Lineup">
+            <img onclick="navigateToCharacters()" id="charactersIcon" src="./img/Icon_Characters.png" alt="Characters">
         </div>
         <div id="WorldSelecter">
         <div id="PracticeRange"><p>Practice Range</p></div>
@@ -37,6 +39,33 @@ function navigateToLobby(){
     </div>`
     overlay.style.backgroundImage = "url('./img/lobbyScreen.png')"
 
+
+
+
+}
+
+function navigateToWish(){
+    overlay.innerHTML = `<div id="wishingScreen">  
+    </div>
+    <div id="wishingBox">
+        <div id="featuredCharacter">
+        </div>
+        <div id="wishingInfo">    
+        <h1>${featuredCharacterName}</h1>
+        <p id="infoText">Every <mark>10x</mark> Wish gives a chance to obtain a 5-star character!<hr>
+        <p>Guranteed 5-star character after 80 wishes</p>
+        <p id="wishRemaining">Wishes Remaining: ${wishRemaining}</p>
+
+        <div id="wishing">
+           <p>10x</p> <img src="./img/Item_Wishing_Style_1.png" alt="Other Characters">
+        </div>
+    </div>
+    `
+ 
+    
+
+        
+  
 
 
 
