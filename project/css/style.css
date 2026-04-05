@@ -399,8 +399,106 @@ body{
     cursor: pointer;
 }
 
-#planets{
+
+#planet1{
+    position: relative;
+    top: 25vw;
+    left: 34vw;
+    width: 30vw;
+    height: 60vh;
+    background-image: url(../img/World_Jarilo-VI.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    transform: scale(0.3);
+    filter: grayscale(100%);
+    animation: rotatePlanet 15s both infinite;
+    cursor: pointer;
+}
+
+
+#planet2{
+    position: relative;
+    bottom: 20vw;
+    left: 2vw;
+    width: 30vw;
+    height: 30vh;
+    background-image: url(../img/World_The_Xianzhou_Luofu.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    transform: scale(0.6);
+    animation: wobblePlanet 5s both infinite;
+    cursor: pointer;
+}
+
+#planet3{
+    position: relative;
+    bottom: 45vw;
+    left: 65vw;
+    width: 30vw;
+    height: 60vh;
+    background-image: url(../img/World_Penacony.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    transform: scale(0.6);
+    cursor: not-allowed;
+    filter: grayscale(100%);
+    animation: hoverPlanet 5s both infinite;
+}
+
+@keyframes rotatePlanet {
+    0%{transform: rotate(0deg) scale(0.4);}
+    50%{transform: rotate(180deg) scale(0.4);}
+    100%{transform: rotate(360deg) scale(0.4);}
+}
+
+@keyframes hoverPlanet {
+    0%{transform: translateY(0) scale(0.5);}
+    50%{transform: translateY(-2vw) scale(0.53);}
+    100%{transform: translateY(0) scale(0.5);}
+}
+
+
+@keyframes wobblePlanet {
+
+    0%{transform: translateX(1vw) scale(0.64);}
+    50%{transform: translateX(1.25vw) scale(0.67) rotate(5deg);}
+    100%{transform: translateX(1vw) scale(0.64) rotate(0deg);}
     
+}
+
+#howManyFightsTillNewPlanet{
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    top: -8vw;
+    left: 38vw;
+    width: 20vw;
+    height: 20vh;
+ 
+    background-color: rgba(12, 24, 62, 0.7);
+    background-image: url(../img/goldenRIng.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    color: white;
+    padding: 1%;
+    border-radius: 5%;
+    transition: all 0.3s ease;
+    cursor:grab;
+}
+#howManyFightsTillNewPlanet:hover{
+    top: 2vw;
+    background-color: #2c4169;
+}
+
+#howManyFightsTillNewPlanet p{
+    position: relative;
+    top: 1vw;
+    font-size: 1.5rem;
+    text-align: center;
 }
 
 

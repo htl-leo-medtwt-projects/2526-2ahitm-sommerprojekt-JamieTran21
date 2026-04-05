@@ -5,6 +5,7 @@ let Character3Name = "Qiuyuan";
 let featuredCharacterName = "Dan Heng";
 let TeamLevelNumber = 3;
 let wishRemaining = 70;
+let fightsRemaining = 2;
 
 
 function navigateToLobby(){
@@ -86,9 +87,16 @@ function navigateToWish(){
 function navigateToPlanets(){
     overlay.innerHTML = `<div id="planetsScreen">
     </div>
-    <div id="planets"><div id="planet1"><p>The Xianzhou Luofu</p></div>
-    <div id="planet2"><p>Planet 2</p></div>
-    <div id="planet3"><p>Planet 3</p></div>
+    <div id="howManyFightsTillNewPlanet">
+        <h1>Fights Till New Planet</h1>
+        <p id="fightsRemaining">Fights Remaining: <mark> ${fightsRemaining} </mark></p>
+    </div>
+    <div id="planets">
+        <div id="planet1"></div>
+        <div id="planet2"></div>
+        <div id="planet3"></div>
+        <div id="planet4"></div>
+        <div id="planet5"></div>
     </div>
     <div id="backToLobbyButton" onclick="navigateToLobby()">
         <p>Back to Lobby</p>
