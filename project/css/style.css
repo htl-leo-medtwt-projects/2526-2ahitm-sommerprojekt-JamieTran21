@@ -78,7 +78,13 @@ body{
     width: 25vw;
     bottom: 4vw;
     right: 3.5vw;
+    cursor: pointer;
     animation: wobble 5s both infinite;
+
+}
+
+#worldIcon img{
+    transform: scale(0.8);
 
 }
 
@@ -174,10 +180,40 @@ border-radius: 3%;
     bottom: 1vw;
 }
 
-#worldIcon img{
-    transform: scale(0.7);
+#navbar{
+    position: absolute;
+    border-radius: 5%;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(15px);
+    top: 1vw;
+    width: 40vw;
+    height: 10vh;
+    padding: 1%;
 
 }
+#navbar img{
+    margin-left: 15%;
+    width: 10vh;
+    height: 10vh;
+    border-radius: 50%;
+    position: relative;
+    top: 0.5vw;
+    left: 0.5vw;
+}
+
+
+
+#wishingIcon{
+    cursor: pointer;
+}
+#charactersIcon{
+    cursor: pointer;
+}
+#teamLineupIcon{
+    cursor: pointer;
+}
+
+
 
 
 #lobbyScreen{

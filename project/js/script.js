@@ -9,7 +9,9 @@ function navigateToLobby(){
    
     overlay.innerHTML = `<div id="lobbyScreen">
         <div id="navbar">
-            
+            <img id="wishingIcon" src="./img/Icon_Wishing.png" alt="Wish">
+            <img id="teamLineupIcon" src="./img/Icon_TeamLineup.png" alt="Team Lineup">
+            <img id="charactersIcon" src="./img/Icon_Characters.png" alt="Characters">
         </div>
         <div id="WorldSelecter">
         <div id="PracticeRange"><p>Practice Range</p></div>
