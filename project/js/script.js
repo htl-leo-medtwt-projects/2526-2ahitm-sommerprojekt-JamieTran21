@@ -85,7 +85,7 @@ function navigateToLobby(){
             <div id="worldIcon">
                 <img onclick="navigateToPlanets()" src="./img/World_The_Xianzhou_Luofu.png" alt="worldIcon">
             </div>
-            <div id="ConfirmButton"><p>Confirm Planet</p></div>
+            <div onclick="navigateToPreBattleChoice()" id="ConfirmButton"><p>Confirm Planet</p></div>
         </div>
         <div id="CharactersLineup">
             <div id="Character1"><div id="Character1NameBox"><p>${Character1Name}</p></div></div>
@@ -359,5 +359,32 @@ function toright(){
         }
     }
     console.log(currentIndex)
+
+}
+
+function navigateToPreBattleChoice(){
+    overlay.innerHTML = `<div id="preBattleChoiceScreen">
+    </div>
+    <div id="textBox">
+        <h1><img src="./img/Icon_PreBattle.png">Pre-Battle<br> Card</h1>
+    </div>
+    <div id="preBattleChoice">
+        <div id="preBattleCard"><p></p></div>
+    </div>
+    <div id="backToLobbyButton" onclick="navigateToLobby()">
+        <p>Back to Lobby</p>
+    </div>
+    `
+    let backToLobbyButton = document.getElementById("backToLobbyButton")
+
+
+    let randomCard =  setInterval(() => {
+        let preBattleCard = document.getElementById("preBattleCard")
+        preBattleCard.style.backgroundImage = `url('./img/Card_PreBattle${Math.floor(Math.random() * 4) + 1}.png')`
+    }, 100) 
+    setTimeout(() => {
+    clearInterval(randomCard)
+    backToLobbyButton.style.display = "none";
+    }, 5000)
 
 }
