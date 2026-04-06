@@ -384,6 +384,7 @@ function navigateToPreBattleChoice(){
     }, 100) 
     setTimeout(() => {
     clearInterval(randomCard)
+    preBattleCard.classList.add("preBattleCardAnimation")
     backToLobbyButton.style.display = "none";
     }, 5000)
 
