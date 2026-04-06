@@ -2,10 +2,22 @@ let overlay = document.getElementById("overlay");
 let Character1Name = "Aemeath";
 let Character2Name = "Castorice";
 let Character3Name = "Qiuyuan";
+let Character4Name = "Hyacine";
+let Character5Name = "Dan Heng";
+let Character6Name = "Shorekeeper";
+
 let featuredCharacterName = "Dan Heng";
+
 let TeamLevelNumber = 3;
+
 let wishRemaining = 70;
+
 let fightsRemaining = 2;
+
+let teamPos1= 1;
+let teamPos2 = 2;
+let teamPos3 = 3;
+let notIndexedText = "Not Indexed";
 
 
 function navigateToLobby(){
@@ -104,3 +116,40 @@ function navigateToPlanets(){
     `
 
 }
+
+function navigateToTeamLineup(){
+    overlay.innerHTML = `<div id="teamLineupScreen">
+    </div>
+    <div id="teamLineupCharacters">
+        <div id="teamLineupCharacter1"><div id="teamLineupCharacter1NameBox"><p>${teamPos1}</p></div></div>
+        <div id="teamLineupCharacter2"><div id="teamLineupCharacter2NameBox"><p>${teamPos2}</p></div></div>
+        <div id="teamLineupCharacter3"><div id="teamLineupCharacter3NameBox"><p>${teamPos3}</p></div></div>
+        <div id="teamLineupCharacter4"><div id="teamLineupCharacter4NameBox"><p class="notIndexed">${notIndexedText}</p></div></div>
+        <div id="teamLineupCharacter5"><div id="teamLineupCharacter5NameBox"><p class="notIndexed">${notIndexedText}</p></div></div>
+        <div id="teamLineupCharacter6"><div id="teamLineupCharacter6NameBox"><p class="notIndexed">${notIndexedText}</p></div></div>
+    </div>
+    <div id="backToLobbyButton" onclick="navigateToLobby()">
+        <p>Back to Lobby</p>
+    </div>
+    <div onclick="navigateToLobby()" id="confirmTeamLineupButton">
+        <p>Confirm Team Lineup</p>
+    </div>
+    `
+}
+
+function navigateToCharacters(){
+    overlay.innerHTML = `<div id="charactersScreen">
+    </div>
+    <div id="characters">
+        <div id="character1"><div id="character1NameBox"><p>${Character1Name}</p></div></div>
+        <div id="character2"><div id="character2NameBox"><p>${Character2Name}</p></div></div>
+        <div id="character3"><div id="character3NameBox"><p>${Character3Name}</p></div></div>
+        <div id="character4"><div id="character4NameBox"><p>${Character4Name}</p></div></div>
+        <div id="character5"><div id="character5NameBox"><p>${Character5Name}</p></div></div>
+        <div id="character6"><div id="character6NameBox"><p>${Character6Name}</p></div></div>
+    </div>
+    <div id="backToLobbyButton" onclick="navigateToLobby()">
+        <p>Back to Lobby</p>
+    </div>
+    `
+} 

@@ -53,7 +53,7 @@ body{
     position: relative;
     background-color: rgba(12, 24, 62, 0.3);
     backdrop-filter: blur(5px);
-    top: 23vw;
+    top: 20vw;
     width: 25vw;
     right: 1vw;
 }
@@ -413,7 +413,7 @@ body{
     transform: scale(0.3);
     filter: grayscale(100%);
     animation: rotatePlanet 15s both infinite;
-    cursor: pointer;
+    cursor: not-allowed;
 }
 
 
@@ -501,6 +501,92 @@ body{
     text-align: center;
 }
 
+#teamLineupCharacters{
+    position: relative;
+    display: grid;
+    left: 20vw;
+    top: 10vw;
+    grid-template-columns: 1vw 1vw 1fr;
+    gap: 25%;
+}
+
+#teamLineupCharacter1, #teamLineupCharacter2, #teamLineupCharacter3 , #teamLineupCharacter4, #teamLineupCharacter5, #teamLineupCharacter6{
+    position: relative;
+    background-color: #C4B34C ;
+    width: 10vw;
+    height: 20vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 3%;
+}
+
+#teamLineupCharacter1{
+    background-image: url(../img/Aemeath_Icon.png);
+}
+#teamLineupCharacter2{
+    background-image: url(../img/Castorice_Icon.png);
+}
+#teamLineupCharacter3{
+    background-image: url(../img/Qiuyuan_Icon.png);
+}
+#teamLineupCharacter4{
+    background-image: url(../img/Hyacine_Icon.png);
+    filter: grayscale(100%);
+}
+#teamLineupCharacter5{
+    background-image: url(../img/Dan_Heng_Icon.png);
+    background-size: 200%;
+    background-position: top;
+    filter: grayscale(100%);
+}
+#teamLineupCharacter6{
+    background-image: url(../img/Shorekeeper_Icon.png);
+    filter: grayscale(100%);
+}
+
+#teamLineupCharacter1NameBox , #teamLineupCharacter2NameBox, #teamLineupCharacter3NameBox{
+    position: absolute;
+    background-color: rgba(255, 255, 255);
+    height: 10vh;
+    transform: scale(0.7);
+    width: 5vw;
+    border-radius: 100% ;
+    top: 6vw;
+    left: 7vw;
+}
+#teamLineupCharacter1NameBox p , #teamLineupCharacter2NameBox p, #teamLineupCharacter3NameBox p{
+    color: black;
+    font-size: 2.5rem;
+    position: relative;
+    text-align: center;
+}
+
+
+#confirmTeamLineupButton{
+    position: absolute;
+    bottom: 5vw;
+    right: 1vw;
+    background-color: #37474d;
+    color: white;
+    padding: 1%;
+    border-radius: 5%;
+    cursor: pointer;
+    width: 10vw;
+    text-align: center;
+}
+
+.notIndexed{
+    position: relative;
+    width: 80%;
+    height: 3vh;
+    top: 3vw;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 3%;
+    background-color: white;
+}
 
 
 #lobbyScreen{
