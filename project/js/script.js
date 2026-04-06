@@ -112,6 +112,9 @@ function navigateToLobby(){
 function navigateToWish(){
     overlay.innerHTML = `<div id="wishingScreen">  
     </div>
+    <div id="textBox">
+     <h1><img src="./img/Icon_Wishing.png">Wish</h1>
+    </div>
     <div id="wishingBox">
         <div id="featuredCharacter">
         </div>
@@ -151,6 +154,9 @@ function navigateToWish(){
 function navigateToPlanets(){
     overlay.innerHTML = `<div id="planetsScreen">
     </div>
+    <div id="textBox">
+     <h1><img src="./img/Icon_Planet.png">Planets</h1>
+    </div>
     <div id="howManyFightsTillNewPlanet">
         <h1>Fights Till New Planet</h1>
         <p id="fightsRemaining">Fights Remaining: <mark> ${fightsRemaining} </mark></p>
@@ -171,6 +177,9 @@ function navigateToPlanets(){
 
 function navigateToTeamLineup(){
     overlay.innerHTML = `<div id="teamLineupScreen">
+    </div>
+    <div id="textBox">
+     <h1><img src="./img/Icon_TeamLineup.png">Team Lineup</h1>
     </div>
     <div id="teamLineupCharacters">
         <div id="teamLineupCharacter1"><div id="teamPos1"><p>${teamPos1}</p></div></div>

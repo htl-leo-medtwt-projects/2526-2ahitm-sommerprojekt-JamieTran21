@@ -345,8 +345,8 @@ body{
 #wishingCharacters{
     position: relative;
     display: grid;
-    gap: 75%;
-    top: 5vw;
+    gap: 55%;
+    top: 12vw;
     width: 30vw;
     left: 1vw;
 }
@@ -663,6 +663,7 @@ body{
     font-family: amoria;
     font-size: 2rem;
     color: rgba(219, 175, 134);
+    text-align: center;
 }
 
 
