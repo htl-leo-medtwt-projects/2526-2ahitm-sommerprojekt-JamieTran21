@@ -20,6 +20,58 @@ let teamPos3 = 3;
 let notIndexedText = "Not Indexed";
 
 
+let currentIndex = 0;
+
+let characters = [
+    {
+        name: `${Character1Name}`,
+        image: "./img/Aemeath_Splash_Art.png",
+        gif: "./gif/AemethHover.gif",
+        gifPos: "center",
+        backgroundColor:"rgba(237, 166, 214)"
+    },
+    {
+        name: `${Character2Name}`,
+        image: "./img/Castorice_Splash_Art.png",
+        gif: "./gif/CastoriceHover.gif",
+        gifPos: "center",
+        backgroundColor:"rgba(123, 55, 172)",
+        backgroundSize: "200"
+    },
+    {
+        name: `${Character3Name}`,
+        image: "./img/Qiuyuan_Splash_Art.png",
+        gif: "./gif/QiuyuanHover.gif",
+        gifPos: "left",
+        backgroundColor:"rgba(48, 53, 62)"
+    },
+    {
+        name: `${Character4Name}`,
+        image: "./img/Hyacine_Splash_Art.png",
+        gif: "./gif/HyacineHover.gif",
+        gifPos: "center",
+        backgroundColor:"rgba(248, 204, 200)",
+    },
+    {
+        name: `${Character5Name}`,
+        image: "./img/Dan_Heng_Splash_Art.png",
+        gif: "./gif/DanHengHover.gif",
+        gifPos: "center",
+        backgroundColor:"rgba(42, 61, 69)",
+        backgroundSize: "300"
+    },
+    {
+        name: `${Character6Name}`,
+        image: "./img/Shorekeeper_Splash_Art.png",
+        gif: "./gif/ShorekeeperHover.gif",
+        gifPos: "center",
+        backgroundColor:"rgba(21, 51, 153)",
+        backgroundSize: "230"
+    }
+
+]
+
+
 function navigateToLobby(){
    
     overlay.innerHTML = `<div id="lobbyScreen">
@@ -121,12 +173,12 @@ function navigateToTeamLineup(){
     overlay.innerHTML = `<div id="teamLineupScreen">
     </div>
     <div id="teamLineupCharacters">
-        <div id="teamLineupCharacter1"><div id="teamLineupCharacter1NameBox"><p>${teamPos1}</p></div></div>
-        <div id="teamLineupCharacter2"><div id="teamLineupCharacter2NameBox"><p>${teamPos2}</p></div></div>
-        <div id="teamLineupCharacter3"><div id="teamLineupCharacter3NameBox"><p>${teamPos3}</p></div></div>
-        <div id="teamLineupCharacter4"><div id="teamLineupCharacter4NameBox"><p class="notIndexed">${notIndexedText}</p></div></div>
-        <div id="teamLineupCharacter5"><div id="teamLineupCharacter5NameBox"><p class="notIndexed">${notIndexedText}</p></div></div>
-        <div id="teamLineupCharacter6"><div id="teamLineupCharacter6NameBox"><p class="notIndexed">${notIndexedText}</p></div></div>
+        <div id="teamLineupCharacter1"><div id="teamPos1"><p>${teamPos1}</p></div></div>
+        <div id="teamLineupCharacter2"><div id="teamPos2"><p>${teamPos2}</p></div></div>
+        <div id="teamLineupCharacter3"><div id="teamPos3"><p>${teamPos3}</p></div></div>
+        <div id="teamLineupCharacter4"><div id="teamPos4"><p class="notIndexed">${notIndexedText}</p></div></div>
+        <div id="teamLineupCharacter5"><div id="teamPos5"><p class="notIndexed">${notIndexedText}</p></div></div>
+        <div id="teamLineupCharacter6"><div id="teamPos6"><p class="notIndexed">${notIndexedText}</p></div></div>
     </div>
     <div id="backToLobbyButton" onclick="navigateToLobby()">
         <p>Back to Lobby</p>
@@ -140,16 +192,163 @@ function navigateToTeamLineup(){
 function navigateToCharacters(){
     overlay.innerHTML = `<div id="charactersScreen">
     </div>
-    <div id="characters">
-        <div id="character1"><div id="character1NameBox"><p>${Character1Name}</p></div></div>
-        <div id="character2"><div id="character2NameBox"><p>${Character2Name}</p></div></div>
-        <div id="character3"><div id="character3NameBox"><p>${Character3Name}</p></div></div>
-        <div id="character4"><div id="character4NameBox"><p>${Character4Name}</p></div></div>
-        <div id="character5"><div id="character5NameBox"><p>${Character5Name}</p></div></div>
-        <div id="character6"><div id="character6NameBox"><p>${Character6Name}</p></div></div>
+    <div id="textBox">
+     <h1><img src="./img/Icon_Data_Bank.png">Character<br> Data Bank</h1>
     </div>
+    <div id="characters">
+        <div id="characterSlideshow"><div id="CharactersNameBox"><p>${Character1Name}</p></div></div>
+    </div>
+    <div id="switchButtonContainer">
+        <div id="left" onclick="toleft()"><img src="img/nav-arrow.png" alt="navLeftArrow"></div>
+        <div id="right" onclick="toright()"><img src="img/nav-arrow.png" alt="navRightArrow"></div>
+    </div>
+
     <div id="backToLobbyButton" onclick="navigateToLobby()">
         <p>Back to Lobby</p>
     </div>
     `
+    let characterSlideshowImg = document.getElementById("characterSlideshow")
+    characterSlideshowImg.addEventListener("mouseover", () => {
+    characterSlideshowImg.style.backgroundImage = `url('./gif/AemethHover.gif')`;
+    })
+    characterSlideshowImg.addEventListener("mouseout", () => {
+        characterSlideshowImg.style.backgroundImage = `url('./img/Aemeath_Splash_Art.png')`;
+    })
 } 
+
+function toleft(){
+    let characterSlideshowImg = document.getElementById("characterSlideshow")
+    let characterNameBox = document.getElementById("CharactersNameBox")
+
+
+    currentIndex--;
+
+    if(currentIndex < 0){    
+        currentIndex = characters.length-1;
+     
+        characterSlideshowImg.style.backgroundImage = `url('${characters[currentIndex].image}')`;
+        characterNameBox.innerHTML = `<p>${characters[currentIndex].name}</p>`
+        characterSlideshowImg.style.backgroundColor = characters[currentIndex].backgroundColor;
+
+        if(characters[currentIndex].backgroundSize){
+            characterSlideshowImg.style.backgroundSize = parseInt(characters[currentIndex].backgroundSize)+ "%";
+        }else{
+            characterSlideshowImg.style.backgroundSize = "cover";
+        }
+
+        characterSlideshowImg.addEventListener("mouseover", () => {
+            characterSlideshowImg.style.backgroundSize = "cover";
+            characterSlideshowImg.style.backgroundImage = `url('${characters[currentIndex].gif}')`;
+            if(characters[currentIndex].gifPos == "left"){
+                characterSlideshowImg.style.backgroundPosition = "left";
+            }else{
+                characterSlideshowImg.style.backgroundPosition = "center";
+            }
+      
+        })
+
+        characterSlideshowImg.addEventListener("mouseout", () => {
+            if(characters[currentIndex].backgroundSize){
+                characterSlideshowImg.style.backgroundSize = parseInt(characters[currentIndex].backgroundSize)+ "%";
+            }else{
+            characterSlideshowImg.style.backgroundSize = "cover";
+            }
+            characterSlideshowImg.style.backgroundPosition = "center";
+            characterSlideshowImg.style.backgroundImage = `url('${characters[currentIndex].image}')`;
+        })
+
+
+
+
+
+    }else{
+        characterSlideshowImg.style.backgroundImage = `url('${characters[currentIndex].image}')`;
+        characterNameBox.innerHTML = `<p>${characters[currentIndex].name}</p>`
+        characterSlideshowImg.style.backgroundColor = characters[currentIndex].backgroundColor;
+
+        characterSlideshowImg.addEventListener("mouseover", () => {
+            characterSlideshowImg.style.backgroundImage = `url('${characters[currentIndex].gif}')`;
+        })
+
+        characterSlideshowImg.addEventListener("mouseout", () => {
+            characterSlideshowImg.style.backgroundImage = `url('${characters[currentIndex].image}')`;
+        })
+
+        if(characters[currentIndex].backgroundSize){
+            characterSlideshowImg.style.backgroundSize = parseInt(characters[currentIndex].backgroundSize)+ "%";
+        }else{
+            characterSlideshowImg.style.backgroundSize = "cover";
+        }
+    }
+    console.log(currentIndex)
+
+
+}
+
+function toright(){
+        let characterSlideshowImg = document.getElementById("characterSlideshow")
+    let characterNameBox = document.getElementById("CharactersNameBox")
+
+
+    currentIndex++;
+
+    if(currentIndex == characters.length){    
+        currentIndex = 0;
+     
+        characterSlideshowImg.style.backgroundImage = `url('${characters[currentIndex].image}')`;
+        characterNameBox.innerHTML = `<p>${characters[currentIndex].name}</p>`
+        characterSlideshowImg.style.backgroundColor = characters[currentIndex].backgroundColor;
+
+        if(characters[currentIndex].backgroundSize){
+            characterSlideshowImg.style.backgroundSize = parseInt(characters[currentIndex].backgroundSize)+ "%";
+        }else{
+            characterSlideshowImg.style.backgroundSize = "cover";
+        }
+
+        characterSlideshowImg.addEventListener("mouseover", () => {
+            characterSlideshowImg.style.backgroundSize = "cover";
+            characterSlideshowImg.style.backgroundImage = `url('${characters[currentIndex].gif}')`;
+            if(characters[currentIndex].gifPos == "left"){
+                characterSlideshowImg.style.backgroundPosition = "left";
+            }else{
+                characterSlideshowImg.style.backgroundPosition = "center";
+            }
+      
+        })
+
+        characterSlideshowImg.addEventListener("mouseout", () => {
+            if(characters[currentIndex].backgroundSize){
+                characterSlideshowImg.style.backgroundSize = parseInt(characters[currentIndex].backgroundSize)+ "%";
+            }else{
+            characterSlideshowImg.style.backgroundSize = "cover";
+            }
+            characterSlideshowImg.style.backgroundPosition = "center";
+            characterSlideshowImg.style.backgroundImage = `url('${characters[currentIndex].image}')`;
+        })
+
+
+
+
+
+    }else{
+        characterSlideshowImg.style.backgroundImage = `url('${characters[currentIndex].image}')`;
+        characterNameBox.innerHTML = `<p>${characters[currentIndex].name}</p>`
+        characterSlideshowImg.style.backgroundColor = characters[currentIndex].backgroundColor;
+
+        characterSlideshowImg.addEventListener("mouseover", () => {
+            characterSlideshowImg.style.backgroundImage = `url('${characters[currentIndex].gif}')`;
+        })
+
+        characterSlideshowImg.addEventListener("mouseout", () => {
+            characterSlideshowImg.style.backgroundImage = `url('${characters[currentIndex].image}')`;
+        })
+
+        if(characters[currentIndex].backgroundSize){
+            characterSlideshowImg.style.backgroundSize = parseInt(characters[currentIndex].backgroundSize)+ "%";
+        }else{
+            characterSlideshowImg.style.backgroundSize = "cover";
+        }
+    }
+    console.log(currentIndex)
+
+}

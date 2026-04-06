@@ -138,7 +138,6 @@ body{
    background-repeat: no-repeat;
    background-size: cover;
    background-position: center;
-   cursor: pointer;
    transition: background-image 0.3s ease;
 
 }
@@ -148,8 +147,6 @@ body{
    background-repeat: no-repeat;
    background-size: cover;
    background-position: center;
-   cursor: pointer;
-
 }
 
 #Character2{
@@ -158,7 +155,6 @@ body{
    background-repeat: no-repeat;
    background-size: 300%;
    background-position: 40% 50% ;
-   cursor: pointer;
    transition: background-image 0.3s ease;
 
 }
@@ -169,8 +165,6 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    cursor: pointer;
-    
 }
 
 #Character3{
@@ -179,7 +173,6 @@ body{
    background-repeat: no-repeat;
    background-size: 150%;
    background-position: center;
-   cursor: pointer;
 }
 
 #Character3:hover{
@@ -188,7 +181,6 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     background-position: left;
-    cursor: pointer;   
 }
 
 
@@ -545,7 +537,7 @@ body{
     filter: grayscale(100%);
 }
 
-#teamLineupCharacter1NameBox , #teamLineupCharacter2NameBox, #teamLineupCharacter3NameBox{
+#teamPos1 , #teamPos2 , #teamPos3{
     position: absolute;
     background-color: rgba(255, 255, 255);
     height: 10vh;
@@ -555,7 +547,7 @@ body{
     top: 6vw;
     left: 7vw;
 }
-#teamLineupCharacter1NameBox p , #teamLineupCharacter2NameBox p, #teamLineupCharacter3NameBox p{
+#teamPos1 p , #teamPos2 p, #teamPos3 p{
     color: black;
     font-size: 2.5rem;
     position: relative;
@@ -586,6 +578,91 @@ body{
     text-align: center;
     padding: 3%;
     background-color: white;
+}
+
+#characters{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    top: 5vw;
+    width: 30vw;
+}
+
+#characterSlideshow{
+    position: relative;
+    background-color: rgba(12, 24, 62, 0.3);
+    backdrop-filter: blur(5px);
+    width: 30vw;
+    height: 80vh;
+    border-radius: 3%;
+    background-image: url(../img/Aemeath_Splash_Art.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+}
+
+#CharactersNameBox{
+    position: relative;
+    border-radius: 3%;
+    top: 23.5vw;
+    background-color: rgba(0,0,0,0.5);
+    width: 30vw;
+    height: 7vh;
+    padding: 2%;
+    text-align: center;
+}
+#CharactersNameBox p{
+    color: white;
+    font-size: 1.5rem;
+    position: relative;
+}
+
+
+#left{
+  opacity: 0.7; 
+  transform: rotate(180deg) scale(0.5); 
+  transition: all 500ms;
+}
+
+#right{
+  opacity: 0.7;
+  transform: scale(0.5);
+  transition: all 500ms;
+}
+#right:hover{
+  transform: scale(0.6)translateX(6vw);
+  opacity: 1;
+}
+#left:hover{
+  transform: scale(0.6) rotate(180deg) translateX(6vw);
+  opacity: 1;
+}
+#switchButtonContainer{
+  display: flex;
+  position: relative;
+  bottom: 22vw;
+  justify-content: center;
+  align-items: center;
+  gap: 50%;
+  transform: scale(0.5);
+}
+
+.gifHover{
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#textBox{
+    position: absolute;
+    top: 1vw;
+    left: 1vw;
+    width: 10vw;
+}
+#textBox h1{
+    font-family: amoria;
+    font-size: 2rem;
+    color: rgba(219, 175, 134);
 }
 
 
