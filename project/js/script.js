@@ -74,7 +74,16 @@ let characters = [
 
 function navigateToLobby(){
    
-    overlay.innerHTML = `<div id="lobbyScreen">
+    overlay.innerHTML = `
+    <div id="popUpScreen">
+        <div id="tutorialQuestionBox">
+            <h1>Would you like to play the Tutorial?</h1>
+            <div id="yesOrNoBoxes">
+                <div onclick="navigateToTutorial()" id="yesButton">Yes</div>
+                <div onclick="removePopUp()" id="noButton">No</div>
+            </div>
+        </div>
+    </div>
         <div id="navbar">
             <img onclick="navigateToWish()" id="wishingIcon" src="./img/Icon_Wishing.png" alt="Wish">
             <img onclick="navigateToTeamLineup()" id="teamLineupIcon" src="./img/Icon_TeamLineup.png" alt="Team Lineup">
@@ -101,7 +110,7 @@ function navigateToLobby(){
     
     
     
-    </div>`
+   `
     overlay.style.backgroundImage = "url('./img/lobbyScreen.png')"
 
 
@@ -388,4 +397,23 @@ function navigateToPreBattleChoice(){
     backToLobbyButton.style.display = "none";
     }, 5000)
 
+}
+
+function removePopUp(){
+    let popUpScreen = document.getElementById("popUpScreen");
+    popUpScreen.style.display = "none";
+}
+
+function navigateToTutorial(){
+    //<div id="popUpScreen">
+    // </div>
+    overlay.innerHTML = `
+    <div id="tutorialContent">  
+        <div id="turnBox">
+            <div id="playerTurn"><img src="./img/Aemeath_Icon.png"><p id="playerTurnText">Turn</p></div>
+            <div id="enemyTurn"><img src="./img/Icon_Enemy.png"><p id="enemyTurnText">Next</p></div>
+        </div>
+
+    </div>
+    `
 }
