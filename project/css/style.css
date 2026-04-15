@@ -769,6 +769,26 @@ body{
     border-radius: 5%;
 }
 
+#playerTurn{
+    display: flex;
+    background-image: url(../img/goldenRIng.png);
+    background-position: center;
+    background-size: cover;
+    background-color: rgba(255, 255, 255, 0.214);
+    width: 21vw;
+    border-radius:3% ;
+}
+
+#playerTurn img{
+    width: 15vh;
+    height: 15vh;
+}
+#playerTurnText{
+    position: relative;
+    top: 3vw;
+    left: 0.5vw;
+}
+
 #startVideo{
   position: absolute;
   top: 0;

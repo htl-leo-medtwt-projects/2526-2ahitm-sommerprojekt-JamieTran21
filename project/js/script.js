@@ -22,6 +22,9 @@ let notIndexedText = "Not Indexed";
 
 let currentIndex = 0;
 
+
+let cardId = -1;
+
 let characters = [
     {
         name: `${Character1Name}`,
@@ -70,6 +73,76 @@ let characters = [
     }
 
 ]
+
+
+let options = [
+    {
+        title: "Pain for Power",
+        description: "start with 2 extra Skill Points but all character lose 25% hp"
+    },
+    {
+        title: "Sacrificial Pact",
+        description: "one random character is unable to attack for 2 turns but one random character gets +3 atk"
+    },
+    {
+        title: "Blood Surge",
+        description: "all characters gain +4 attack but lose -2 hp"
+    },
+    {
+        title: "Time Warp",
+        description: "all characters have a turn in the start but the enemys get +3 atk"
+    },
+    {
+        title: "Wild Gamble",
+        description: "one random character gains +6 attack but another random character skips their next turn"
+    },
+    {
+        title: "Chain Assault",
+        description: "all characters attack twice but cannot use enhance skill for this battle"
+    },
+    {
+        title: "Overclocked",
+        description: "gain 5+ atk but every character takes 1- hp at the end of every turn"
+    }
+    
+]
+
+
+let preBattleCards = [
+    {
+        image: "./img/Card_PreBattle1.png", 
+        option11Title:"Pain for Power",
+        option1: "start with 2 extra Skill Points but all character lose 25% hp",
+        option2Title: "Sacrificial Pact",
+        option2:"one random character is unable to attack for 2 turns but one random character gets +3 atk"
+
+    },
+    {
+        name: "Card 2",
+        image: "./img/Card_PreBattle2.png",
+        option1Title: "Blood Surge",
+        option1: "all characters gain +4 attack but lose -2 hp",
+        option2Title: "Time Warp",
+        option2: "all characters have a turn in the start but the enemys get +3 atk",
+    },
+    {
+        name: "Card 3",
+        image: "./img/Card_PreBattle3.png",
+        option1Title: "Wild Gamble",
+        option1: "one random character gains +6 attack but another random character skips their next turn",
+        option2Title: "Chain Assault",
+        option2: "all characters attack twice but cannot use enhance skill for this battle",
+    },
+    {
+        name: "Card 4",
+        image: "./img/Card_PreBattle4.png",
+        option11Title:"Overclocked",
+        option1: "gain 5+ atk but every character takes 1- hp at the end of every turn",
+        option2Title: "Sacrificial Pact",
+        option2:"one random character is unable to attack for 2 turns but one random character gets 3+ atk"
+    }
+]
+
 
 
 function navigateToLobby(){
