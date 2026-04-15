@@ -693,6 +693,24 @@ body{
     50%{transform: translateY(-1vw) scale(1.2);}
     100%{transform: translateY(0) scale(1);}
 }
+
+#vowBox{
+    position: absolute;
+    bottom: 5vw;
+    right: 1vw;
+    background-color: #37474d;
+    color: white;
+    padding: 1%;
+    border-radius: 5%;
+    cursor: pointer;
+    width: 10vw;
+    text-align: center;
+    opacity: 0;
+
+
+}
+
+
 #enterBattleButton
 {
     position: absolute;

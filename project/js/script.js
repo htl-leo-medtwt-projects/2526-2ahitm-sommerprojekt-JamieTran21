@@ -109,37 +109,20 @@ let options = [
 
 
 let preBattleCards = [
-    {
+    {   name: "Card 1",
         image: "./img/Card_PreBattle1.png", 
-        option11Title:"Pain for Power",
-        option1: "start with 2 extra Skill Points but all character lose 25% hp",
-        option2Title: "Sacrificial Pact",
-        option2:"one random character is unable to attack for 2 turns but one random character gets +3 atk"
-
     },
     {
         name: "Card 2",
         image: "./img/Card_PreBattle2.png",
-        option1Title: "Blood Surge",
-        option1: "all characters gain +4 attack but lose -2 hp",
-        option2Title: "Time Warp",
-        option2: "all characters have a turn in the start but the enemys get +3 atk",
     },
     {
         name: "Card 3",
         image: "./img/Card_PreBattle3.png",
-        option1Title: "Wild Gamble",
-        option1: "one random character gains +6 attack but another random character skips their next turn",
-        option2Title: "Chain Assault",
-        option2: "all characters attack twice but cannot use enhance skill for this battle",
     },
     {
         name: "Card 4",
-        image: "./img/Card_PreBattle4.png",
-        option11Title:"Overclocked",
-        option1: "gain 5+ atk but every character takes 1- hp at the end of every turn",
-        option2Title: "Sacrificial Pact",
-        option2:"one random character is unable to attack for 2 turns but one random character gets 3+ atk"
+        image: "./img/Card_PreBattle4.png"
     }
 ]
 
@@ -444,7 +427,11 @@ function toright(){
 
 }
 
-function navigateToPreBattleChoice(){
+function navigateToPreBattleChoice(){ 
+    let backToLobbyButton = document.getElementById("backToLobbyButton")
+
+
+
     overlay.innerHTML = `<div id="preBattleChoiceScreen">
     </div>
     <div id="textBox">
@@ -456,20 +443,38 @@ function navigateToPreBattleChoice(){
     <div id="backToLobbyButton" onclick="navigateToLobby()">
         <p>Back to Lobby</p>
     </div>
+    <div id="vowBox">
+    
+        <div id="option1"><div>
+        <div id="option2"><div>
+    
+    </div>
     `
-    let backToLobbyButton = document.getElementById("backToLobbyButton")
 
-
-    let randomCard =  setInterval(() => {
+    
+    let randomCard =  setInterval(() => { 
+        let option1= document.getElementById("option1")
+        let option2= document.getElementById("option2")
         let preBattleCard = document.getElementById("preBattleCard")
         preBattleCard.style.backgroundImage = `url('./img/Card_PreBattle${Math.floor(Math.random() * 4) + 1}.png')`
+        let randomNumber = Math.floor(Math.random() * options.length)
+        let randomNumber2 = Math.floor(Math.random() * options.length)
+        option1.innerHTML = `
+        <h1>>${options[randomNumber].title}</h1>
+        <p>${options[randomNumber].description}</p>
+        `
+        option2.innerHTML = `
+        <h1>>${options[randomNumber2].title}</h1>
+        <p>${options[randomNumber2].description}</p>
+        `
     }, 100) 
     setTimeout(() => {
-    clearInterval(randomCard)
-    preBattleCard.classList.add("preBattleCardAnimation")
-    backToLobbyButton.style.display = "none";
+        clearInterval(randomCard)
+        preBattleCard.classList.add("preBattleCardAnimation")
+        backToLobbyButton.style.display = "none";
     }, 5000)
 
+   
 }
 
 function removePopUp(){
