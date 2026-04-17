@@ -428,7 +428,7 @@ function toright(){
 }
 
 function navigateToPreBattleChoice(){ 
-    let backToLobbyButton = document.getElementById("backToLobbyButton")
+
 
 
 
@@ -445,26 +445,29 @@ function navigateToPreBattleChoice(){
     </div>
     <div id="vowBox">
     
-        <div id="option1"><div>
-        <div id="option2"><div>
+        <div id="option1"></div>
+
+
+        <div id="option2"></div>
     
     </div>
-    `
-
+`   
+    let backToLobbyButton = document.getElementById("backToLobbyButton")
+    let option1= document.getElementById("option1")
+    let option2= document.getElementById("option2")
+    let preBattleCard = document.getElementById("preBattleCard")
     
     let randomCard =  setInterval(() => { 
-        let option1= document.getElementById("option1")
-        let option2= document.getElementById("option2")
-        let preBattleCard = document.getElementById("preBattleCard")
+       
         preBattleCard.style.backgroundImage = `url('./img/Card_PreBattle${Math.floor(Math.random() * 4) + 1}.png')`
         let randomNumber = Math.floor(Math.random() * options.length)
         let randomNumber2 = Math.floor(Math.random() * options.length)
         option1.innerHTML = `
-        <h1>>${options[randomNumber].title}</h1>
+        <h1>${options[randomNumber].title}</h1>
         <p>${options[randomNumber].description}</p>
         `
         option2.innerHTML = `
-        <h1>>${options[randomNumber2].title}</h1>
+        <h1>${options[randomNumber2].title}</h1>
         <p>${options[randomNumber2].description}</p>
         `
     }, 100) 

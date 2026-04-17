@@ -696,18 +696,37 @@ body{
 
 #vowBox{
     position: absolute;
-    bottom: 5vw;
-    right: 1vw;
-    background-color: #37474d;
+    bottom: 0vw;
+    right: -1vw;
+    background-color: #47433E;
+    background-image: url(../img/goldenRIng.png);
+    background-position: right;
+    opacity: 0.8;
     color: white;
     padding: 1%;
     border-radius: 5%;
     cursor: pointer;
-    width: 10vw;
+    height: 100vh;
+    width: 30vw;
     text-align: center;
-    opacity: 0;
+    z-index: 5;
 
 
+}
+
+#option1, #option2{
+    position: relative;
+
+    top: 20vw;
+    background-color: #47433E;
+    color: white;
+    padding: 1%;
+    border-radius: 5%;
+    cursor: pointer;
+    text-align: center;
+}
+#option1{
+    margin-bottom:5vw ;
 }
 
 
