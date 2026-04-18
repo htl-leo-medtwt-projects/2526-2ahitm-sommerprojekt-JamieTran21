@@ -856,8 +856,8 @@ body{
 
 #turnBox{
     position: absolute;
-    top: 1vw;
-    left: 1vw;
+    top: -1vw;
+    left: -1vw;
     width: 10vw;
     height: 10vh;
     background-color: rgba(0,0,0,0.5);
@@ -866,6 +866,7 @@ body{
     text-align: center;
     padding: 1%;
     border-radius: 5%;
+    transform: scale(0.8);
 }
 
 #playerTurn{
@@ -873,8 +874,7 @@ body{
     background-image: url(../img/goldenRIng.png);
     background-position: center;
     background-size: cover;
-    background-color: rgba(255, 255, 255, 0.214);
-    width: 21vw;
+    width: 15vw;
     border-radius:3% ;
 }
 
@@ -886,6 +886,81 @@ body{
     position: relative;
     top: 3vw;
     left: 0.5vw;
+}
+
+
+#enemyTurn{
+    display: flex;
+    background-image: url(../img/goldenRIng.png);
+    background-position: center;
+    background-size: cover;
+    width: 15vw;
+    margin-top: 1vw;
+    border-radius:3% ;
+}
+
+#enemyTurn img{
+    width: 15vh;
+    height: 15vh;
+}
+#enemyTurnText{
+    position: relative;
+    top: 3vw;
+    left: 0.5vw;
+}
+
+.nextTurn{
+    opacity: 0.5;
+    transform: scale(0.7);
+
+}
+#attacksBox{
+    position: absolute;
+    display: grid;
+    gap: 2vw;
+}
+#attacksBox img{
+    position: relative;
+    bottom: 5vw;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+#playerSprite, #enemySprite{
+    position: relative;
+    width: 30vw;
+    height: 60vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+#characterSprites{
+    position: relative;
+    display: flex;
+    gap: 20vw;
+    left: 30vw;
+    top:-5vw;
+}
+
+#enemyHpBar{
+    position: absolute;
+    top: -5vw;
+    left: 45vw;
+    display: flex;
+    width: 25vw;
+    height: 10vh;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5%;
+    text-align: center;
+    padding: 1%;
+}
+
+.hpPoint img{
+    height: 10vh;
+}
+
+#enemySprite{
+    position: relative;
 }
 
 #startVideo{

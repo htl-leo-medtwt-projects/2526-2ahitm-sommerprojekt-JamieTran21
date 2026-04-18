@@ -25,13 +25,36 @@ let currentIndex = 0;
 
 let cardId = -1;
 
+let alreadySelected = false;
+let optionCount = 0;
+
+
+let nextTurn = 1
+let skillPoints = 3;
+let ability1Selected = false
+let ability2Selected = false
+let ability3Selected = false
+
+let enemys = [
+    {
+        name: 'Stormbringer',
+        hp: 6,
+        attack:1
+    }
+
+
+
+]
+
 let characters = [
     {
         name: `${Character1Name}`,
         image: "./img/Aemeath_Splash_Art.png",
         gif: "./gif/AemethHover.gif",
         gifPos: "center",
-        backgroundColor:"rgba(237, 166, 214)"
+        backgroundColor:"rgba(237, 166, 214)",
+        hp: 5,
+        attack: 2
     },
     {
         name: `${Character2Name}`,
@@ -39,7 +62,8 @@ let characters = [
         gif: "./gif/CastoriceHover.gif",
         gifPos: "center",
         backgroundColor:"rgba(123, 55, 172)",
-        backgroundSize: "200"
+        backgroundSize: "200",
+        hp:3
     },
     {
         name: `${Character3Name}`,
@@ -495,26 +519,6 @@ function navigateToPreBattleChoice(){
    
 }
 
-function removePopUp(){
-    let popUpScreen = document.getElementById("popUpScreen");
-    popUpScreen.style.display = "none";
-}
-
-function navigateToTutorial(){
-    //<div id="popUpScreen">
-    // </div>
-    overlay.innerHTML = `
-    <div id="tutorialContent">  
-        <div id="turnBox">
-            <div id="playerTurn"><img src="./img/Aemeath_Icon.png"><p id="playerTurnText">Turn</p></div>
-            <div id="enemyTurn"><img src="./img/Icon_Enemy.png"><p id="enemyTurnText">Next</p></div>
-        </div>
-
-    </div>
-    `
-}
-    let alreadySelected = false;
-    let optionCount = 0;
 function selectOption(option, optionNumber){
     let confirm = document.getElementsByClassName("confirmOptionBattleCards")
     let optionBox = document.getElementsByClassName("optionBox")
@@ -554,3 +558,61 @@ function selectOption(option, optionNumber){
     }
    
 }
+
+
+function removePopUp(){
+    let popUpScreen = document.getElementById("popUpScreen");
+    popUpScreen.style.display = "none";
+}
+
+function navigateToTutorial() {
+    overlay.innerHTML = `
+    <div id="tutorialContent">  
+        <div id="turnBox">
+            <div id="playerTurn">
+                <img src="./img/Aemeath_Icon.png">
+                <p id="playerTurnText">Turn</p>
+            </div>
+            <div id="enemyTurn">
+                <img src="./img/Enemy_Stormbringer_Icon.png">
+                <p id="enemyTurnText">Next</p>
+            </div>  
+            <div id="attacksBox">
+                <h1>Attacks</h1>
+                <div id="attack1"><img src="./img/Basic_Aemeath.png"></div>
+                <div id="attack2"><img src="./img/Skill_Aemeath.png"></div>
+            </div>
+            <div id="characterSprites">
+                <img id="playerSprite" src="./img/Aemeath_Sprite.png">
+                <div id="enemyHpBar"></div>
+                <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
+            </div>
+            <div id="skillPointBox">
+            <div id="skillPointBar"></div>
+        </div>
+    </div>
+    `;
+
+    for(let i = 0; i < 5;i++){
+        let enemyHpBar = document.getElementById("enemyHpBar");
+        enemyHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
+        for(let j = 0; j < skillPoints;j++){
+
+    }
+    for(let i = 0; i < enemys[0].hp;i++){
+        let enemyHpBar = document.getElementById("enemyHpBar");
+        enemyHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
+    }
+
+    let playerTurn = document.getElementById("playerTurn");
+    let enemyTurn = document.getElementById("enemyTurn");
+
+    if (nextTurn == 0) {
+        playerTurn.classList.add("nextTurn");
+        enemyTurn.classList.remove("nextTurn");
+    } else {
+        enemyTurn.classList.add("nextTurn");
+        playerTurn.classList.remove("nextTurn");
+    }
+}
+
