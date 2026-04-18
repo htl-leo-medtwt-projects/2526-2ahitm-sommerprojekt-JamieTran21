@@ -444,11 +444,13 @@ function navigateToPreBattleChoice(){
         <p>Back to Lobby</p>
     </div>
     <div id="vowBox">
+        <h1 id="vowTitle">Choose a Vow</h1>
+
     
-        <div id="option1"></div>
+        <div id="option1" onclick="selectOption(this,1)"></div>
 
 
-        <div id="option2"></div>
+        <div id="option2" onclick="selectOption(this,2)"></div>
     
     </div>
 `   
@@ -463,11 +465,11 @@ function navigateToPreBattleChoice(){
         let randomNumber = Math.floor(Math.random() * options.length)
         let randomNumber2 = Math.floor(Math.random() * options.length)
         option1.innerHTML = `
-        <h1>${options[randomNumber].title}</h1>
+        <h1><img class="choiceIcon" src="./img/Icon_Choice.png"> ${options[randomNumber].title}</h1>
         <p>${options[randomNumber].description}</p>
         `
         option2.innerHTML = `
-        <h1>${options[randomNumber2].title}</h1>
+        <h1><img class="choiceIcon" src="./img/Icon_Choice.png"> ${options[randomNumber2].title}</h1>
         <p>${options[randomNumber2].description}</p>
         `
     }, 100) 
@@ -497,4 +499,17 @@ function navigateToTutorial(){
 
     </div>
     `
+}
+    let alreadySelected = false;
+function selectOption(option, optionNumber){
+
+    if(!alreadySelected){
+        option.innerHTML += `<div id="confirmOptionBattleCards">Confirm</div>`;
+        option.style.border = "2px solid #ffc870"; 
+          alreadySelected = true
+    }else{
+     
+        document.getElementById("confirmOptionBattleCards").innerHTML = ""
+    }
+   
 }
