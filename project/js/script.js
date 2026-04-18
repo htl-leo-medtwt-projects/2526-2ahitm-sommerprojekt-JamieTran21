@@ -31,6 +31,9 @@ let optionCount = 0;
 
 let nextTurn = 1
 let skillPoints = 3;
+let ultchargeC1 = 20;
+let ultchargeC2 = 0;
+let ultchargeC3 = 0;
 let ability1Selected = false
 let ability2Selected = false
 let ability3Selected = false
@@ -587,21 +590,42 @@ function navigateToTutorial() {
                 <div id="enemyHpBar"></div>
                 <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
             </div>
+            <div id="characterBattleInfo">
+                <div id="position1Box">
+                    <img id="playerIcon" src="./img/Aemeath_Icon.png">
+                    <p id="ultcharge">${ultchargeC1}%</p>
+                    <div id="playerUltimate">  
+                        <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
+                    </div>
+                    <div id="playerHpBar"></div>
+                </div>
+            </div>
             <div id="skillPointBox">
-            <div id="skillPointBar"></div>
+                <div id="skillPointBar"><p id="skillPointText">${skillPoints}</p></div>
+            </div>
         </div>
     </div>
     `;
 
     for(let i = 0; i < 5;i++){
-        let enemyHpBar = document.getElementById("enemyHpBar");
-        enemyHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
-        for(let j = 0; j < skillPoints;j++){
+        let skillPointBar = document.getElementById("skillPointBar");
+        skillPointBar.innerHTML += `<div class="skillPoint"><img src="./img/SkillPoint_uncharged.png"></div>`
+      
 
-    }
+    }  
+    for(let i = 0; i < skillPoints;i++){
+            let skillPointsCharged = document.getElementsByClassName("skillPoint")
+            skillPointsCharged[i].innerHTML = `<img src="./img/SkillPoint_charged.png">`
+            skillPointsCharged[i].style.filter = "grayscale(0%)"
+            
+        }
     for(let i = 0; i < enemys[0].hp;i++){
         let enemyHpBar = document.getElementById("enemyHpBar");
         enemyHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
+    }
+    for(let i = 0; i < characters[0].hp;i++){
+        let playerHpBar = document.getElementById("playerHpBar");
+        playerHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
     }
 
     let playerTurn = document.getElementById("playerTurn");
