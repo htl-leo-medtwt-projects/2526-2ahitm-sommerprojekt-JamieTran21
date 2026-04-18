@@ -695,7 +695,7 @@ body{
 
 #vowBox{
     position: absolute;
-    bottom: 0vw;
+    bottom: 60vw;
     right: -1vw;
     background-color: rgba(33, 32, 35, 0.8);
     background-image: url(../img/goldenRIng.png);
@@ -710,6 +710,13 @@ body{
     z-index: 5;
 
 
+}
+.vowBoxAnimation{
+    animation: vowBoxAnim 2s ease-out forwards;
+}
+@keyframes vowBoxAnim {
+    0%{bottom: 60vw;}
+    100%{bottom: 0vw}
 }
 
 #option1, #option2{
@@ -734,7 +741,23 @@ body{
     left: 5vw;
     font-size: 3.5rem;
 }
-#confirmOptionBattleCards{
+
+.selectedOption{
+    animation: selectedOptionAnim 2s ease-out forwards;
+}
+.selectedOption2{
+    animation: selectedOptionAnim 2s 0.5s ease-out forwards;
+}
+
+
+
+
+@keyframes selectedOptionAnim {
+    0%{transform: translateX(10vw); opacity: 0;}
+    100%{transform: scale(1);}
+}
+
+.confirmOptionBattleCards{
     position: relative;
     left: 60%;
     background-color: #ffff;

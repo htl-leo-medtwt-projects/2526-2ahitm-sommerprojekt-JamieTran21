@@ -447,16 +447,17 @@ function navigateToPreBattleChoice(){
         <h1 id="vowTitle">Choose a Vow</h1>
 
     
-        <div id="option1" onclick="selectOption(this,1)"></div>
+        <div id="option1" class="optionBox" onclick="selectOption(this,0)"></div>
 
 
-        <div id="option2" onclick="selectOption(this,2)"></div>
+        <div id="option2" class="optionBox" onclick="selectOption(this,1)"></div>
     
     </div>
 `   
     let backToLobbyButton = document.getElementById("backToLobbyButton")
     let option1= document.getElementById("option1")
     let option2= document.getElementById("option2")
+    let vowBox = document.getElementById("vowBox")  
     let preBattleCard = document.getElementById("preBattleCard")
     
     let randomCard =  setInterval(() => { 
@@ -467,14 +468,26 @@ function navigateToPreBattleChoice(){
         option1.innerHTML = `
         <h1><img class="choiceIcon" src="./img/Icon_Choice.png"> ${options[randomNumber].title}</h1>
         <p>${options[randomNumber].description}</p>
+        <div onclick="navigateToBattle()" class="confirmOptionBattleCards"></div>
         `
         option2.innerHTML = `
         <h1><img class="choiceIcon" src="./img/Icon_Choice.png"> ${options[randomNumber2].title}</h1>
         <p>${options[randomNumber2].description}</p>
-        `
+        <div onclick="navigateToBattle()" class="confirmOptionBattleCards"></div>
+        `     
+        let confirm = document.getElementsByClassName("confirmOptionBattleCards")
+
+        for (let i = 0; i < confirm.length; i++) {
+            confirm[i].style.display = "none"
+            
+        }
+        
     }, 100) 
     setTimeout(() => {
         clearInterval(randomCard)
+        option1.classList.add("selectedOption")
+        option2.classList.add("selectedOption2")
+        vowBox.classList.add("vowBoxAnimation")
         preBattleCard.classList.add("preBattleCardAnimation")
         backToLobbyButton.style.display = "none";
     }, 5000)
@@ -501,15 +514,43 @@ function navigateToTutorial(){
     `
 }
     let alreadySelected = false;
+    let optionCount = 0;
 function selectOption(option, optionNumber){
+    let confirm = document.getElementsByClassName("confirmOptionBattleCards")
+    let optionBox = document.getElementsByClassName("optionBox")
 
-    if(!alreadySelected){
-        option.innerHTML += `<div id="confirmOptionBattleCards">Confirm</div>`;
+
+    if(optionNumber == 0){
+        optionBox[optionNumber].style.border ="2px solid #ffc870"
+        confirm[optionNumber].innerHTML = "Confirm"
+
+        optionBox[1].style.border ="none"
+        confirm[1].style.display = "none"
+        confirm[1].innerHTML = ""
+
+    }else if(optionNumber == 1){
+        optionBox[optionNumber].style.border ="2px solid #ffc870"
+        confirm[optionNumber].innerHTML = "Confirm"
+
+        optionBox[0].style.border ="none"
+        confirm[0].style.display = "none"
+        confirm[0].innerHTML = ""
+    }
+ 
+
+    if(!alreadySelected && optionCount == 0){
+
+        confirm[optionNumber].innerHTML = "Confirm"
+        confirm[optionNumber].style.display = "block"
         option.style.border = "2px solid #ffc870"; 
-          alreadySelected = true
+        alreadySelected = true
+        optionCount++
     }else{
-     
-        document.getElementById("confirmOptionBattleCards").innerHTML = ""
+        console.log(optionCount)
+        confirm[optionNumber].style.display = "none"
+        option.style.border = "none"
+        alreadySelected = false
+        optionCount--
     }
    
 }
