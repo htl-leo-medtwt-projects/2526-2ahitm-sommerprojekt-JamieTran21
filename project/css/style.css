@@ -925,7 +925,27 @@ body{
     border-radius: 30%;
 }
 
+#skillPointCharged{
+  
+    border-radius: 30%;
+}
+
 @keyframes uncharged {
+
+    0%{opacity: 0.2; transform: translateY(0);}
+    50%{opacity: 1; transform: translateY(-2vw);}
+    100%{opacity: 0.2;transform: translateY(0)}
+    
+}
+.gettingCharged{
+    border-radius: 3%;
+    transform: skewY(30%);
+      background-color: rgb(21, 221, 21,0.8);
+    animation: charged 3s infinite both ease-in;
+}
+
+
+@keyframes charged {
 
     0%{opacity: 0.2; transform: translateY(0);}
     50%{opacity: 1; transform: translateY(-2vw);}
@@ -1058,6 +1078,17 @@ body{
     padding: 1%;
 }
 
+.losingHp{
+    animation: losingHp 3s infinite both ease-in;
+}
+
+@keyframes losingHp {
+    0%{transform: translateY(0) scale(1);}
+    50%{transform: translateY(-1vw) scale(1.1);}
+    100%{transform: translateY(0) scale(1);}
+    
+}
+
 #playerHpBar{
     position: absolute;
     top: 10vw;
@@ -1129,6 +1160,11 @@ body{
     border-radius:50%;
     width: 10vw;
     height: 20vh;
+}
+
+.movetoUlitmate{
+    top: 30vw;
+
 }
 .ulitmateGLow{
     animation: ultimateGlow infinite 2s ease-in-out;
