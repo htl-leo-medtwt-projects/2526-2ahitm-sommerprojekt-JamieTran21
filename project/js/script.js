@@ -62,7 +62,8 @@ let characters = [
         backgroundColor:"rgba(237, 166, 214)",
         hp: 5,
         attack1: 1,
-        attack2: 2
+        attack2: 2,
+        attack3: 3
     },
     {
         name: `${Character2Name}`,
@@ -161,13 +162,12 @@ let preBattleCards = [
 
 
 function navigateToLobby(){
-   
     overlay.innerHTML = `
     <div id="popUpScreen">
         <div id="tutorialQuestionBox">
             <h1>Would you like to play the Tutorial?</h1>
             <div id="yesOrNoBoxes">
-                <div onclick="navigateToTutorial()" id="yesButton">Yes</div>
+                <div onclick="navigateToPreBattleChoiceTutorial()" id="yesButton">Yes</div>
                 <div onclick="removePopUp()" id="noButton">No</div>
             </div>
         </div>
@@ -1000,7 +1000,7 @@ function navigateToSkillPointsTutorial(attackNumber){
                         <p id="ultcharge">${ultchargeC1}%</p>
 
                         <div id="playerUltimate">  
-                            <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
+                            <img onclick="navigateToEndScreen()"  id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
                         </div>
 
                         <div id="playerHpBar"></div>
@@ -1025,7 +1025,7 @@ function navigateToSkillPointsTutorial(attackNumber){
     
         `
     }
-
+    let tutorialTextBox = document.getElementById("tutorialTextBox")
     if(!understand && attackNumber == 1){
         let skillPointBoxTutorial = document.getElementById("skillPointBoxTutorial")
         skillPointBoxTutorial.style.border = "2px solid #ffc870"
@@ -1034,7 +1034,6 @@ function navigateToSkillPointsTutorial(attackNumber){
         let leadingArrow = document.getElementById("leadingArrow")
         leadingArrow.style.opacity = 0;
         document.getElementById("tutorialContent").style.filter = "brightness(50%)"
-        let tutorialTextBox = document.getElementById("tutorialTextBox")
         tutorialTextBox.style.display = "block"
         understand = true
     }else if(understand && attackNumber == 1){
@@ -1044,9 +1043,7 @@ function navigateToSkillPointsTutorial(attackNumber){
         enemyHpBarTutorial.style.border = "none"
         let leadingArrow = document.getElementById("leadingArrow")
         leadingArrow.style.opacity = 0;
-      
         document.getElementById("tutorialContent").style.filter = "brightness(100%)"
-        let tutorialTextBox = document.getElementById("tutorialTextBox")
         tutorialTextBox.style.display = "none"
 
     }
@@ -1059,9 +1056,7 @@ function navigateToSkillPointsTutorial(attackNumber){
         enemyHpBarTutorial.style.border = "8px solid #ffc870"
         let leadingArrow = document.getElementById("leadingArrow")
         leadingArrow.style.opacity = 0;  
-     
         document.getElementById("tutorialContent").style.filter = "brightness(50%)"
-        let tutorialTextBox = document.getElementById("tutorialTextBox")
         tutorialTextBox.innerHTML = `
         <h1>Skill Reduction & Enemy losing Hp</h1>
         <p>-Choosing The Basic Skill => gain 1 Skill Point<br>
@@ -1077,13 +1072,62 @@ function navigateToSkillPointsTutorial(attackNumber){
         let leadingArrow = document.getElementById("leadingArrow")
         leadingArrow.style.opacity = 0;
         document.getElementById("tutorialContent").style.filter = "brightness(100%)"
-        let tutorialTextBox = document.getElementById("tutorialTextBox")
         tutorialTextBox.style.display = "none"
 
     }
 
     if(attackNumber == 2){
+               overlay.innerHTML = `
+        <div id="tutorialContent">  
+            <div id="turnBoxTutorial">
 
+                <div id="playerTurn">
+                    <img src="./img/Aemeath_Icon.png">
+                    <p id="playerTurnText">Turn</p>
+                </div>
+
+                <div id="enemyTurn">
+                    <img src="./img/Enemy_Stormbringer_Icon.png">
+                    <p id="enemyTurnText">Next</p>
+                </div>  
+
+                <div id="attacksBoxTutorial">
+                    <h1>Attacks</h1>
+                    <div onclick="navigateToDamageTutorial(0)" id="attack1"><img  src="./img/Basic_Aemeath.png"></div>
+                    <div id="attack2"><img style="cursor: not-allowed;" src="./img/Skill_Aemeath.png"></div>
+                </div>
+
+                <div id="characterSpritesTutorial">
+                    <img id="playerSprite" src="./img/Aemeath_Sprite.png">
+                    <div id="enemyHpBar"></div>
+                    <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
+                </div>
+
+                <div id="characterBattleInfoTutorial">
+                    <div id="position1Box">
+                        <img id="playerIcon" src="./img/Aemeath_Icon.png">
+                        <p id="ultcharge">${ultchargeC1}%</p>
+
+                        <div id="playerUltimate">  
+                            <img onclick="navigateToEndScreen()"  id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
+                        </div>
+
+                        <div id="playerHpBar"></div>
+                    </div>
+                </div>
+
+                <div id="skillPointBoxTutorial">
+                    <div id="skillPointBarTutorial">
+                        <p id="skillPointText">${skillPoints}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div> 
+    
+        `
+        tutorialTextBox.style.display = "none"
+        document.getElementById("tutorialContent").style.filter = "brightness(100%)"
         document.getElementById("ultimateSkill").style.opacity = 1
     }
 
@@ -1116,6 +1160,7 @@ function navigateToSkillPointsTutorial(attackNumber){
 
             
         }
+    console.log(enemys[0].hp)
     for(let i = 0; i < enemys[0].hp;i++){
         let enemyHpBar = document.getElementById("enemyHpBar");
         enemyHpBar.innerHTML += `<div class="hpPointEnemy"><img src="./img/Icon_Hp.png"></div>`
@@ -1151,6 +1196,15 @@ function navigateToSkillPointsTutorial(attackNumber){
         let attack1 = document.getElementById("attack1")
 
         attack1.style.transform = "scale(1.3)"
+    }
+    if(attackNumber == 2){
+        for (let i = 0; i < characters[0].attack3; i++) {
+            let index = enemyHpBar.length - 1 - i;
+            if (enemyHpBar[index]) {
+                enemyHpBar[index].innerHTML = `<img  id="losingHp" src="./img/Icon_Hp_losing.png">`;
+                document.getElementById("losingHp").classList.add("losingHp")
+            }
+        }
     }
     
 
@@ -1222,12 +1276,12 @@ function navigateToDamageTutorial(attackNumber){
     </div>
     <div id="tutorialTextBox">
         <h1>Now use the Basic Attack to get the last 15% for the Ultimate</h1>
-        <p>-gain 1 Skill Point<br>
-        -gain 15% for the Ultimate</p>
         <div onclick="tutorialStep++, navigateToSkillPointsTutorial(0)"  id="confirmButton">I understand</div>
     </div>
     <div id="leadingArrow"><img src="./img/nav-arrow-left.png"></div>
     `
+    let leadingArrow = document.getElementById("leadingArrow")
+    leadingArrow.style.opacity = 0
     }else if(attackNumber == 0){
         skillPoints++
         ultchargeC1+= 15
@@ -1285,23 +1339,79 @@ function navigateToDamageTutorial(attackNumber){
     </div>
     <div id="leadingArrow"><img src="./img/nav-arrow-left.png"></div>
     `
-        let playerUltimate = document.getElementById("playerUltimate")
-        playerUltimate.style.border = "2px solid #ffc870"
+        let playerUltimate = document.getElementById("ultimateSkill")
+        playerUltimate.style.border = "5px solid #ffc870"
         let leadingArrow = document.getElementById("leadingArrow")
-        leadingArrow.style.opacity = "1"
-        leadingArrow.classList.add("movetoUlitmate") 
+        playerUltimate.style.opacity = 1
+        playerUltimate.classList.add("ulitmateGLow")
+        leadingArrow.style.opacity = 1
+        leadingArrow.style.top = "38vw"
+        leadingArrow.style.left = "25vw"
+    }
+    if(attackNumber == 2){
+                enemys[0].hp -= characters[0].attack3
+
+                overlay.innerHTML = `
+    <div id="tutorialContent">  
+        <div id="turnBoxTutorial">
+
+            <div id="playerTurn">
+                <img src="./img/Aemeath_Icon.png">
+                <p id="playerTurnText">Turn</p>
+            </div>
+
+            <div id="enemyTurn">
+                <img src="./img/Enemy_Stormbringer_Icon.png">
+                <p id="enemyTurnText">Next</p>
+            </div>  
+
+            <div id="attacksBoxTutorial">
+                <h1>Attacks</h1>
+                <div id="attack1"><img src="./img/Basic_Aemeath.png"></div>
+                <div onclick="navigateToDamage(1)" id="attack2"><img src="./img/Skill_Aemeath.png"></div>
+            </div>
+
+            <div id="characterSpritesTutorial">
+                <img id="playerSprite" src="./img/Aemeath_Sprite.png">
+                <div id="enemyHpBar"></div>
+                <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
+            </div>
+
+            <div id="characterBattleInfoTutorial">
+                <div id="position1Box">
+                    <img   id="playerIcon" src="./img/Aemeath_Icon.png">
+                    <p id="ultcharge">${ultchargeC1}%</p>
+
+                    <div id="playerUltimate">  
+                        <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
+                    </div>
+
+                    <div id="playerHpBar"></div>
+                </div>
+            </div>
+
+            <div id="skillPointBoxTutorial">
+                <div id="skillPointBarTutorial">
+                    <p id="skillPointText">${skillPoints}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="tutorialTextBox">
+        <h1>Use The Ulitmate to finish the Enemy</h1>
+        <div onclick="tutorialStep++, navigateToSkillPointsTutorial(2)"  id="confirmButton">I understand</div>
+    </div>
+    <div id="leadingArrow"><img src="./img/nav-arrow-left.png"></div>
+    `    
+    document.getElementById("tutorialContent").style.filter = "brightness(100%)"
+    let tutorialTextBox = document.getElementById("tutorialTextBox")
+    tutorialTextBox.style.display = "none"
     }
 
     characters[0].hp -= (dotDamage+ enemys[0].attack);
    
 
-  
-    let leadingArrow = document.getElementById("leadingArrow")
-
-    leadingArrow.style.opacity = 0;
-    document.getElementById("tutorialContent").style.filter = "brightness(50%)"
-    let tutorialTextBox = document.getElementById("tutorialTextBox")
-    tutorialTextBox.style.display = "block"
     for(let i = 0; i < 5;i++){
         let skillPointBar = document.getElementById("skillPointBarTutorial");
         skillPointBar.innerHTML += `<div class="skillPoint"><img src="./img/SkillPoint_uncharged.png"></div>`
@@ -1321,33 +1431,6 @@ function navigateToDamageTutorial(attackNumber){
         let playerHpBar = document.getElementById("playerHpBar");
         playerHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
     }
-
-    let enemyHpBar = document.getElementsByClassName("hpPointEnemy");
-
-    if(attackNumber == 1){
-    for (let i = 0; i < characters[0].attack2; i++) {
-        let index = enemyHpBar.length - 1 - i;
-        if (enemyHpBar[index]) {
-            enemyHpBar[enemyHpBar.length - 1].style.filter = "grayscale(100%)";
-        }
-    }
-    let attack2 = document.getElementById("attack2")
-
-    attack2.style.transform = "scale(1.3)"
-    }  
-    else if(attackNumber == 0){
-        for (let i = 0; i < characters[0].attack1; i++) {
-            let index = enemyHpBar.length - 1 - i;
-            if (enemyHpBar[index]) {
-                enemyHpBar[enemyHpBar.length - 1].style.filter = "grayscale(100%)";
-            }
-        }
-        let attack1 = document.getElementById("attack1")
-
-        attack1.style.transform = "scale(1.3)"
-    }
-
-
     let playerTurn = document.getElementById("playerTurn");
     let enemyTurn = document.getElementById("enemyTurn");
 
@@ -1360,7 +1443,14 @@ function navigateToDamageTutorial(attackNumber){
     }
 }
 
-
+function navigateToEndScreen(){
+    overlay.innerHTML = `
+    <div id="endScreen">
+        <h1>Tutorial Complete!</h1>
+        <div id="backToLobbyButtonTutorial" onclick="location.reload()">Back To Lobby</div>
+    </div>
+    `
+}
 
 // function navigateToTutorial() {
 //     overlay.innerHTML = `

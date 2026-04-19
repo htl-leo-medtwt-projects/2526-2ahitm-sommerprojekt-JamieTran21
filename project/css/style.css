@@ -390,6 +390,18 @@ body{
     border-radius: 5%;
     cursor: pointer;
 }
+#backToLobbyButtonTutorial{
+    position: absolute;
+    bottom: 30vw;
+    left:40vw;
+    background-color: #37474d;
+    color: white;
+    padding: 1%;
+    border-radius: 5%;
+    cursor: pointer;
+    width: 20vw;
+    text-align: center;
+}
 
 
 #planet1{
@@ -1163,11 +1175,25 @@ body{
 }
 
 .movetoUlitmate{
+    opacity: 1;
     top: 30vw;
 
 }
 .ulitmateGLow{
     animation: ultimateGlow infinite 2s ease-in-out;
+}
+
+#endScreen{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+    font-size: 3rem;
+    text-align: center;
+    padding: 1%;
 }
 @keyframes ultimateGlow {
     0% { filter: brightness(100%); }
