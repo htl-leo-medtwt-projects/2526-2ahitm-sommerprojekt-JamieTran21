@@ -38,6 +38,8 @@ let ability1Selected = false
 let ability2Selected = false
 let ability3Selected = false
 
+let goToNextStep = false
+
 let enemys = [
     {
         name: 'Stormbringer',
@@ -162,7 +164,7 @@ function navigateToLobby(){
         <div id="tutorialQuestionBox">
             <h1>Would you like to play the Tutorial?</h1>
             <div id="yesOrNoBoxes">
-                <div onclick="navigateToTutorial()" id="yesButton">Yes</div>
+                <div onclick="navigateToPreBattleChoiceTutorial()" id="yesButton">Yes</div>
                 <div onclick="removePopUp()" id="noButton">No</div>
             </div>
         </div>
@@ -567,6 +569,136 @@ function removePopUp(){
     let popUpScreen = document.getElementById("popUpScreen");
     popUpScreen.style.display = "none";
 }
+let popUp = false
+function navigateToPreBattleChoiceTutorial(){ 
+
+
+
+    if(!popUp){
+    overlay.innerHTML = `<div id="preBattleChoiceScreen">
+    </div>
+    <div id="popUpScreen">
+        <div id="tutorialQuestionBox2">
+            <h1 id="tutorialQuestion">Pre-Battle Choice</h1>
+            <div id="tutorialInfo">
+            <p class="tutorialQuickInfo">-Random Shuffle.</p>
+            <p class="tutorialQuickInfo">-Draw a Vow</p>
+            <p class="tutorialQuickInfo">-Win something.Lose something.</p>
+            <p class="tutorialQuickInfo">-This time, your Vow is chosen for you.</p>
+            </div>
+            <div id="yesOrNoBoxes">
+                <div onclick="removePopUp(),nextStep()" id="confirmButton">I understand</div>
+            </div>
+        </div>
+    </div>
+    <div id="textBox">
+        <h1><img src="./img/Icon_PreBattle.png">Pre-Battle<br> Card</h1>
+    </div>
+    <div id="preBattleChoice">
+        <div id="preBattleCard"><p></p></div>
+    </div>
+    <div id="backToLobbyButton" onclick="navigateToLobby()">
+        <p>Back to Lobby</p>
+    </div>
+    <div id="vowBox">
+        <h1 id="vowTitle">Choose a Vow</h1>
+
+    
+        <div id="option1" class="optionBox" onclick="selectOption(this,0)"></div>
+
+
+        <div id="option2" class="optionBox" onclick="selectOption(this,1)"></div>
+    
+    </div>
+    `   
+    }else{
+        overlay.innerHTML = `<div id="textBox">
+        <h1><img src="./img/Icon_PreBattle.png">Pre-Battle<br> Card</h1>
+    </div>
+    <div id="preBattleChoice">
+        <div id="preBattleCard"><p></p></div>
+    </div>
+    <div id="backToLobbyButton" onclick="navigateToLobby()">
+        <p>Back to Lobby</p>
+    </div>
+    <div id="vowBox">
+        <h1 id="vowTitle">Choose a Vow</h1>
+    
+        <div id="option1" class="optionBox"></div>
+
+
+        <div id="option2" class="optionBox" style="cursor: not-allowed;"></div>
+    
+    </div>
+    `  
+    }
+    let backToLobbyButton = document.getElementById("backToLobbyButton")
+    let option1= document.getElementById("option1")
+    let option2= document.getElementById("option2")
+    let vowBox = document.getElementById("vowBox")  
+    let preBattleCard = document.getElementById("preBattleCard")
+    let leadingVow = document.getElementById("leadingToVow")
+    let arrowToThis = document.getElementById("arrowToThis")
+    if(goToNextStep){
+        let randomCard =  setInterval(() => { 
+        
+            preBattleCard.style.backgroundImage = `url('./img/Card_PreBattle${Math.floor(Math.random() * 4) + 1}.png')`
+            let randomNumber = Math.floor(Math.random() * options.length)
+            let randomNumber2 = Math.floor(Math.random() * options.length)
+            option1.innerHTML = `
+            <h1><img class="choiceIcon" src="./img/Icon_Choice.png"> ${options[randomNumber].title}</h1>
+            <p>${options[randomNumber].description}</p>
+            <div onclick="navigateToTutorial()" class="confirmOptionBattleCards"></div>
+            `
+            option2.innerHTML = `
+            <h1><img class="choiceIcon" src="./img/Icon_Choice.png"> ${options[randomNumber2].title}</h1>
+            <p>${options[randomNumber2].description}</p>
+            <div style="cursor: not-allowed;" class="confirmOptionBattleCards"></div>
+            `     
+            let confirm = document.getElementsByClassName("confirmOptionBattleCards")
+
+            for (let i = 0; i < confirm.length; i++) {
+                confirm[i].style.display = "none"
+                
+            }
+            
+        }, 100) 
+        setTimeout(() => {
+            preBattleCard.style.backgroundImage = `url('./img/Card_PreBattleTutorial.png')`
+            option1.innerHTML = `
+            <h1><img class="choiceIcon" src="./img/Icon_Choice.png"> ${options[6].title}</h1>
+            <p>${options[6].description}</p>
+            <div onclick="navigateToTutorial()" class="confirmOptionBattleCards"></div>
+            `
+            option2.innerHTML = `
+            <h1><img class="choiceIcon" src="./img/Icon_Choice.png"> ${options[2].title}</h1>
+            <p>${options[2].description}</p>
+            <div style="cursor: not-allowed;" class="confirmOptionBattleCards"></div>
+            `     
+            clearInterval(randomCard)
+            let optionBox = document.getElementsByClassName("optionBox")
+            let confirm = document.getElementsByClassName("confirmOptionBattleCards")
+            optionBox[0].style.border ="2px solid #ffc870"
+            confirm[0].innerHTML = "Confirm"
+            confirm[1].style.display = "none"
+            option1.classList.add("selectedOption")
+            option2.classList.add("selectedOption2")
+            vowBox.classList.add("vowBoxAnimation")
+            preBattleCard.classList.add("preBattleCardAnimation")
+            backToLobbyButton.style.display = "none";
+        }, 300)
+    }
+   
+}
+
+function nextStep(){
+    let popUpScreen = document.getElementById("popUpScreen");
+    popUpScreen.style.display = "none";
+    goToNextStep = true
+    popUp = true
+    navigateToPreBattleChoiceTutorial()
+}
+
 
 function navigateToTutorial() {
     overlay.innerHTML = `

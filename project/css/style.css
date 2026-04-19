@@ -1048,6 +1048,54 @@ body{
     position: relative;
 }
 
+#tutorialQuestion{
+    position: relative;
+    bottom: 10vw;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 3.5rem;
+    width: 50vw;
+    font-family: Amoria;
+    text-transform: uppercase;
+    color: #b5a27e;
+}
+
+#tutorialInfo{
+    font-family: Amoria;
+    position: relative;
+    color: white;
+    bottom: 8vw;
+    width: 50vw;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+#confirmButton{
+    position: relative;
+    left: 10vw;
+    background-color: #2596be;
+    color: white;
+    padding: 1%;
+    border-radius: 5%;
+    cursor: pointer;
+    width: 20vw;
+    text-align: center;
+}
+@keyframes pointing {
+    0%{transform: scale(0.2) translateX(0);}
+    50%{transform: scale(0.2) translateX(-2vw);}
+    100%{transform: scale(0.2) translateX(0);}
+}
+
+#tutorialQuestionBox2{
+    position: relative;
+    left: 5vw;
+    top: 10vw;
+}
+
+
+
+
 #startVideo{
   position: absolute;
   top: 0;
