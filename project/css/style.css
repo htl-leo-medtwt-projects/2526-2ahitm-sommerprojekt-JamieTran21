@@ -905,6 +905,35 @@ body{
 #tutorialContent{
     filter: brightness(50%);
 }
+#leadingArrow{
+    position: absolute;
+    top: 28vw;
+    left: 10vw;
+    width: 10vw;
+    height: 10vh;
+    animation: pointing 2s infinite;
+}
+
+.gettingUncharged{
+    border-radius: 3%;
+    transform: skewY(30%);
+    
+    animation: uncharged 3s infinite both ease-in;
+}
+#skillPointUncharged{
+    background-color: rgb(221, 21, 21,0.5);
+    border-radius: 30%;
+}
+
+@keyframes uncharged {
+
+    0%{opacity: 0.2; transform: translateY(0);}
+    50%{opacity: 1; transform: translateY(-2vw);}
+    100%{opacity: 0.2;transform: translateY(0)}
+    
+}
+
+
 
 #attacksBoxTutorial{
     position: absolute;
@@ -1028,6 +1057,7 @@ body{
     text-align: center;
     padding: 1%;
 }
+
 #playerHpBar{
     position: absolute;
     top: 10vw;
@@ -1064,7 +1094,7 @@ body{
     filter: grayscale(100%);
 }
 
-.hpPoint img{
+.hpPoint img,.hpPointEnemy img{
     height: 10vh;
 }
 
