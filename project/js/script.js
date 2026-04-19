@@ -164,7 +164,7 @@ function navigateToLobby(){
         <div id="tutorialQuestionBox">
             <h1>Would you like to play the Tutorial?</h1>
             <div id="yesOrNoBoxes">
-                <div onclick="navigateToPreBattleChoiceTutorial()" id="yesButton">Yes</div>
+                <div onclick="navigateToTutorial()" id="yesButton">Yes</div>
                 <div onclick="removePopUp()" id="noButton">No</div>
             </div>
         </div>
@@ -637,8 +637,6 @@ function navigateToPreBattleChoiceTutorial(){
     let option2= document.getElementById("option2")
     let vowBox = document.getElementById("vowBox")  
     let preBattleCard = document.getElementById("preBattleCard")
-    let leadingVow = document.getElementById("leadingToVow")
-    let arrowToThis = document.getElementById("arrowToThis")
     if(goToNextStep){
         let randomCard =  setInterval(() => { 
         
@@ -699,48 +697,65 @@ function nextStep(){
     navigateToPreBattleChoiceTutorial()
 }
 
-
+let tutorialStep = 0
 function navigateToTutorial() {
     overlay.innerHTML = `
     <div id="tutorialContent">  
-        <div id="turnBox">
+        <div id="turnBoxTutorial">
+
             <div id="playerTurn">
                 <img src="./img/Aemeath_Icon.png">
                 <p id="playerTurnText">Turn</p>
             </div>
+
             <div id="enemyTurn">
                 <img src="./img/Enemy_Stormbringer_Icon.png">
                 <p id="enemyTurnText">Next</p>
             </div>  
-            <div id="attacksBox">
+
+            <div id="attacksBoxTutorial">
                 <h1>Attacks</h1>
                 <div id="attack1"><img src="./img/Basic_Aemeath.png"></div>
                 <div id="attack2"><img src="./img/Skill_Aemeath.png"></div>
             </div>
-            <div id="characterSprites">
+
+            <div id="characterSpritesTutorial">
                 <img id="playerSprite" src="./img/Aemeath_Sprite.png">
                 <div id="enemyHpBar"></div>
                 <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
             </div>
-            <div id="characterBattleInfo">
+
+            <div id="characterBattleInfoTutorial">
                 <div id="position1Box">
                     <img id="playerIcon" src="./img/Aemeath_Icon.png">
                     <p id="ultcharge">${ultchargeC1}%</p>
+
                     <div id="playerUltimate">  
                         <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
                     </div>
+
                     <div id="playerHpBar"></div>
                 </div>
             </div>
-            <div id="skillPointBox">
-                <div id="skillPointBar"><p id="skillPointText">${skillPoints}</p></div>
+
+            <div id="skillPointBoxTutorial">
+                <div id="skillPointBarTutorial">
+                    <p id="skillPointText">${skillPoints}</p>
+                </div>
             </div>
+
         </div>
     </div>
-    `;
-
+    <div id="tutorialTextBox">
+        <h1>Turn Indicator</h1>
+        <p>-Who’s playing now<br>
+        -and who’s up next</p>
+        <div onclick="tutorialStep++, navigateToTutorial()"  id="confirmButton">I understand</div>
+    </div>
+    `
+   
     for(let i = 0; i < 5;i++){
-        let skillPointBar = document.getElementById("skillPointBar");
+        let skillPointBar = document.getElementById("skillPointBarTutorial");
         skillPointBar.innerHTML += `<div class="skillPoint"><img src="./img/SkillPoint_uncharged.png"></div>`
       
 
@@ -770,5 +785,137 @@ function navigateToTutorial() {
         enemyTurn.classList.add("nextTurn");
         playerTurn.classList.remove("nextTurn");
     }
+    let attacksBoxTutorial = document.getElementById("attacksBoxTutorial")  
+    let characterSpritesTutorial = document.getElementById("characterSpritesTutorial")
+    let characterBattleInfoTutorial = document.getElementById("characterBattleInfoTutorial") 
+    let turnBoxTutorial = document.getElementById("turnBoxTutorial")
+    let skillPointBoxTutorial = document.getElementById("skillPointBoxTutorial")
+    switch(tutorialStep){
+        case 0:
+            turnBoxTutorial.style.border = "2px solid #ffc870"
+            break;
+        case 1:
+            turnBoxTutorial.style.border = "none"
+            attacksBoxTutorial.style.border = "2px solid #ffc870"
+            tutorialTextBox.innerHTML = `
+            <h1>Attacks</h1>
+            <p>-Your basic attack and skill<br>
+            -Use them to defeat the enemy</p>
+            <div onclick="tutorialStep++, navigateToTutorial()"  id="confirmButton">I understand</div>
+            `
+            break;
+        case 2:
+            attacksBoxTutorial.style.border = "none"
+            characterSpritesTutorial.style.border = "2px solid #ffc870"
+            tutorialTextBox.innerHTML = `
+            <h1>Character Sprites</h1>
+            <p>-Shows the characters in battle<br>
+            -and the enemy you are fighting against</p>
+            <div onclick="tutorialStep++, navigateToTutorial()"  id="confirmButton">I understand</div>
+            `
+            break;
+        case 3:
+            characterSpritesTutorial.style.border = "none"
+            characterBattleInfoTutorial.style.border = "2px solid #ffc870"
+            tutorialTextBox.innerHTML = `
+            <h1>Character Battle Info</h1>
+            <p>-Shows your character’s HP, Ultimate Charge and the ultimate skill<br>
+            -If your ultimate charge reaches 100%, you can use your ultimate skill</p>
+            <div onclick=" tutorialStep++, navigateToTutorial()"  id="confirmButton">I understand</div>
+            `
+            break;
+        case 4:
+            characterBattleInfoTutorial.style.border = "none"
+            skillPointBoxTutorial.style.border = "2px solid #ffc870"
+            tutorialTextBox.innerHTML = `
+            <h1>Skill Points</h1>
+            <p>-Earn skill points at the start of your turn<br>
+            -Use skill points to enhance your attacks with various buffs</p>
+            <div onclick="tutorialStep++, navigateToTutorial()"  id="confirmButton">I understand</div>
+            `  
+            break;
+        case 5:
+            skillPointBoxTutorial.style.border = "none"
+            tutorialTextBox.innerHTML = `
+            <h1>That’s all for the basics!</h1>
+            <p>Now, go out there and fight!</p>
+            <div onclick="navigateToBattle()"  id="confirmButton">Start Battle</div>
+            `
+            break;
+        }
 }
+
+
+// function navigateToTutorial() {
+//     overlay.innerHTML = `
+//     <div id="tutorialContent">  
+//         <div id="turnBoxTutorial">
+//             <div id="playerTurn">
+//                 <img src="./img/Aemeath_Icon.png">
+//                 <p id="playerTurnText">Turn</p>
+//             </div>
+//             <div id="enemyTurn">
+//                 <img src="./img/Enemy_Stormbringer_Icon.png">
+//                 <p id="enemyTurnText">Next</p>
+//             </div>  
+//             <div id="attacksBoxTutorial">
+//                 <h1>Attacks</h1>
+//                 <div id="attack1"><img src="./img/Basic_Aemeath.png"></div>
+//                 <div id="attack2"><img src="./img/Skill_Aemeath.png"></div>
+//             </div>
+//             <div id="characterSpritesTutorial">
+//                 <img id="playerSprite" src="./img/Aemeath_Sprite.png">
+//                 <div id="enemyHpBar"></div>
+//                 <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
+//             </div>
+//             <div id="characterBattleInfoTutorial">
+//                 <div id="position1Box">
+//                     <img id="playerIcon" src="./img/Aemeath_Icon.png">
+//                     <p id="ultcharge">${ultchargeC1}%</p>
+//                     <div id="playerUltimate">  
+//                         <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
+//                     </div>
+//                     <div id="playerHpBar"></div>
+//                 </div>
+//             </div>
+//             <div id="skillPointBoxTutorial">
+//                 <div id="skillPointBar"><p id="skillPointText">${skillPoints}</p></div>
+//             </div>
+//         </div>
+//     </div>
+//     `;
+
+//     for(let i = 0; i < 5;i++){
+//         let skillPointBar = document.getElementById("skillPointBar");
+//         skillPointBar.innerHTML += `<div class="skillPoint"><img src="./img/SkillPoint_uncharged.png"></div>`
+      
+
+//     }  
+//     for(let i = 0; i < skillPoints;i++){
+//             let skillPointsCharged = document.getElementsByClassName("skillPoint")
+//             skillPointsCharged[i].innerHTML = `<img src="./img/SkillPoint_charged.png">`
+//             skillPointsCharged[i].style.filter = "grayscale(0%)"
+            
+//         }
+//     for(let i = 0; i < enemys[0].hp;i++){
+//         let enemyHpBar = document.getElementById("enemyHpBar");
+//         enemyHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
+//     }
+//     for(let i = 0; i < characters[0].hp;i++){
+//         let playerHpBar = document.getElementById("playerHpBar");
+//         playerHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
+//     }
+
+//     let playerTurn = document.getElementById("playerTurn");
+//     let enemyTurn = document.getElementById("enemyTurn");
+
+//     if (nextTurn == 0) {
+//         playerTurn.classList.add("nextTurn");
+//         enemyTurn.classList.remove("nextTurn");
+//     } else {
+//         enemyTurn.classList.add("nextTurn");
+//         playerTurn.classList.remove("nextTurn");
+//     }
+// }
+
 

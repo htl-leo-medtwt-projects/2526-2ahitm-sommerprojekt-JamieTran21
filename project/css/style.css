@@ -868,6 +868,80 @@ body{
     border-radius: 5%;
     transform: scale(0.8);
 }
+#turnBoxTutorial{
+    position: absolute;
+    top: -1vw;
+    left: -1vw;
+    width: 20vw;
+    height: 30vh;
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    padding: 1%;
+    border-radius: 5%;
+    transform: scale(0.8);
+    
+}
+#tutorialTextBox{
+    position: absolute;
+    top: 20vw;
+    left: 25vw;
+    width: 40vw;
+    height: 20vh;
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 1%;
+    border-radius: 5%;
+}
+#tutorialTextBox h1{
+    font-family: Amoria;
+    text-transform: uppercase;
+    font-size: 2rem;
+    color: #b5a27e;
+}
+#tutorialContent{
+    filter: brightness(50%);
+}
+
+#attacksBoxTutorial{
+    position: absolute;
+    display: grid;
+    gap: 2vw;
+}
+
+#attacksBoxTutorial img{
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+#characterSpritesTutorial{
+     position: relative;
+    display: flex;
+    gap: 20vw;
+    left: 30vw;
+    top:-5vw;
+}
+
+#skillPointBoxTutorial{
+    position: absolute;
+    transform: scale(0.5);
+    display: flex;
+    width: 75vw;
+    height: 30vh;
+    left: 65vw;
+    border-bottom: 5px solid white;
+}
+#skillPointBarTutorial{
+    position: absolute;
+    display: flex;
+    width: 75vw;
+    height: 30vh;
+    left: 5vw;
+    border-bottom: 5px solid white;
+}
 
 #playerTurn{
     display: flex;
@@ -1092,6 +1166,9 @@ body{
     left: 5vw;
     top: 10vw;
 }
+
+
+
 
 
 
