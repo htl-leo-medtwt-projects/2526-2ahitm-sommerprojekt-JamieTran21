@@ -178,7 +178,7 @@ function navigateToLobby(){
             <img onclick="navigateToCharacters()" id="charactersIcon" src="./img/Icon_Characters.png" alt="Characters">
         </div>
         <div id="WorldSelecter">
-        <div id="PracticeRange"><p>Practice Range</p></div>
+        <div onclick="navigateToPracticeRange()" id="PracticeRange"><p>Practice Range</p></div>
             <div id="worldIcon">
                 <img onclick="navigateToPlanets()" src="./img/World_The_Xianzhou_Luofu.png" alt="worldIcon">
             </div>
@@ -491,12 +491,14 @@ function navigateToPreBattleChoice(){
     let option2= document.getElementById("option2")
     let vowBox = document.getElementById("vowBox")  
     let preBattleCard = document.getElementById("preBattleCard")
-    
     let randomCard =  setInterval(() => { 
        
         preBattleCard.style.backgroundImage = `url('./img/Card_PreBattle${Math.floor(Math.random() * 4) + 1}.png')`
-        let randomNumber = Math.floor(Math.random() * options.length)
-        let randomNumber2 = Math.floor(Math.random() * options.length)
+        let randomNumber = 1
+        let randomNumber2 = 1
+        while(randomNumber == randomNumber2){
+            randomNumber2 = Math.floor(Math.random() * options.length)
+        }
         option1.innerHTML = `
         <h1><img class="choiceIcon" src="./img/Icon_Choice.png"> ${options[randomNumber].title}</h1>
         <p>${options[randomNumber].description}</p>
@@ -755,6 +757,7 @@ function navigateToTutorial() {
         -and who’s up next</p>
         <div onclick="tutorialStep++, navigateToTutorial()"  id="confirmButton">I understand</div>
     </div>
+    <div id="leadingArrow"><img src="./img/nav-arrow-left.png"></div>
     `
    
     for(let i = 0; i < 5;i++){
@@ -789,17 +792,18 @@ function navigateToTutorial() {
         playerTurn.classList.remove("nextTurn");
     }
     let attacksBoxTutorial = document.getElementById("attacksBoxTutorial")  
-    let characterSpritesTutorial = document.getElementById("characterSpritesTutorial")
-    let characterBattleInfoTutorial = document.getElementById("characterBattleInfoTutorial") 
+    let leadingArrow = document.getElementById("leadingArrow")
     let turnBoxTutorial = document.getElementById("turnBoxTutorial")
-    let skillPointBoxTutorial = document.getElementById("skillPointBoxTutorial")
     switch(tutorialStep){
         case 0:
-            turnBoxTutorial.style.border = "2px solid #ffc870"
+            turnBoxTutorial.style.boxShadow = "0 0 10px 2px #ffc870";
+            leadingArrow.style.top = "5vw"
+            leadingArrow.style.left = "15vw"
             break;
         case 1:
             turnBoxTutorial.style.border = "none"
-            attacksBoxTutorial.style.border = "2px solid #ffc870"
+            turnBoxTutorial.style.boxShadow = "0 0 10px 2px #ffc870";
+            leadingArrow.style.top = "23vw"
             tutorialTextBox.innerHTML = `
             <h1>Attacks</h1>
             <p>-Your basic attack and skill<br>
@@ -1451,6 +1455,25 @@ function navigateToEndScreen(){
     </div>
     `
 }
+
+function navigateToPracticeRange() {
+    overlay.innerHTML = `
+    <div id="practiceRangeContent">
+        <h1>Practice Range</h1>
+        <p>Here you can practice your skills and attacks on a dummy target. Use this space to familiarize yourself with the mechanics and improve your gameplay.</p>
+        <div id="dummyTarget">
+            <img src="./img/Dummy_Target.png" alt="Dummy Target">
+        </div>
+        <div id="backToLobbyButtonPractice" onclick="navigateToLobby()">Back To Lobby</div>
+    </div>
+    `
+
+
+
+
+}
+
+
 
 // function navigateToTutorial() {
 //     overlay.innerHTML = `
