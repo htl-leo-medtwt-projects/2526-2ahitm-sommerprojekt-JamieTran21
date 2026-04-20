@@ -1259,10 +1259,76 @@ body{
     top: 10vw;
 }
 
+#tokenBox{
+    position: relative;
+    top: 10vw;
+    margin-left: auto;
+    margin-right: auto;
+    background: linear-gradient(90deg,rgba(211, 211, 214, 1) 0%, rgba(233, 233, 235, 1) 50%, rgba(247, 247, 248, 1) 100%);
+    width: 70vw;
+    text-align: center;
+    height: 50vh;
+    padding: 3%;
+    border-radius:3%;
+    box-shadow: 0 0 50px rgba(232, 197, 127);
+}
 
+#tokenBox h1{
+    font-family: Amoria;
+    color: #b5a27e;
+    font-size: 3rem;
+}
 
+#currencyTaken{
+    position: relative;
+    width: 70vw;
+    height: 5vh;
+    padding: 2%;
+    bottom:  1vw;
+    background-color: #e8c57f;
+    border-radius: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    gap: 2vw;
+    justify-content: center;
+    align-items: center;
+}
 
+#currencyTaken img{
+    width: 5vh;
+    height: 5vh;
+    animation: wiggle 5s both infinite;
+}
+#currencyTaken p{
 
+    position: relative; 
+    top: -3vw;
+    font-size: 2rem;
+}
+
+#line{
+    position: relative;
+    right: 5vw;
+    width: 80vw;
+    transform: scale(0.8);
+    margin-left: auto;
+    margin-right: auto;
+    height: 4vh;
+    background-repeat: no-repeat;
+    background-image: url(../img/line.png);
+    background-position: center;
+}
+
+#practiceText p{
+    position: relative ;
+    top: 1vw;
+    font-size: 2.5rem;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
 
 
 #startVideo{

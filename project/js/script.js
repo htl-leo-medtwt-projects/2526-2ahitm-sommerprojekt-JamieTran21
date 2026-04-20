@@ -588,7 +588,7 @@ function navigateToPreBattleChoiceTutorial(){
             <div id="tutorialInfo">
             <p class="tutorialQuickInfo">-Random Shuffle.</p>
             <p class="tutorialQuickInfo">-Draw a Vow</p>
-            <p class="tutorialQuickInfo">-Win something.Lose something.</p>
+            <p class="tutorialQuickInfo">-Get a Buff and Debuff.</p>
             <p class="tutorialQuickInfo">-This time, your Vow is chosen for you.</p>
             </div>
             <div id="yesOrNoBoxes">
@@ -622,9 +622,6 @@ function navigateToPreBattleChoiceTutorial(){
     </div>
     <div id="preBattleChoice">
         <div id="preBattleCard"><p></p></div>
-    </div>
-    <div id="backToLobbyButton" onclick="navigateToLobby()">
-        <p>Back to Lobby</p>
     </div>
     <div id="vowBox">
         <h1 id="vowTitle">Choose a Vow</h1>
@@ -791,7 +788,6 @@ function navigateToTutorial() {
         enemyTurn.classList.add("nextTurn");
         playerTurn.classList.remove("nextTurn");
     }
-    let attacksBoxTutorial = document.getElementById("attacksBoxTutorial")  
     let leadingArrow = document.getElementById("leadingArrow")
     let turnBoxTutorial = document.getElementById("turnBoxTutorial")
     switch(tutorialStep){
@@ -806,7 +802,7 @@ function navigateToTutorial() {
             leadingArrow.style.top = "23vw"
             tutorialTextBox.innerHTML = `
             <h1>Attacks</h1>
-            <p>-Your basic attack and skill<br>
+            <p>-Your basic skill and enhanced skill<br>
             -Use them to defeat the enemy</p>
             <div onclick="tutorialStep++,  navigateToSkillPointsTutorial(0) "  id="confirmButton">I understand</div>
             `
@@ -963,9 +959,9 @@ function navigateToSkillPointsTutorial(attackNumber){
     </div> 
     <div id="leadingArrow"><img src="./img/nav-arrow-left.png"></div>
     <div id="tutorialTextBox">
-        <h1>Skill Reduction & Enemy losing Hp</h1>
+        <h1>Skill Point Reduction & Enemy losing Hp</h1>
         <p>-Choosing The Enhanced Skill => losing 1 Skill Point<br>
-        -Enemy losing Health Points</p>
+        -deals more damage</p>
         <div onclick="tutorialStep++, navigateToSkillPointsTutorial(1)"  id="confirmButton">I understand</div>
     </div>
    
@@ -1021,7 +1017,7 @@ function navigateToSkillPointsTutorial(attackNumber){
         </div> 
         <div id="leadingArrow"><img src="./img/nav-arrow-left.png"></div>
         <div id="tutorialTextBox">
-            <h1>Skill Reduction & Enemy losing Hp</h1>
+            <h1>Skill Point Reduction & Enemy losing Hp</h1>
             <p>-Choosing The Enhanced Skill => losing 1 Skill Point<br>
             -Enemy losing Health Points</p>
             <div onclick="tutorialStep++, navigateToSkillPointsTutorial(0)"  id="confirmButton">I understand</div>
@@ -1459,12 +1455,20 @@ function navigateToEndScreen(){
 function navigateToPracticeRange() {
     overlay.innerHTML = `
     <div id="practiceRangeContent">
-        <h1>Practice Range</h1>
-        <p>Here you can practice your skills and attacks on a dummy target. Use this space to familiarize yourself with the mechanics and improve your gameplay.</p>
-        <div id="dummyTarget">
-            <img src="./img/Dummy_Target.png" alt="Dummy Target">
+        <div id="textBox">
+         <h1><img src="./img/Icon_Practice_Range.png">Practice <br> Range</h1>
         </div>
-        <div id="backToLobbyButtonPractice" onclick="navigateToLobby()">Back To Lobby</div>
+        <div id="tokenBox">
+            <h1>Level Up</h1>
+            <div id="line"></div>
+            <div id="practiceText">
+                <p>-Current Team Level: ${TeamLevelNumber}</p>
+                <p>-Team Level ${TeamLevelNumber} => ${TeamLevelNumber+1}</p>
+                <div id="currencyTaken"><p>Consume <img src="./img/Item_Token_For_Practice Range.png"></p>  
+            </div>
+        </div>
+        </div>
+        <div id="backToLobbyButton" onclick="navigateToLobby()">Back To Lobby</div>
     </div>
     `
 
