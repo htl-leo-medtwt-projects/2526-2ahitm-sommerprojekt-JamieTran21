@@ -1538,7 +1538,7 @@ function fightVisual(attackNumber){
 
             <div id="attacksBox">
                 <h1>Attacks</h1>
-                <div id="attack1"><img src="./img/Basic_Aemeath.png"></div>
+                <div id="attack1" onclick="damageCalculation(1)"><img src="./img/Basic_Aemeath.png"></div>
                 <div id="attack2" onclick="fightVisual(2)"><img src="./img/Skill_Aemeath.png"></div>
             </div>
 
@@ -1588,7 +1588,7 @@ function fightVisual(attackNumber){
             <div id="attacksBox">
                 <h1>Attacks</h1>
                 <div id="attack1" onclick="fightVisual(1)"><img src="./img/Basic_Aemeath.png"></div>
-                <div id="attack2"><img src="./img/Skill_Aemeath.png"></div>
+                <div id="attack2" onclick="damageCalculation(2)"><img src="./img/Skill_Aemeath.png"></div>
             </div>
 
             <div id="characterSprites">
@@ -1633,14 +1633,18 @@ function fightVisual(attackNumber){
             skillPointsCharged[i].innerHTML = `<img src="./img/SkillPoint_charged.png">`
             skillPointsCharged[i].style.filter = "grayscale(0%)" 
             if(attackNumber == 2){
-                skillPointsCharged[skillPoints-1].innerHTML = `<img id="skillPointUncharged" src="./img/SkillPoint_charged.png">`
-                document.getElementById("skillPointUncharged").classList.add("gettingUncharged")
-                skillPointsCharged[skillPoints].style.filter = "grayscale(0%)"
+                if(skillPoints > 0){
+                    skillPointsCharged[skillPoints-1].innerHTML = `<img id="skillPointUncharged" src="./img/SkillPoint_charged.png">`
+                    document.getElementById("skillPointUncharged").classList.add("gettingUncharged")
+                    skillPointsCharged[skillPoints].style.filter = "grayscale(0%)"
+                }
             }
             else if(attackNumber == 1){
-                skillPointsCharged[skillPoints].innerHTML = `<img id="skillPointCharged" src="./img/SkillPoint_charged.png">`
-                document.getElementById("skillPointCharged").classList.add("gettingCharged")
-                skillPointsCharged[skillPoints].style.filter = "grayscale(0%)"
+                if(skillPoints < 5){
+                    skillPointsCharged[skillPoints].innerHTML = `<img id="skillPointCharged" src="./img/SkillPoint_charged.png">`
+                    document.getElementById("skillPointCharged").classList.add("gettingCharged")
+                    skillPointsCharged[skillPoints].style.filter = "grayscale(0%)"
+                }
             }
         }
 
@@ -1692,6 +1696,161 @@ function fightVisual(attackNumber){
         playerTurn.classList.remove("nextTurn");
     }
 
+
+}
+function damageCalculation(attackNumber){
+    let enemyAttack = Math.floor(Math.random(3))
+    let enemyHpGain = Math.floor(Math.random(3))
+    let chanceToHeal = Math.random()
+    characters[0].hp -= enemyAttack
+
+    if(attackNumber == 1){
+        if(ultchargeC1 < 100){
+            ultchargeC1+= 5
+        }else{
+            ultchargeC1 = 100
+        }
+        enemys[0].hp -=characters[0].attack1
+        if(skillPoints < 5){
+            skillPoints++
+        }
+       
+        overlay.innerHTML = `
+        <div id="gameScreen">  
+            <div id="turnBox">
+
+                <div id="playerTurn">
+                    <img src="./img/Aemeath_Icon.png">
+                    <p id="playerTurnText">Turn</p>
+                </div>
+
+                <div id="enemyTurn">
+                    <img src="./img/Enemy_Stormbringer_Icon.png">
+                    <p id="enemyTurnText">Next</p>
+                </div>  
+
+                <div id="attacksBox">
+                    <h1>Attacks</h1>
+                    <div id="attack1" onclick="fightVisual(1)"><img src="./img/Basic_Aemeath.png"></div>
+                    <div id="attack2" onclick="fightVisual(2)"><img src="./img/Skill_Aemeath.png"></div>
+                </div>
+
+                <div id="characterSprites">
+                    <img id="playerSprite" src="./img/Aemeath_Sprite.png">
+                    <div id="enemyHpBar"></div>
+                    <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
+                </div>
+
+                <div id="characterBattleInfo">
+                    <div id="position1Box">
+                        <img id="playerIcon" src="./img/Aemeath_Icon.png">
+                        <p id="ultcharge">${ultchargeC1}%</p>
+
+                        <div id="playerUltimate">  
+                            <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
+                        </div>
+
+                        <div id="playerHpBar"></div>
+                    </div>
+                </div>
+
+                <div id="skillPointBox">
+                    <div id="skillPointBar">
+                        <p id="skillPointText">${skillPoints}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        `
+    }
+    else if(attackNumber == 2){
+        if(ultchargeC1 < 100){
+            ultchargeC1+= 15
+        }else{
+            ultchargeC1 = 100
+        }
+       
+        enemys[0].hp -=characters[0].attack2
+        if(skillPoints > 0){
+            skillPoints--
+        }
+       
+        overlay.innerHTML = `
+        <div id="gameScreen">  
+            <div id="turnBox">
+
+                <div id="playerTurn">
+                    <img src="./img/Aemeath_Icon.png">
+                    <p id="playerTurnText">Turn</p>
+                </div>
+
+                <div id="enemyTurn">
+                    <img src="./img/Enemy_Stormbringer_Icon.png">
+                    <p id="enemyTurnText">Next</p>
+                </div>  
+
+                <div id="attacksBox">
+                    <h1>Attacks</h1>
+                    <div id="attack1" onclick="fightVisual(1)"><img src="./img/Basic_Aemeath.png"></div>
+                    <div id="attack2" onclick="fightVisual(2)"><img src="./img/Skill_Aemeath.png"></div>
+                </div>
+
+                <div id="characterSprites">
+                    <img id="playerSprite" src="./img/Aemeath_Sprite.png">
+                    <div id="enemyHpBar"></div>
+                    <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
+                </div>
+
+                <div id="characterBattleInfo">
+                    <div id="position1Box">
+                        <img id="playerIcon" src="./img/Aemeath_Icon.png">
+                        <p id="ultcharge">${ultchargeC1}%</p>
+
+                        <div id="playerUltimate">  
+                            <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
+                        </div>
+
+                        <div id="playerHpBar"></div>
+                    </div>
+                </div>
+
+                <div id="skillPointBox">
+                    <div id="skillPointBar">
+                        <p id="skillPointText">${skillPoints}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        `
+    }
+       for(let i = 0; i < 5;i++){
+        let skillPointBar = document.getElementById("skillPointBar");
+        skillPointBar.innerHTML += `<div class="skillPoint"><img src="./img/SkillPoint_uncharged.png"></div>`
+      
+
+    }  
+    for(let i = 0; i < skillPoints;i++){
+            let skillPointsCharged = document.getElementsByClassName("skillPoint")
+            skillPointsCharged[i].innerHTML = `<img src="./img/SkillPoint_charged.png">`
+            skillPointsCharged[i].style.filter = "grayscale(0%)"
+            
+    }
+
+
+    for(let i = 0; i < enemys[0].hp;i++){
+        let enemyHpBar = document.getElementById("enemyHpBar");
+        enemyHpBar.innerHTML += `<div class="hpPointEnemy"><img src="./img/Icon_Hp.png"></div>`
+    }
+    for(let i = 0; i < characters[0].hp;i++){
+        let playerHpBar = document.getElementById("playerHpBar");
+        playerHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
+    }
+
+    if(chanceToHeal < 1){
+        enemys[0].hp += enemyHpGain
+    }
 
 }
 
