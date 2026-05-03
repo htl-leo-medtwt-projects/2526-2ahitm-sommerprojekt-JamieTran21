@@ -1615,11 +1615,12 @@ function fightVisual(attackNumber){
                     <p id="skillPointText">${skillPoints}</p>
                 </div>
             </div>
+           
 
         </div>
     </div>
     `
-
+    
     }
 
     for(let i = 0; i < 5;i++){
@@ -1699,11 +1700,14 @@ function fightVisual(attackNumber){
 
 }
 function damageCalculation(attackNumber){
-    let enemyAttack = Math.floor(Math.random(3))
-    let enemyHpGain = Math.floor(Math.random(3))
+    let enemyAttack = Math.floor(Math.random()*3)
+    if (enemyAttack == 0){
+        enemyAttack = 1
+    }
+    let enemyHpGain = Math.floor(Math.random()*3)
     let chanceToHeal = Math.random()
     characters[0].hp -= enemyAttack
-
+    console.log(enemyAttack)
     if(attackNumber == 1){
         if(ultchargeC1 < 100){
             ultchargeC1+= 5
@@ -1820,10 +1824,14 @@ function damageCalculation(attackNumber){
                         <p id="skillPointText">${skillPoints}</p>
                     </div>
                 </div>
-
+                 <div id="attackEffect"></div>
             </div>
         </div>
         `
+        let attackEffect = document.getElementById("attackEffect")
+        attackEffect.innerHTML += `<img id="attackEffectSprite" src="./img/Aemeath_attackSkill.png">`
+        let attackEffectSprite = document.getElementById("attackEffectSprite")
+        attackEffectSprite.classList.add("attackPos1")
     }
        for(let i = 0; i < 5;i++){
         let skillPointBar = document.getElementById("skillPointBar");
@@ -1849,7 +1857,9 @@ function damageCalculation(attackNumber){
     }
 
     if(chanceToHeal < 1){
-        enemys[0].hp += enemyHpGain
+        if(enemys[0].hp < 6){
+            enemys[0].hp += enemyHpGain
+        }
     }
 
 }

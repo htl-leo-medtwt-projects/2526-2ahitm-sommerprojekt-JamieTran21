@@ -1113,7 +1113,7 @@ body{
     top: -5vw;
     left: 45vw;
     display: flex;
-    width: 25vw;
+    width: 27vw;
     height: 10vh;
     background-color: rgba(255, 255, 255);
     border-radius: 5%;
@@ -1130,6 +1130,33 @@ body{
     50%{transform: translateY(-1vw) scale(1.1);}
     100%{transform: translateY(0) scale(1);}
     
+}
+
+@keyframes attack {
+    0%{transform: translateX(0);}
+    50%{transform: translateX(10vw);}
+    100%{transform: translateX(0);}
+}
+.attackPos1{
+    position: relative;
+    bottom: 30vw;
+    left: 50vw;
+    height: 20vh;
+
+    animation: attackPos1 1 3s forwards;
+}
+
+@keyframes attackPos1 {
+    0%{transform: translateX(0) rotate(-30deg); }
+    50%{transform: translateX(30vw)  rotate(-75deg) }
+    100%{transform: translateX(30vw)  rotate(-80deg);opacity: 0; }
+
+}
+
+@keyframes ultimateGlow {
+    0% { filter: brightness(100%); transform: scale(1); }
+    50% { filter: brightness(110%); transform: scale(1.1); }
+    100% { filter: brightness(100%); transform: scale(1);}
 }
 
 #playerHpBar{
