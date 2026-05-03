@@ -1644,13 +1644,41 @@ function fightVisual(attackNumber){
             }
         }
 
-    for(let i = 0; i < enemys[0].hp;i++){
+  for(let i = 0; i < enemys[0].hp;i++){
         let enemyHpBar = document.getElementById("enemyHpBar");
-        enemyHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
+        enemyHpBar.innerHTML += `<div class="hpPointEnemy"><img src="./img/Icon_Hp.png"></div>`
     }
     for(let i = 0; i < characters[0].hp;i++){
         let playerHpBar = document.getElementById("playerHpBar");
         playerHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
+    }
+
+    let enemyHpBar = document.getElementsByClassName("hpPointEnemy");
+
+
+    if(attackNumber == 2){    
+    for (let i = 0; i < characters[0].attack2; i++) {
+        let index = enemyHpBar.length - 1 - i;
+        if (enemyHpBar[index]) {
+            enemyHpBar[index].innerHTML = `<img  id="losingHp" src="./img/Icon_Hp_losing.png">`;
+               document.getElementById("losingHp").classList.add("losingHp")
+        }
+    }
+        let attack2 = document.getElementById("attack2")
+
+        attack2.style.transform = "scale(1.3)"
+    }
+    else if(attackNumber == 1){
+        for (let i = 0; i < characters[0].attack1; i++) {
+            let index = enemyHpBar.length - 1 - i;
+            if (enemyHpBar[index]) {
+                enemyHpBar[index].innerHTML = `<img  id="losingHp" src="./img/Icon_Hp_losing.png">`;
+                document.getElementById("losingHp").classList.add("losingHp")
+            }
+        }
+        let attack1 = document.getElementById("attack1")
+
+        attack1.style.transform = "scale(1.3)"
     }
 
     let playerTurn = document.getElementById("playerTurn");

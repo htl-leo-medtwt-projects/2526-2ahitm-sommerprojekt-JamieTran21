@@ -1082,6 +1082,9 @@ body{
     display: grid;
     gap: 2vw;
 }
+#attacksBox h1{
+    margin-bottom: 7vw;
+}
 #attacksBox img{
     position: relative;
     bottom: 5vw;
