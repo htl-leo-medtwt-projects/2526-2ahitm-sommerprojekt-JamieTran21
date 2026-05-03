@@ -403,11 +403,33 @@ body{
     text-align: center;
 }
 
-
-#planet1{
+#planets{
     position: relative;
-    top: 25vw;
-    left: 34vw;
+    z-index: 5;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.planet {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  transform: scale(0.7);
+  opacity: 0.5;
+}
+
+.swiper-slide-active .planet {
+  transform: scale(1);
+  opacity: 1;
+}
+
+#planet2{
+    position: relative;
     width: 30vw;
     height: 60vh;
     background-image: url(../img/World_Jarilo-VI.png);
@@ -421,10 +443,9 @@ body{
 }
 
 
-#planet2{
+#planet1{
     position: relative;
-    bottom: 20vw;
-    left: 2vw;
+    top: 10vw;
     width: 30vw;
     height: 30vh;
     background-image: url(../img/World_The_Xianzhou_Luofu.png);
@@ -438,8 +459,6 @@ body{
 
 #planet3{
     position: relative;
-    bottom: 45vw;
-    left: 65vw;
     width: 30vw;
     height: 60vh;
     background-image: url(../img/World_Penacony.png);
@@ -451,6 +470,8 @@ body{
     filter: grayscale(100%);
     animation: hoverPlanet 5s both infinite;
 }
+
+
 
 @keyframes rotatePlanet {
     0%{transform: rotate(0deg) scale(0.4);}

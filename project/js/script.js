@@ -162,6 +162,7 @@ let preBattleCards = [
 
 
 function navigateToLobby(){
+
     overlay.innerHTML = `
     <div id="popUpScreen">
         <div id="tutorialQuestionBox">
@@ -195,10 +196,11 @@ function navigateToLobby(){
 
         </div>
         
+  
     
     
-    
-   `
+   ` 
+ 
     overlay.style.backgroundImage = "url('./img/lobbyScreen.png')"
 
 
@@ -249,30 +251,71 @@ function navigateToWish(){
 }
 
 function navigateToPlanets(){
-    overlay.innerHTML = `<div id="planetsScreen">
-    </div>
+    overlay.style.overflow = "hidden"; // ❗ important: let swiper control movement
+
+    overlay.innerHTML = `
+    <div id="planetsScreen"></div>
+
     <div id="textBox">
-     <h1><img src="./img/Icon_Planet.png">Planets</h1>
+        <h1><img src="./img/Icon_Planet.png">Planets</h1>
     </div>
+
     <div id="howManyFightsTillNewPlanet">
         <h1>Fights Till New Planet</h1>
-        <p id="fightsRemaining">Fights Remaining: <mark> ${fightsRemaining} </mark></p>
+        <p id="fightsRemaining">
+            Fights Remaining: <mark>${fightsRemaining}</mark>
+        </p>
     </div>
-    <div id="planets">
-        <div id="planet1"></div>
-        <div id="planet2"></div>
-        <div id="planet3"></div>
-        <div id="planet4"></div>
-        <div id="planet5"></div>
+
+    <div class="swiper">
+        <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+                <div class="planet" id="planet1"></div>
+            </div>
+
+            <div class="swiper-slide">
+                <div class="planet" id="planet2"></div>
+            </div>
+
+            <div class="swiper-slide">
+                <div class="planet" id="planet3"></div>
+            </div>
+
+        </div>
+
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
     </div>
+
     <div id="backToLobbyButton" onclick="navigateToLobby()">
         <p>Back to Lobby</p>
     </div>
-    `
+    `;
 
+    const swiper = new Swiper('.swiper', {
+        slidesPerView: 1,
+        spaceBetween: 50,
+        centeredSlides: true,
+        grabCursor: true,
+
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
 }
-
+     // <div id="planet3"></div>
+        // <div id="planet4"></div>
+        // <div id="planet5"></div>
 function navigateToTeamLineup(){
+        overlay.style.overflow = "scroll"
     overlay.innerHTML = `<div id="teamLineupScreen">
     </div>
     <div id="textBox">
