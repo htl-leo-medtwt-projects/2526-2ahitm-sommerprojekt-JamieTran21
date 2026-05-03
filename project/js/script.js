@@ -183,7 +183,6 @@ function navigateToLobby(){
             <div id="worldIcon">
                 <img onclick="navigateToPlanets()" src="./img/World_The_Xianzhou_Luofu.png" alt="worldIcon">
             </div>
-            <div onclick="navigateToPreBattleChoice()" id="ConfirmButton"><p>Confirm Planet</p></div>
         </div>
         <div id="CharactersLineup">
             <div id="Character1"><div id="Character1NameBox"><p>${Character1Name}</p></div></div>
@@ -292,6 +291,7 @@ function navigateToPlanets(){
     <div id="backToLobbyButton" onclick="navigateToLobby()">
         <p>Back to Lobby</p>
     </div>
+    <div onclick="navigateToPreBattleChoice()" id="ConfirmButton"><p>Confirm Planet</p></div>
     `;
 
     const swiper = new Swiper('.swiper', {
