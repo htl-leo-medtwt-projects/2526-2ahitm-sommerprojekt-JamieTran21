@@ -1132,9 +1132,13 @@ body{
     
 }
 
+.attack{
+    animation: attack 2s 1 both ease-in;
+}
+
 @keyframes attack {
     0%{transform: translateX(0);}
-    50%{transform: translateX(10vw);}
+    50%{transform: translateX(20vw);}
     100%{transform: translateX(0);}
 }
 .attackPos1{

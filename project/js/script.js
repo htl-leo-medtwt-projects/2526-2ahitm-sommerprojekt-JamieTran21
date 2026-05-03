@@ -60,6 +60,7 @@ let characters = [
         gif: "./gif/AemethHover.gif",
         gifPos: "center",
         backgroundColor:"rgba(237, 166, 214)",
+        attackSkill: "./img/Aemeath_attackSkill",
         hp: 5,
         attack1: 1,
         attack2: 2,
@@ -1767,6 +1768,8 @@ function damageCalculation(attackNumber){
             </div>
         </div>
         `
+
+        document.getElementById("playerSprite").classList.add("attack")
     }
     else if(attackNumber == 2){
         if(ultchargeC1 < 100){
@@ -1829,7 +1832,7 @@ function damageCalculation(attackNumber){
         </div>
         `
         let attackEffect = document.getElementById("attackEffect")
-        attackEffect.innerHTML += `<img id="attackEffectSprite" src="./img/Aemeath_attackSkill.png">`
+        attackEffect.innerHTML += `<img id="attackEffectSprite" src="${characters[0].attackSkill}.png">`
         let attackEffectSprite = document.getElementById("attackEffectSprite")
         attackEffectSprite.classList.add("attackPos1")
     }
