@@ -1950,9 +1950,11 @@ function navigateToBattle() {
     }
 }
 
+let interval = 1000
+
 setInterval(() => {
-    checkIfDefeatedOrWin
-}, 1000);
+    checkIfDefeatedOrWin()
+}, interval);
 
 function checkIfDefeatedOrWin(){
     if(characters[0].hp <= 0){
@@ -1961,6 +1963,36 @@ function checkIfDefeatedOrWin(){
     if(enemys[0].hp <= 0){
         navigateResult(2);
     }
+}
+
+function navigateResult(number){
+    clearInterval(interval)
+    characters[0].hp  = 5
+    enemys[0].hp = 6
+    if(number == 1){
+    overlay.innerHTML = `
+        <div id="resultScreenLose">  
+            <div id="defeatTitle">
+                <h1>Defeat</h1>
+            </div>
+            <div id="quickLevelBox">
+                <p>Go to Practice Range</p>
+                <img id="navArrowToPractice" src="./img/nav-arrow.png">
+            </div>
+            <div id="resartOrNotBox"> 
+                <div id="backToLobbyButtonResult" onclick="navigateToLobby()">
+                        <p>Back to Lobby</p>
+                </div>
+                <div id="restartBox">
+                    <p>Restart Challenge</p>
+                </div> 
+               
+            </div>
+        </div>
+    `
+
+    }
+
 }
 
 // function navigateToBattle() {

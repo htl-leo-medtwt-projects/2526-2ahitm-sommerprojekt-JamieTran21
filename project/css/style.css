@@ -1393,6 +1393,117 @@ body{
 }
 
 
+#resultScreenLose{
+    background-color: rgb(255, 0, 0,0.1);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+}
+#defeatTitle{
+    position: relative;
+    background-image: url(../img/Icon_Defeat.png);
+    height: 50vh;
+    background-size: 15vw;
+    left: 5vw;
+    margin-left: auto;
+    margin-right: auto;
+    background-repeat: no-repeat;
+    width: 30vw;
+}
+
+#defeatTitle h1 {
+    position: relative;
+    font-size: 8rem;
+    top: 5vw;
+    right: 5vw;
+    font-family: amoria;
+    color: rgb(240, 69, 69);
+    text-transform: uppercase;
+    text-shadow: 4px 8px 12px rgba(255, 0, 0, 0.4);
+}
+
+#quickLevelBox{
+    position: relative;
+    display: flex;
+    background-color: #37474d;
+    width: 85vw;
+    height: 3vh;
+    bottom: 7vw;
+    border-radius: 3%;
+    margin-left: auto;
+    padding: 3%;
+    margin-right: auto;
+    transform: scale(0.8);
+    transition: all 500ms;
+}
+#quickLevelBox p{
+    position: relative;
+    bottom: 2vw;
+    color: white;
+    font-size: 2.5rem;
+}
+
+#navArrowToPractice{
+    position: relative;
+    margin-left: 50vw;
+    bottom: 1vw;
+    width:  4vw;
+    height: 8vh;
+}
+
+#resartOrNotBox{
+    display: flex;
+    position: relative;
+    left: 7vw;
+    margin-left: auto;
+    width: 60vw;
+    margin-right: auto;
+    gap: 45%;
+    text-align: center;
+    transform: scale(1.3);
+}
+
+#restartBox{
+    bottom: 5vw;
+    width: 10vw;
+    left: 1vw;
+    background-color: #37474d;
+    color: white;
+    padding: 1%;
+    border-radius: 10%;
+    cursor: pointer;
+    transition: all 500ms;
+}
+
+#quickLevelBox:hover{
+    filter:brightness(1.1);
+    transform: scale(0.9);
+}
+
+#restartBox:hover{
+    filter:brightness(1.1);
+    transform: scale(1.35);
+}
+
+#backToLobbyButtonResult:hover{
+    filter:brightness(1.1);
+    transform: scale(1.35);
+}
+
+#backToLobbyButtonResult{
+    bottom: 5vw;
+    width: 10vw;
+    left: 1vw;
+    background-color: #37474d;
+    color: white;
+    padding: 1%;
+    border-radius: 10%;
+    cursor: pointer;
+    transition: all 500ms;
+}
+
+
+
 #startVideo{
   position: absolute;
   top: 0;
