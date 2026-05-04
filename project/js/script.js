@@ -34,9 +34,7 @@ let skillPoints = 3;
 let ultchargeC1 = 20;
 let ultchargeC2 = 0;
 let ultchargeC3 = 0;
-let ability1Selected = false
-let ability2Selected = false
-let ability3Selected = false
+let wishes = 1500;
 
 let goToNextStep = false
 
@@ -171,7 +169,7 @@ function navigateToLobby(){
             <h1>Would you like to play the Tutorial?</h1>
             <div id="yesOrNoBoxes">
                 <div onclick="navigateToPreBattleChoiceTutorial()" id="yesButton">Yes</div>
-                <div onclick="removePopUp(); navigateToBattle();" id="noButton">No</div>
+                <div onclick="removePopUp();" id="noButton">No</div>
             </div>
         </div>
     </div>
@@ -210,43 +208,133 @@ function navigateToLobby(){
 }
 
 function navigateToWish(){
-    overlay.innerHTML = `<div id="wishingScreen">  
-    </div>
+    //? mit Ki
+    overlay.innerHTML = `
+    <div id="wishingScreen"></div>
+
     <div id="textBox">
-     <h1><img src="./img/Icon_Wishing.png">Wish</h1>
+        <h1><img src="./img/Icon_Wishing.png">Wish</h1>
     </div>
+
     <div id="wishingBox">
-        <div id="featuredCharacter">
-        </div>
-        <div id="wishingInfo">    
-        <h1>${featuredCharacterName}</h1>
-        <p id="infoText">Every <mark>10x</mark> Wish gives a chance to obtain a 5-star character!<hr>
+        <div id="featuredCharacter"></div>
+
+        <div id="wishingInfo">
+            <h1>${featuredCharacterName}</h1>
+
+            <p id="infoText">
+                Every <mark>10x</mark> Wish gives a chance to obtain a 5-star character!
+                <hr>
+
             <div id="pityCounter">
-                <p>Guranteed 5-star character after <mark> 80 </mark> wishes</p><hr>
-                <p id="wishRemaining">Wishes Till 5-Star: <mark> ${wishRemaining}</mark></p>
+                <p>Guaranteed 5-star character after <mark>80</mark> wishes</p>
+                <hr>
+                <p id="wishRemaining">
+                    Wishes Till 5-Star: <mark>${wishRemaining}</mark>
+                </p>
             </div>
         </div>
-        <div id="wishing">
-           <p>10x</p> <img src="./img/Item_Wishing_Style_1.png" alt="Other Characters">
+
+        <div id="wishing"
+            onclick="${wishes >= 10 ? 'wishingAnimation()' : ''}"
+            style="cursor: ${wishes >= 10 ? 'pointer' : 'not-allowed'}; opacity: ${wishes >= 10 ? 1 : 0.5};"
+        >
+            <p>10x</p>
+            <img src="./img/Item_Wishing_Style_1.png">
         </div>
     </div>
 
     <div id="wishingCharacters">
-        <div id="wishingCharacter1">
-        </div>
-        <div id="wishingCharacter2">
-        </div>
+        <div id="wishingCharacter1"></div>
+        <div id="wishingCharacter2"></div>
     </div>
+
     <div id="backToLobbyButton" onclick="navigateToLobby()">
         <p>Back to Lobby</p>
     </div>
-    `
+
+    <div id="playerWishes">
+        <h1>${wishes}</h1>
+        <img src="./img/Item_Wishing_Style_1.png">
+    </div>
+`;
  
     
 
         
   
 
+
+
+}
+
+function wishingAnimation(){
+    let chanceOfChar = Math.floor(Math.random() * 2) 
+    console.log(chanceOfChar)
+    if(chanceOfChar == 0){
+            overlay.innerHTML = 
+            
+            `
+            <div id="messageBox"><p id="wishingMessage">No Luck:(</p><img id="NoLuckSticker" src="./img/NoLuck.png" ></div>
+           
+   
+           <div id="wishingScreen">  
+        </div>   
+        <div id="popUpWishing">
+         </div>  
+       
+        <div id="wishingBox">
+         <div id="textBox">
+        <h1><img src="./img/Icon_Wishing.png">Wish</h1>
+        </div>
+            <div id="featuredCharacter">
+            </div>
+            <div id="wishingInfo">
+        
+            <h1>${featuredCharacterName}</h1>
+            <p id="infoText">Every <mark>10x</mark> Wish gives a chance to obtain a 5-star character!<hr>
+                <div id="pityCounter">
+                    <p>Guranteed 5-star character after <mark> 80 </mark> wishes</p><hr>
+                    <p id="wishRemaining">Wishes Till 5-Star: <mark> ${wishRemaining}</mark></p>
+                </div>
+            </div>
+            <div id="wishing" onclick="wishingAnimation()">
+            <p>10x</p> <img src="./img/Item_Wishing_Style_1.png" alt="Other Characters">
+            </div>
+        </div>
+        <div id="wishingCharacters">
+            <div id="wishingCharacter1">
+            </div>
+            <div id="wishingCharacter2">
+            </div> 
+             <div id="backToLobbyButton" onclick="navigateToLobby()">
+            <p>Back to Lobby</p>
+        </div>
+        <div id="playerWishes"><h1>${wishes}</h1> <img src="./img/Item_Wishing_Style_1.png"</div> 
+        </div>
+      
+    
+    `
+    overlay.innerHTML+=`
+        <div id="loadingBar"></div>
+    `
+    let loadingUp= 10
+    let loading = setInterval(() => {
+        document.getElementById("loadingBar").style.width = `${loadingUp}vw`;
+        loadingUp += 10;
+        if(loadingUp == 100){
+            clearInterval(loading)
+            wishes-= 10
+            navigateToWish()
+        }
+    }, 200);
+
+    }else{
+          overlay.innerHTML = ` <video id="animationVideo" src="./videos/danHengAnimation.mp4" autoplay muted></video>`
+          setTimeout(() => {
+            navigateToWish()
+          }, 4500);
+    }
 
 
 }
@@ -317,7 +405,6 @@ function navigateToPlanets(){
         // <div id="planet4"></div>
         // <div id="planet5"></div>
 function navigateToTeamLineup(){
-        overlay.style.overflow = "scroll"
     overlay.innerHTML = `<div id="teamLineupScreen">
     </div>
     <div id="textBox">
@@ -581,7 +668,7 @@ function selectOption(option, optionNumber){
 
     if(optionNumber == 0){
         optionBox[optionNumber].style.border ="2px solid #ffc870"
-        confirm[optionNumber].innerHTML = "Confirm"
+        confirm[optionNumber].innerHTML = `<div onclick="navigateToBattle()">Confirm</div>`
 
         optionBox[1].style.border ="none"
         confirm[1].style.display = "none"
@@ -589,7 +676,7 @@ function selectOption(option, optionNumber){
 
     }else if(optionNumber == 1){
         optionBox[optionNumber].style.border ="2px solid #ffc870"
-        confirm[optionNumber].innerHTML = "Confirm"
+        confirm[optionNumber].innerHTML =  `<div onclick="navigateToBattle()">Confirm</div>`
 
         optionBox[0].style.border ="none"
         confirm[0].style.display = "none"
@@ -599,7 +686,7 @@ function selectOption(option, optionNumber){
 
     if(!alreadySelected && optionCount == 0){
 
-        confirm[optionNumber].innerHTML = "Confirm"
+        confirm[optionNumber].innerHTML = `<div onclick="navigateToBattle()">Confirm</div>`
         confirm[optionNumber].style.display = "block"
         option.style.border = "2px solid #ffc870"; 
         alreadySelected = true
@@ -1903,7 +1990,7 @@ function damageCalculation(attackNumber){
     console.log(enemyAttack)
     if(attackNumber == 1){
         if(ultchargeC1 < 100){
-            ultchargeC1+= 100
+            ultchargeC1+= 15
         }else{
             ultchargeC1 = 100
         }
@@ -1974,7 +2061,7 @@ function damageCalculation(attackNumber){
     }
     else if(attackNumber == 2){
         if(ultchargeC1 < 100){
-            ultchargeC1+= 15
+            ultchargeC1+= 35
         }else{
             ultchargeC1 = 100
         }
