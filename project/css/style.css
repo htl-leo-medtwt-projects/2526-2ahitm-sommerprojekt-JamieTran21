@@ -1136,6 +1136,43 @@ body{
     animation: attack 2s 1 both ease-in;
 }
 
+.attackEnemy{
+        animation: attackEnemy 2s 1 both ease-in;
+}   
+ @keyframes attackEnemy {
+    0%{transform: translateX(0);}
+    50%{transform: translateX(-20vw);}
+    100%{transform: translateX(0);}
+}
+
+.hpBreak{
+    animation: hpBreak 2s 1 both ease-in;
+}
+.takingHp{
+    animation: takingHp 1s both ease-in;
+}
+
+/* hp animation von der Ki */
+  @keyframes takingHp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+    filter: none;
+  }
+
+  50% {
+    transform: translateY(2vw);
+    opacity: 1;
+    filter: brightness(0) saturate(100%) sepia(1) hue-rotate(-50deg) saturate(10);
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+    filter: none;
+  }
+}
+
 @keyframes attack {
     0%{transform: translateX(0);}
     50%{transform: translateX(20vw);}

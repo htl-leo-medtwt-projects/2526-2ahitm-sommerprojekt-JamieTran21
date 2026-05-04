@@ -45,7 +45,7 @@ let understand = false
 let enemys = [
     {
         name: 'Stormbringer',
-        hp: 1,
+        hp: 6,
         attack:1
     }
 
@@ -1758,6 +1758,9 @@ function fightVisual(attackNumber){
 
 }
 function damageCalculation(attackNumber){
+    setTimeout(() => {
+        
+    }, 3000);
     let enemyAttack = Math.floor(Math.random()*3)
     if (enemyAttack == 0){
         enemyAttack = 1
@@ -1825,6 +1828,10 @@ function damageCalculation(attackNumber){
             </div>
         </div>
         `
+        setTimeout(() => {
+            document.getElementById("enemySprite").classList.add("attackEnemy")
+            document.getElementById("playerIcon").classList.add("takingHp")
+        }, 2500);
 
         document.getElementById("playerSprite").classList.add("attack")
     }
@@ -1892,6 +1899,7 @@ function damageCalculation(attackNumber){
         attackEffect.innerHTML += `<img id="attackEffectSprite" src="${characters[0].attackSkill}.png">`
         let attackEffectSprite = document.getElementById("attackEffectSprite")
         attackEffectSprite.classList.add("attackPos1")
+        
     }
        for(let i = 0; i < 5;i++){
         let skillPointBar = document.getElementById("skillPointBar");
@@ -1915,7 +1923,7 @@ function damageCalculation(attackNumber){
         let playerHpBar = document.getElementById("playerHpBar");
         playerHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
     }
-
+    
     if(chanceToHeal < 0.3){
         if(enemys[0].hp < 6){
             enemys[0].hp += enemyHpGain
@@ -2075,77 +2083,4 @@ function resetGame(option){
 
     }
 }
-
-// function navigateToBattle() {
-//     overlay.innerHTML = `
-//     <div id="tutorialContent">  
-//         <div id="turnBoxTutorial">
-//             <div id="playerTurn">
-//                 <img src="./img/Aemeath_Icon.png">
-//                 <p id="playerTurnText">Turn</p>
-//             </div>
-//             <div id="enemyTurn">
-//                 <img src="./img/Enemy_Stormbringer_Icon.png">
-//                 <p id="enemyTurnText">Next</p>
-//             </div>  
-//             <div id="attacksBoxTutorial">
-//                 <h1>Attacks</h1>
-//                 <div id="attack1"><img src="./img/Basic_Aemeath.png"></div>
-//                 <div id="attack2"><img src="./img/Skill_Aemeath.png"></div>
-//             </div>
-//             <div id="characterSpritesTutorial">
-//                 <img id="playerSprite" src="./img/Aemeath_Sprite.png">
-//                 <div id="enemyHpBar"></div>
-//                 <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
-//             </div>
-//             <div id="characterBattleInfoTutorial">
-//                 <div id="position1Box">
-//                     <img id="playerIcon" src="./img/Aemeath_Icon.png">
-//                     <p id="ultcharge">${ultchargeC1}%</p>
-//                     <div id="playerUltimate">  
-//                         <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
-//                     </div>
-//                     <div id="playerHpBar"></div>
-//                 </div>
-//             </div>
-//             <div id="skillPointBoxTutorial">
-//                 <div id="skillPointBar"><p id="skillPointText">${skillPoints}</p></div>
-//             </div>
-//         </div>
-//     </div>
-//     `;
-
-//     for(let i = 0; i < 5;i++){
-//         let skillPointBar = document.getElementById("skillPointBar");
-//         skillPointBar.innerHTML += `<div class="skillPoint"><img src="./img/SkillPoint_uncharged.png"></div>`
-      
-
-//     }  
-//     for(let i = 0; i < skillPoints;i++){
-//             let skillPointsCharged = document.getElementsByClassName("skillPoint")
-//             skillPointsCharged[i].innerHTML = `<img src="./img/SkillPoint_charged.png">`
-//             skillPointsCharged[i].style.filter = "grayscale(0%)"
-            
-//         }
-//     for(let i = 0; i < enemys[0].hp;i++){
-//         let enemyHpBar = document.getElementById("enemyHpBar");
-//         enemyHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
-//     }
-//     for(let i = 0; i < characters[0].hp;i++){
-//         let playerHpBar = document.getElementById("playerHpBar");
-//         playerHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
-//     }
-
-//     let playerTurn = document.getElementById("playerTurn");
-//     let enemyTurn = document.getElementById("enemyTurn");
-
-//     if (nextTurn == 0) {
-//         playerTurn.classList.add("nextTurn");
-//         enemyTurn.classList.remove("nextTurn");
-//     } else {
-//         enemyTurn.classList.add("nextTurn");
-//         playerTurn.classList.remove("nextTurn");
-//     }
-// }
-
 
