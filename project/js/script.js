@@ -61,6 +61,7 @@ let characters = [
         gifPos: "center",
         backgroundColor:"rgba(237, 166, 214)",
         attackSkill: "./img/Aemeath_attackSkill",
+        ultimateSkill:"./img/Aemeath_Ultimate",
         hp: 5,
         attack1: 1,
         attack2: 2,
@@ -1522,6 +1523,61 @@ function navigateToPracticeRange() {
 }
 
 function fightVisual(attackNumber){
+    if(attackNumber == -1){
+    overlay.innerHTML = `
+    <div id="gameScreen">  
+        <div id="turnBox">
+
+            <div id="playerTurn">
+                <img src="./img/Aemeath_Icon.png">
+                <p id="playerTurnText">Turn</p>
+            </div>
+
+            <div id="enemyTurn">
+                <img src="./img/Enemy_Stormbringer_Icon.png">
+                <p id="enemyTurnText">Next</p>
+            </div>  
+
+            <div id="attacksBox">
+                <h1>Attacks</h1>
+                <div id="attack1" onclick="fightVisual(1)"><img src="./img/Basic_Aemeath.png"></div>
+                <div id="attack2" onclick="fightVisual(2)"><img src="./img/Skill_Aemeath.png"></div>
+            </div>
+
+            <div id="characterSprites">
+                <img id="playerSprite" src="./img/Aemeath_Sprite.png">
+                <div id="enemyHpBar"></div>
+                <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
+            </div>
+
+            <div id="characterBattleInfo">
+                <div id="position1Box">
+                    <img id="playerIcon" src="./img/Aemeath_Icon.png">
+                    <p id="ultcharge">${ultchargeC1}%</p>
+
+                    <div id="playerUltimate">  
+                        <img onclick="fightVisual(3)" id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
+                    </div>
+
+                    <div id="playerHpBar"></div>
+                </div>
+            </div>
+
+            <div id="skillPointBox">
+                <div id="skillPointBar">
+                    <p id="skillPointText">${skillPoints}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>`
+        if(ultchargeC1 >= 100){
+            let ultimateSkill = document.getElementById("ultimateSkill")
+            ultimateSkill.style.opacity = 1
+            ultimateSkill.classList.add("ulitmateGLow")
+        }
+    }
+
     if(attackNumber == 1){
              overlay.innerHTML = `
     <div id="gameScreen">  
@@ -1555,7 +1611,7 @@ function fightVisual(attackNumber){
                     <p id="ultcharge">${ultchargeC1}%</p>
 
                     <div id="playerUltimate">  
-                        <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
+                        <img onclick="fightVisual(3)" id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
                     </div>
 
                     <div id="playerHpBar"></div>
@@ -1571,7 +1627,12 @@ function fightVisual(attackNumber){
         </div>
     </div>
     `
-    }else if(attackNumber == 2){
+     if(ultchargeC1 >= 100){
+            let ultimateSkill = document.getElementById("ultimateSkill")
+            ultimateSkill.style.opacity = 1
+            ultimateSkill.classList.add("ulitmateGLow")
+        }
+    } else if(attackNumber == 2){
         if(skillPoints > 0){
              overlay.innerHTML = `
             <div id="gameScreen">  
@@ -1605,7 +1666,7 @@ function fightVisual(attackNumber){
                         <p id="ultcharge">${ultchargeC1}%</p>
 
                         <div id="playerUltimate">  
-                            <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
+                            <img onclick="fightVisual(3)" id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
                         </div>
 
                         <div id="playerHpBar"></div>
@@ -1622,6 +1683,11 @@ function fightVisual(attackNumber){
             </div>
         </div>
         `
+         if(ultchargeC1 >= 100){
+            let ultimateSkill = document.getElementById("ultimateSkill")
+            ultimateSkill.style.opacity = 1
+            ultimateSkill.classList.add("ulitmateGLow")
+        }
     }else{
               overlay.innerHTML = `
             <div id="gameScreen">  
@@ -1655,7 +1721,7 @@ function fightVisual(attackNumber){
                         <p id="ultcharge">${ultchargeC1}%</p>
 
                         <div id="playerUltimate">  
-                            <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
+                            <img onclick="fightVisual(3)" id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
                         </div>
 
                         <div id="playerHpBar"></div>
@@ -1672,9 +1738,64 @@ function fightVisual(attackNumber){
             </div>
         </div>
         `
+         if(ultchargeC1 >= 100){
+            let ultimateSkill = document.getElementById("ultimateSkill")
+            ultimateSkill.style.opacity = 1
+            ultimateSkill.classList.add("ulitmateGLow")
+        }
     }
    
     
+    }else if(attackNumber == 3){
+        overlay.innerHTML = `
+            <div id="gameScreen">  
+            <div id="turnBox">
+
+                <div id="playerTurn">
+                    <img src="./img/Aemeath_Icon.png">
+                    <p id="playerTurnText">Turn</p>
+                </div>
+
+                <div id="enemyTurn">
+                    <img src="./img/Enemy_Stormbringer_Icon.png">
+                    <p id="enemyTurnText">Next</p>
+                </div>  
+
+                <div id="attacksBox">
+                    <h1>Attacks</h1>
+                    <div id="attack1" onclick="fightVisual(1)"><img src="./img/Basic_Aemeath.png"></div>
+                    <div id="attack2" onclick="damageCalculation(2)"><img src="./img/Skill_Aemeath.png"></div>
+                </div>
+
+                <div id="characterSprites">
+                    <img id="playerSprite" src="./img/Aemeath_Sprite.png">
+                    <div id="enemyHpBar"></div>
+                    <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
+                </div>
+
+                <div id="characterBattleInfo">
+                    <div id="position1Box">
+                        <img id="playerIcon" src="./img/Aemeath_Icon.png">
+                        <p id="ultcharge">${ultchargeC1}%</p>
+
+                        <div id="playerUltimate">  
+                            <img onclick="damageCalculation(3)" id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
+                        </div>
+
+                        <div id="playerHpBar"></div>
+                    </div>
+                </div>
+
+                <div id="skillPointBox">
+                    <div id="skillPointBar">
+                        <p id="skillPointText">${skillPoints}</p>
+                    </div>
+                </div>
+            
+
+            </div>
+        </div>
+        `
     }
 
     for(let i = 0; i < 5;i++){
@@ -1742,6 +1863,20 @@ function fightVisual(attackNumber){
         let attack1 = document.getElementById("attack1")
 
         attack1.style.transform = "scale(1.3)"
+    }else if(attackNumber == 3){
+                for (let i = 0; i < characters[0].attack3; i++) {
+            let index = enemyHpBar.length - 1 - i;
+            if (enemyHpBar[index]) {
+                enemyHpBar[index].innerHTML = `<img  id="losingHp" src="./img/Icon_Hp_losing.png">`;
+                document.getElementById("losingHp").classList.add("losingHp")
+            }
+        }
+        let ultimateSkill = document.getElementById("ultimateSkill")
+        ultimateSkill.style.opacity = 1
+        ultimateSkill.classList.add("ulitmateGLow")
+        let attack3 = document.getElementById("ultimateSkill")
+
+        attack3.style.transform = "scale(1.3)"
     }
 
     let playerTurn = document.getElementById("playerTurn");
@@ -1758,9 +1893,6 @@ function fightVisual(attackNumber){
 
 }
 function damageCalculation(attackNumber){
-    setTimeout(() => {
-        
-    }, 3000);
     let enemyAttack = Math.floor(Math.random()*3)
     if (enemyAttack == 0){
         enemyAttack = 1
@@ -1771,7 +1903,7 @@ function damageCalculation(attackNumber){
     console.log(enemyAttack)
     if(attackNumber == 1){
         if(ultchargeC1 < 100){
-            ultchargeC1+= 5
+            ultchargeC1+= 100
         }else{
             ultchargeC1 = 100
         }
@@ -1812,7 +1944,7 @@ function damageCalculation(attackNumber){
                         <p id="ultcharge">${ultchargeC1}%</p>
 
                         <div id="playerUltimate">  
-                            <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
+                            <img onclick="fightVisual(3)" id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
                         </div>
 
                         <div id="playerHpBar"></div>
@@ -1828,6 +1960,11 @@ function damageCalculation(attackNumber){
             </div>
         </div>
         `
+        if(ultchargeC1 >= 100){
+            let ultimateSkill = document.getElementById("ultimateSkill")
+            ultimateSkill.style.opacity = 1
+            ultimateSkill.classList.add("ulitmateGLow")
+        }
         setTimeout(() => {
             document.getElementById("enemySprite").classList.add("attackEnemy")
             document.getElementById("playerIcon").classList.add("takingHp")
@@ -1879,7 +2016,73 @@ function damageCalculation(attackNumber){
                         <p id="ultcharge">${ultchargeC1}%</p>
 
                         <div id="playerUltimate">  
-                            <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
+                            <img onclick="fightVisual(3)" id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
+                        </div>
+
+                        <div id="playerHpBar"></div>
+                    </div>
+                </div>
+
+                <div id="skillPointBox">
+                    <div id="skillPointBar">
+                        <p id="skillPointText">${skillPoints}</p>
+                    </div>
+                </div>
+                 <div id="attackEffect"></div>
+            </div>
+        </div>
+        `
+        if(ultchargeC1 >= 100){
+            let ultimateSkill = document.getElementById("ultimateSkill")
+            ultimateSkill.style.opacity = 1
+            ultimateSkill.classList.add("ulitmateGLow")
+        }
+        let attackEffect = document.getElementById("attackEffect")
+        attackEffect.innerHTML += `<img id="attackEffectSprite" src="${characters[0].attackSkill}.png">`
+        let attackEffectSprite = document.getElementById("attackEffectSprite")
+        attackEffectSprite.classList.add("attackPos1")
+        
+    } else if( attackNumber == 3){
+        enemys[0].hp -=characters[0].attack3
+        ultchargeC1 = 0
+        let ultInterval =
+            setInterval(() => {
+            checkIfUlt()
+        }, 1000);
+       
+        overlay.innerHTML = `
+        <div id="gameScreen">  
+            <div id="turnBox">
+
+                <div id="playerTurn">
+                    <img src="./img/Aemeath_Icon.png">
+                    <p id="playerTurnText">Turn</p>
+                </div>
+
+                <div id="enemyTurn">
+                    <img src="./img/Enemy_Stormbringer_Icon.png">
+                    <p id="enemyTurnText">Next</p>
+                </div>  
+
+                <div id="attacksBox">
+                    <h1>Attacks</h1>
+                    <div id="attack1" onclick="fightVisual(1)"><img src="./img/Basic_Aemeath.png"></div>
+                    <div id="attack2" onclick="fightVisual(2)"><img src="./img/Skill_Aemeath.png"></div>
+                </div>
+
+                <div id="characterSprites">
+                    <img id="playerSprite" src="./img/Aemeath_Sprite.png">
+                    <div id="enemyHpBar"></div>
+                    <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
+                </div>
+
+                <div id="characterBattleInfo">
+                    <div id="position1Box">
+                        <img id="playerIcon" src="./img/Aemeath_Icon.png">
+                        <p id="ultcharge">${ultchargeC1}%</p>
+
+                        <div id="playerUltimate">  
+                            <img onclick="fightVisual(3)" id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
                         </div>
 
                         <div id="playerHpBar"></div>
@@ -1896,10 +2099,10 @@ function damageCalculation(attackNumber){
         </div>
         `
         let attackEffect = document.getElementById("attackEffect")
-        attackEffect.innerHTML += `<img id="attackEffectSprite" src="${characters[0].attackSkill}.png">`
+        attackEffect.innerHTML += `<img id="attackEffectSprite" src="${characters[0].ultimateSkill}.png">`
         let attackEffectSprite = document.getElementById("attackEffectSprite")
-        attackEffectSprite.classList.add("attackPos1")
-        
+        attackEffectSprite.classList.add("ultimateAttack")
+
     }
        for(let i = 0; i < 5;i++){
         let skillPointBar = document.getElementById("skillPointBar");
@@ -2016,10 +2219,24 @@ function navigateToBattle() {
 }
 
 let interval = 100
+let ultInterval =
+setInterval(() => {
+    checkIfUlt()
+}, 1000);
 
 setInterval(() => {
     checkIfDefeatedOrWin()
 }, interval);
+
+
+
+function checkIfUlt(){
+    if(ultchargeC1 >= 100){
+        ultchargeC1= 100
+        fightVisual(-1)
+        clearInterval(ultInterval)
+    }
+}
 
 function checkIfDefeatedOrWin(){
     if(characters[0].hp <= 0){
