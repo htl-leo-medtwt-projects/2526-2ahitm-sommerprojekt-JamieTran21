@@ -32,6 +32,7 @@ let optionCount = 0;
 let nextTurn = 1
 let skillPoints = 3;
 let ultchargeC1 = 20;
+let ultchargeC1Tut = 20;
 let ultchargeC2 = 0;
 let ultchargeC3 = 0;
 let wishes = 1500;
@@ -862,7 +863,7 @@ function navigateToTutorial() {
             <div id="characterBattleInfoTutorial">
                 <div id="position1Box">
                     <img id="playerIcon" src="./img/Aemeath_Icon.png">
-                    <p id="ultcharge">${ultchargeC1}%</p>
+                    <p id="ultcharge">${ultchargeC1Tut}%</p>
 
                     <div id="playerUltimate">  
                         <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
@@ -922,15 +923,18 @@ function navigateToTutorial() {
     }
     let leadingArrow = document.getElementById("leadingArrow")
     let turnBoxTutorial = document.getElementById("turnBoxTutorial")
+
     switch(tutorialStep){
         case 0:
             turnBoxTutorial.style.boxShadow = "0 0 10px 2px #ffc870";
             leadingArrow.style.top = "5vw"
             leadingArrow.style.left = "15vw"
             break;
-        case 1:
+        case 1:    
+            document.getElementById("attacksBoxTutorial").classList.add("tutorialJump")
             turnBoxTutorial.style.border = "none"
-            turnBoxTutorial.style.boxShadow = "0 0 10px 2px #ffc870";
+            turnBoxTutorial.style.boxShadow = "";
+            document.getElementById("attacksBoxTutorial").style.boxShadow = "0 0 10px 2px #ffc870"
             leadingArrow.style.top = "23vw"
             tutorialTextBox.innerHTML = `
             <h1>Attacks</h1>
@@ -975,7 +979,7 @@ function navigateToTutorialAttacks(){
             <div id="characterBattleInfoTutorial">
                 <div id="position1Box">
                     <img id="playerIcon" src="./img/Aemeath_Icon.png">
-                    <p id="ultcharge">${ultchargeC1}%</p>
+                    <p id="ultcharge">${ultchargeC1Tut}%</p>
 
                     <div id="playerUltimate">  
                         <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
@@ -1071,7 +1075,7 @@ function navigateToSkillPointsTutorial(attackNumber){
             <div id="characterBattleInfoTutorial">
                 <div id="position1Box">
                     <img id="playerIcon" src="./img/Aemeath_Icon.png">
-                    <p id="ultcharge">${ultchargeC1}%</p>
+                    <p id="ultcharge">${ultchargeC1Tut}%</p>
 
                     <div id="playerUltimate">  
                         <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
@@ -1129,7 +1133,7 @@ function navigateToSkillPointsTutorial(attackNumber){
                 <div id="characterBattleInfoTutorial">
                     <div id="position1Box">
                         <img id="playerIcon" src="./img/Aemeath_Icon.png">
-                        <p id="ultcharge">${ultchargeC1}%</p>
+                        <p id="ultcharge">${ultchargeC1Tut}%</p>
 
                         <div id="playerUltimate">  
                             <img onclick="navigateToEndScreen()"  id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
@@ -1160,9 +1164,11 @@ function navigateToSkillPointsTutorial(attackNumber){
     let tutorialTextBox = document.getElementById("tutorialTextBox")
     if(!understand && attackNumber == 1){
         let skillPointBoxTutorial = document.getElementById("skillPointBoxTutorial")
+        skillPointBoxTutorial.classList.add("tutorialJump2")
         skillPointBoxTutorial.style.border = "2px solid #ffc870"
         let enemyHpBarTutorial = document.getElementById("enemyHpBar")
         enemyHpBarTutorial.style.border = "8px solid #ffc870"
+        enemyHpBarTutorial.classList.add("tutorialJump")
         let leadingArrow = document.getElementById("leadingArrow")
         leadingArrow.style.opacity = 0;
         document.getElementById("tutorialContent").style.filter = "brightness(50%)"
@@ -1183,9 +1189,11 @@ function navigateToSkillPointsTutorial(attackNumber){
         if(!understand && attackNumber == 0){
 
         let skillPointBoxTutorial = document.getElementById("skillPointBoxTutorial")
+        skillPointBoxTutorial.classList.add("tutorialJump2")
         skillPointBoxTutorial.style.border = "2px solid #ffc870"
         let enemyHpBarTutorial = document.getElementById("enemyHpBar")
         enemyHpBarTutorial.style.border = "8px solid #ffc870"
+        enemyHpBarTutorial.classList.add("tutorialJump")
         let leadingArrow = document.getElementById("leadingArrow")
         leadingArrow.style.opacity = 0;  
         document.getElementById("tutorialContent").style.filter = "brightness(50%)"
@@ -1197,7 +1205,7 @@ function navigateToSkillPointsTutorial(attackNumber){
         `
         tutorialTextBox.style.display = "block"
     }else if(understand && attackNumber == 0){
-             let skillPointBoxTutorial = document.getElementById("skillPointBoxTutorial")
+        let skillPointBoxTutorial = document.getElementById("skillPointBoxTutorial")
         skillPointBoxTutorial.style.border = "none"
         let enemyHpBarTutorial = document.getElementById("enemyHpBar")
         enemyHpBarTutorial.style.border = "none"
@@ -1238,7 +1246,7 @@ function navigateToSkillPointsTutorial(attackNumber){
                 <div id="characterBattleInfoTutorial">
                     <div id="position1Box">
                         <img id="playerIcon" src="./img/Aemeath_Icon.png">
-                        <p id="ultcharge">${ultchargeC1}%</p>
+                        <p id="ultcharge">${ultchargeC1Tut}%</p>
 
                         <div id="playerUltimate">  
                             <img onclick="navigateToEndScreen()"  id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
@@ -1357,7 +1365,7 @@ let dotDamage = 1;
 function navigateToDamageTutorial(attackNumber){
     if(attackNumber == 1){
         skillPoints--
-        ultchargeC1+= 65 
+        ultchargeC1Tut+= 65 
         enemys[0].hp -= characters[0].attack2
          overlay.innerHTML = `
     <div id="tutorialContent">  
@@ -1388,7 +1396,7 @@ function navigateToDamageTutorial(attackNumber){
             <div id="characterBattleInfoTutorial">
                 <div id="position1Box">
                     <img id="playerIcon" src="./img/Aemeath_Icon.png">
-                    <p id="ultcharge">${ultchargeC1}%</p>
+                    <p id="ultcharge">${ultchargeC1Tut}%</p>
 
                     <div id="playerUltimate">  
                         <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
@@ -1447,7 +1455,7 @@ function navigateToDamageTutorial(attackNumber){
             <div id="characterBattleInfoTutorial">
                 <div id="position1Box">
                     <img id="playerIcon" src="./img/Aemeath_Icon.png">
-                    <p id="ultcharge">${ultchargeC1}%</p>
+                    <p id="ultcharge">${ultchargeC1Tut}%</p>
 
                     <div id="playerUltimate">  
                         <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
@@ -1473,6 +1481,7 @@ function navigateToDamageTutorial(attackNumber){
     `
         let playerUltimate = document.getElementById("ultimateSkill")
         playerUltimate.style.border = "5px solid #ffc870"
+        playerUltimate.classList.add("tutorialJump")
         let leadingArrow = document.getElementById("leadingArrow")
         playerUltimate.style.opacity = 1
         playerUltimate.classList.add("ulitmateGLow")
@@ -1512,7 +1521,7 @@ function navigateToDamageTutorial(attackNumber){
             <div id="characterBattleInfoTutorial">
                 <div id="position1Box">
                     <img   id="playerIcon" src="./img/Aemeath_Icon.png">
-                    <p id="ultcharge">${ultchargeC1}%</p>
+                    <p id="ultcharge">${ultchargeC1Tut}%</p>
 
                     <div id="playerUltimate">  
                         <img id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
@@ -2328,9 +2337,11 @@ function checkIfUlt(){
 function checkIfDefeatedOrWin(){
     if(characters[0].hp <= 0){
         navigateResult(1);
+        clearInterval(ultInterval)
     }
     if(enemys[0].hp <= 0){
         navigateResult(2);
+        clearInterval(ultInterval)
     }
 }
 

@@ -81,7 +81,7 @@ body{
     position: relative;
     text-align: center;
     left: 30vw;
-    top: 3vw;
+    top: 3.5vw;
     padding: 1%;
     background-color: #2596be;
     color: white;
@@ -335,6 +335,8 @@ body{
     width: 100vw;
     transform: scale(1.1);
 }
+
+
 #wishingMessage{
     position: relative;
     top: 1vw;
@@ -444,7 +446,7 @@ body{
 
 #backToLobbyButton{
     position: absolute;
-    bottom: 5vw;
+    bottom: 1vw;
     left: 1vw;
     background-color: #37474d;
     color: white;
@@ -1084,6 +1086,27 @@ body{
     left: 65vw;
     border-bottom: 5px solid white;
 }
+
+.tutorialJump{
+    animation: tutorialJump 2s infinite both ease-in ;
+}
+
+@keyframes tutorialJump2 {
+    0%{transform: scale(0.5) translateY(0);}
+    50%{transform: scale(0.51) translateY(1vw);}
+    100%{transform: scale(0.5) translateY(0);}
+}
+
+.tutorialJump2{
+    animation: tutorialJump2 2s infinite both ease-in ;
+}
+
+@keyframes tutorialJump {
+    0%{transform: scale(1) translateY(0);}
+    50%{transform: scale(1.1) translateY(1vw);}
+    100%{transform: scale(1) translateY(0);}
+}
+
 #skillPointBarTutorial{
     position: absolute;
     display: flex;
@@ -1523,8 +1546,13 @@ body{
     background-color: rgb(80, 102, 110);
     width: 50vw;
     height: 3vh;
+    padding: 0.5%;
     margin-right: auto;
     margin-left: auto;
+}
+#rewardBox h1{
+    position: relative;
+    bottom: 1vw;
 }
 
 #rewardBox #rewards{
