@@ -1950,7 +1950,18 @@ function navigateToBattle() {
     }
 }
 
+setInterval(() => {
+    checkIfDefeatedOrWin
+}, 1000);
 
+function checkIfDefeatedOrWin(){
+    if(characters[0].hp <= 0){
+        navigateResult(1);
+    }
+    if(enemys[0].hp <= 0){
+        navigateResult(2);
+    }
+}
 
 // function navigateToBattle() {
 //     overlay.innerHTML = `
