@@ -1399,6 +1399,59 @@ body{
     height: 100vh;
     position: absolute;
 }
+
+
+#resultScreenWin{
+    background-color: rgba(207, 179, 129,0.1);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+}
+#rewardBox{
+    position: relative;
+    bottom: 8vw;
+    text-align: center;
+    background-color: rgb(80, 102, 110);
+    width: 50vw;
+    height: 3vh;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#rewardBox #rewards{
+    display: flex;
+    height: 20vh;
+    background-color: rgb(80, 102, 110,0.5);
+}
+#reward1, #reward2{
+    position: relative;
+    transform: scale(0.6);
+    background-color: #e8c57f;
+}
+#reward3{
+    position: relative;
+    transform: scale(0.6);
+    background-color: rgba(65, 86, 143);
+}
+#levelUp{
+    font-size: 3rem;
+
+}
+#rewards .rewardAmount{
+    position: relative;
+    bottom: 2vw;
+    width: 3vw;
+    height: 3vh;
+    border-radius: 55%;
+    top: 5vw;
+    transform: scale(1.3);
+    left: 8vw;
+    z-index: 4;
+    background-color: white;
+}
+
+
+
 #defeatTitle{
     position: relative;
     background-image: url(../img/Icon_Defeat.png);
@@ -1421,6 +1474,31 @@ body{
     text-transform: uppercase;
     text-shadow: 4px 8px 12px rgba(255, 0, 0, 0.4);
 }
+
+#winTitle{
+    position: relative;
+    background-image: url(../img/Icon_Win.png);
+    height: 50vh;
+    background-size: 15vw;
+    left: 5vw;
+    margin-left: auto;
+    margin-right: auto;
+    background-repeat: no-repeat;
+    background-position: 10vw -1vw;
+    width: 50vw;
+}
+
+#winTitle h1 {
+    position: relative;
+    font-size: 5rem;
+    top: 10vw;
+    right: 5vw;
+    font-family: amoria;
+    color: rgba(207, 179, 129);
+    text-transform: uppercase;
+    text-shadow: 4px 8px 12px rgba(207, 179, 129,0.4);
+}
+
 
 #quickLevelBox{
     position: relative;
@@ -1445,7 +1523,7 @@ body{
 
 #navArrowToPractice{
     position: relative;
-    margin-left: 50vw;
+    left: 60vw;
     bottom: 1vw;
     width:  4vw;
     height: 8vh;
@@ -1501,6 +1579,21 @@ body{
     cursor: pointer;
     transition: all 500ms;
 }
+
+#backToLobbyButtonResultWin{
+    position: relative;
+    top: 10vw;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10vw;
+    background-color: #37474d;
+    color: white;
+    padding: 1%;
+    border-radius: 10%;
+    cursor: pointer;
+    transition: all 500ms;
+}
+
 
 
 

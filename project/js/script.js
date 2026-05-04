@@ -45,7 +45,7 @@ let understand = false
 let enemys = [
     {
         name: 'Stormbringer',
-        hp: 6,
+        hp: 1,
         attack:1
     }
 
@@ -1975,7 +1975,7 @@ function navigateResult(number){
             <div id="defeatTitle">
                 <h1>Defeat</h1>
             </div>
-            <div id="quickLevelBox">
+            <div id="quickLevelBox" onclick="navigateToPracticeRange()">
                 <p>Go to Practice Range</p>
                 <img id="navArrowToPractice" src="./img/nav-arrow.png">
             </div>
@@ -1983,16 +1983,40 @@ function navigateResult(number){
                 <div id="backToLobbyButtonResult" onclick="navigateToLobby()">
                         <p>Back to Lobby</p>
                 </div>
-                <div id="restartBox">
+                <div id="restartBox" onclick="resetGame(2)">
                     <p>Restart Challenge</p>
                 </div> 
                
             </div>
         </div>
     `
-
+    }
+    else if(number == 2){
+         overlay.innerHTML = `
+        <div id="resultScreenWin">  
+            <div id="winTitle">
+                <h1>Stage Completed</h1>
+            </div>
+            <div id="rewardBox">
+                <h1>Rewards</h1>
+                <div id="rewards"><p class="rewardAmount">10x</p><img id="reward1" src="./img/Item_Wishing_Style_1.png"><p class="rewardAmount">3x</p><img id="reward2" src="./img/Item_Token_For_Practice Range.png"><p class="rewardAmount">+1</p> <img id="reward3" src="./img/Item_EXP.png"></div>
+                  
+            </div> 
+                <div id="backToLobbyButtonResultWin" onclick="navigateToLobby(); resetGame(2)">
+                        <p>Back to Lobby</p>
+                </div>   
+            </div>
+        </div>
+     `
     }
 
+}
+function resetGame(option){
+    if(option == 2){
+        skillPoints = 3
+        ultchargeC1 = 15
+
+    }
 }
 
 // function navigateToBattle() {
