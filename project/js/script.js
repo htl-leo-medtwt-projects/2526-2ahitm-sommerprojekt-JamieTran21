@@ -35,7 +35,31 @@ let ultchargeC1 = 20;
 let ultchargeC1Tut = 20;
 let ultchargeC2 = 0;
 let ultchargeC3 = 0;
-let wishes = 1500;
+let wishes = 20;
+let quickFarm = 1;
+
+
+if (localStorage.getItem("ownedCharacters") == null) {
+    let startCharacters = [Character1Name, Character2Name, Character3Name];
+    localStorage.setItem("ownedCharacters", JSON.stringify(startCharacters));
+}
+
+if (localStorage.getItem("wishes") == null) {
+    localStorage.setItem("wishes", wishes);
+}
+
+if (localStorage.getItem("quickFarm") == null) {
+    localStorage.setItem("quickFarm", quickFarm);
+}
+
+if (localStorage.getItem("teamLevel") == null) {
+    localStorage.setItem("teamLevel", TeamLevelNumber);
+}
+
+wishes = parseInt(localStorage.getItem("wishes"));
+quickFarm = parseInt(localStorage.getItem("quickFarm"));
+TeamLevelNumber = parseInt(localStorage.getItem("teamLevel"));
+
 
 let goToNextStep = false
 
@@ -270,6 +294,10 @@ function navigateToWish(){
 }
 
 function wishingAnimation(){
+    wishes =wishes -10;
+    localStorage.setItem("wishes", wishes);
+
+
     let chanceOfChar = Math.floor(Math.random() * 2) 
     console.log(chanceOfChar)
     if(chanceOfChar == 0){
@@ -330,11 +358,22 @@ function wishingAnimation(){
         }
     }, 200);
 
-    }else{
-          overlay.innerHTML = ` <video id="animationVideo" src="./videos/danHengAnimation.mp4" autoplay muted></video>`
-          setTimeout(() => {
-            navigateToWish()
-          }, 4500);
+    }else {
+        overlay.innerHTML = `<video id="animationVideo" src="./videos/danHengAnimation.mp4" autoplay muted></video>`;
+        setTimeout(() => {
+            let ownedCharacters = JSON.parse(localStorage.getItem("ownedCharacters"));
+            let alreadyOwned = false;
+            for (let i = 0; i < ownedCharacters.length; i++) {
+                if (ownedCharacters[i] == Character5Name) {
+                    alreadyOwned = true;
+                }
+            }
+            if (alreadyOwned == false) {
+                ownedCharacters.push(Character5Name);
+                localStorage.setItem("ownedCharacters", JSON.stringify(ownedCharacters));
+            }
+            navigateToWish();
+        }, 4500);
     }
 
 
@@ -2372,14 +2411,21 @@ function navigateResult(number){
     `
     }
     else if(number == 2){
-         overlay.innerHTML = `
+        wishes = wishes + 30;
+        quickFarm = quickFarm + 3;
+        TeamLevelNumber = TeamLevelNumber + 1;
+
+        localStorage.setItem("wishes", wishes);
+        localStorage.setItem("quickFarm", quickFarm);
+        localStorage.setItem("teamLevel", TeamLevelNumber);
+        overlay.innerHTML = `
         <div id="resultScreenWin">  
             <div id="winTitle">
                 <h1>Stage Completed</h1>
             </div>
             <div id="rewardBox">
                 <h1>Rewards</h1>
-                <div id="rewards"><p class="rewardAmount">10x</p><img id="reward1" src="./img/Item_Wishing_Style_1.png"><p class="rewardAmount">3x</p><img id="reward2" src="./img/Item_Token_For_Practice Range.png"><p class="rewardAmount">+1</p> <img id="reward3" src="./img/Item_EXP.png"></div>
+                <div id="rewards"><p class="rewardAmount">30x</p><img id="reward1" src="./img/Item_Wishing_Style_1.png"><p class="rewardAmount">3x</p><img id="reward2" src="./img/Item_Token_For_Practice Range.png"><p class="rewardAmount">+1</p> <img id="reward3" src="./img/Item_EXP.png"></div>
                   
             </div> 
                 <div id="backToLobbyButtonResultWin" onclick="navigateToLobby(); resetGame(2)">
@@ -2398,4 +2444,3 @@ function resetGame(option){
 
     }
 }
-
