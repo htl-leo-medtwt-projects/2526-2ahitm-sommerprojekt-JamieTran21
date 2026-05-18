@@ -97,7 +97,10 @@ let characters = [
         gifPos: "center",
         backgroundColor:"rgba(123, 55, 172)",
         backgroundSize: "200",
-        hp:3
+        hp:4,
+        attack1: 2,
+        attack2: 3,
+        attack3: 4
     },
     {
         name: `${Character3Name}`,
@@ -1693,16 +1696,41 @@ function fillEnemyHpBar(){
 
 let pos1Sprite = "./img/Aemeath_Sprite.png"
 let pos2Sprite = "./img/Castorice_Sprite.png"
-let currentSprite = ""
+
+
+let skillChar1 = "./img/Aemeath_attackSkill.png"
+let skillChar2 = "./img/Castorice_attackSkill.png"
+
+
+
+
 function characterSprite(switchNumber){
     let temp = ""
     if(switchNumber == 1){
        temp = pos1Sprite
        pos1Sprite = pos2Sprite
        pos2Sprite = temp
+       attackSkill(1)
     }
+    
     return `
                     <img id="playerSprite" src="${pos1Sprite}">
+        
+            `
+
+      
+}
+
+
+function attackSkill(switchNumber){
+    let temp = ""
+    if(switchNumber == 1){
+       temp = skillChar1
+       skillChar1 = skillChar2
+       skillChar2 = temp
+    }
+    return `
+                    <img id="attackEffectSprite" src="${skillChar2}">
         
             `
 
@@ -1934,8 +1962,9 @@ let enemyAttack = Math.floor(Math.random()*3)
 if (enemyAttack == 0){ enemyAttack = 1 }
 let enemyHpGain = Math.floor(Math.random()*3)
 let chanceToHeal = Math.random()
-characters[0].hp -= enemyAttack
 
+let chooseWhoToAttack = Math.floor(Math.random() * 2)+1
+console.log(chooseWhoToAttack)
     if(attackNumber == 1){
         if(ultchargeC1 < 100){ ultchargeC1 += 15 }else{ ultchargeC1 = 100 }
         enemys[0].hp -= characters[0].attack1
@@ -1966,8 +1995,15 @@ characters[0].hp -= enemyAttack
             ultimateSkill.classList.add("ulitmateGLow")
         }
         setTimeout(() => {
+            if(chooseWhoToAttack == 1){
+                characters[0].hp -= enemyAttack
+                document.getElementById("playerIcon").classList.add("takingHp")
+            }else{
+                characters[1].hp -= enemyAttack
+                document.getElementById("nextCharIcon").classList.add("takingHp")
+            }
             document.getElementById("enemySprite").classList.add("attackEnemy")
-            document.getElementById("playerIcon").classList.add("takingHp")
+
         }, 2500);
         fillEnemyHpBar()
         document.getElementById("playerSprite").classList.add("attack")
@@ -2013,11 +2049,18 @@ characters[0].hp -= enemyAttack
         }
         fillEnemyHpBar()
         let attackEffect = document.getElementById("attackEffect")
-        attackEffect.innerHTML += `<img id="attackEffectSprite" src="${characters[0].attackSkill}.png">`
+        attackEffect.innerHTML += `${attackSkill(1)}`
         document.getElementById("attackEffectSprite").classList.add("attackPos1")
         setTimeout(() => {
+            if(chooseWhoToAttack == 0){
+                characters[0].hp -= enemyAttack
+                document.getElementById("playerIcon").classList.add("takingHp")
+            }else{
+                characters[1].hp -= enemyAttack
+                document.getElementById("nextCharIcon").classList.add("takingHp")
+            }
             document.getElementById("enemySprite").classList.add("attackEnemy")
-            document.getElementById("playerIcon").classList.add("takingHp")
+
         }, 2500);
 
         
@@ -2059,8 +2102,15 @@ characters[0].hp -= enemyAttack
         attackEffect.innerHTML += `<img id="attackEffectSprite" src="${characters[0].ultimateSkill}.png">`
         document.getElementById("attackEffectSprite").classList.add("ultimateAttack")
         setTimeout(() => {
+            if(chooseWhoToAttack == 0){
+                characters[0].hp -= enemyAttack
+                document.getElementById("playerIcon").classList.add("takingHp")
+            }else{
+                characters[1].hp -= enemyAttack
+                document.getElementById("nextCharIcon").classList.add("takingHp")
+            }
             document.getElementById("enemySprite").classList.add("attackEnemy")
-            document.getElementById("playerIcon").classList.add("takingHp")
+
         }, 2500);
         fillEnemyHpBar()
 
@@ -2182,10 +2232,10 @@ function nextTurnChar(switchNumber) {
 }
 
 let interval = 100
-let ultInterval =
-setInterval(() => {
-    checkIfUlt()
-}, 1000);
+// let ultInterval =
+// setInterval(() => {
+//     checkIfUlt()
+// }, 1000);
 
 setInterval(() => {
     checkIfDefeatedOrWin()
@@ -2193,16 +2243,16 @@ setInterval(() => {
 
 
 
-function checkIfUlt(){
-    if(ultchargeC1 >= 100){
-        ultchargeC1= 100
-        fightVisual(-1)
-        clearInterval(ultInterval)
-    }
-}
+// function checkIfUlt(){
+//     if(ultchargeC1 >= 100){
+//         ultchargeC1= 100
+//         fightVisual(-1)
+//         clearInterval(ultInterval)
+//     }
+// }
 
 function checkIfDefeatedOrWin(){
-    if(characters[0].hp <= 0){
+    if(characters[0].hp <= 0 && characters[1].hp <= 0){
         navigateResult(1);
         clearInterval(ultInterval)
     }
@@ -2215,6 +2265,7 @@ function checkIfDefeatedOrWin(){
 function navigateResult(number){
     clearInterval(interval)
     characters[0].hp  = 5
+    characters[1].hp  = 4
     enemys[0].hp = 6
     if(number == 1){
     overlay.innerHTML = `
