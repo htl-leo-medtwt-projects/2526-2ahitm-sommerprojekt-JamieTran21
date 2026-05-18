@@ -1187,6 +1187,7 @@ body{
 #characterSprites{
     position: relative;
     display: flex;
+    transform: scale(1.2);
     gap: 20vw;
     left: 30vw;
     top:-5vw;

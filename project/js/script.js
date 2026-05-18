@@ -1684,6 +1684,31 @@ function getCharacterBox() {
     `
 }
 
+function fillEnemyHpBar(){
+    for(let i = 0; i < enemys[0].hp; i++){
+        let enemyHpBar = document.getElementById("enemyHpBar");
+        enemyHpBar.innerHTML += `<div class="hpPointEnemy"><img src="./img/Icon_Hp.png"></div>`
+    }
+}
+
+let pos1Sprite = "./img/Aemeath_Sprite.png"
+let pos2Sprite = "./img/Castorice_Sprite.png"
+let currentSprite = ""
+function characterSprite(switchNumber){
+    let temp = ""
+    if(switchNumber == 1){
+       temp = pos1Sprite
+       pos1Sprite = pos2Sprite
+       pos2Sprite = temp
+    }
+    return `
+                    <img id="playerSprite" src="${pos1Sprite}">
+        
+            `
+
+      
+}
+
 function fightVisual(attackNumber){
     if(attackNumber == -1){
         overlay.innerHTML = `
@@ -1696,7 +1721,7 @@ function fightVisual(attackNumber){
                     <div id="attack2" onclick="fightVisual(2)"><img src="./img/Skill_Aemeath.png"></div>
                 </div>
                 <div id="characterSprites">
-                    <img id="playerSprite" src="./img/Aemeath_Sprite.png">
+                   ${characterSprite(0)}
                     <div id="enemyHpBar"></div>
                     <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
                 </div>
@@ -1724,7 +1749,7 @@ function fightVisual(attackNumber){
                     <div id="attack2" onclick="fightVisual(2)"><img src="./img/Skill_Aemeath.png"></div>
                 </div>
                 <div id="characterSprites">
-                    <img id="playerSprite" src="./img/Aemeath_Sprite.png">
+                    ${characterSprite(0)}
                     <div id="enemyHpBar"></div>
                     <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
                 </div>
@@ -1751,7 +1776,7 @@ function fightVisual(attackNumber){
                         <div id="attack2" onclick="damageCalculation(2)"><img src="./img/Skill_Aemeath.png"></div>
                     </div>
                     <div id="characterSprites">
-                        <img id="playerSprite" src="./img/Aemeath_Sprite.png">
+                       ${characterSprite(0)}
                         <div id="enemyHpBar"></div>
                         <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
                     </div>
@@ -1777,7 +1802,7 @@ function fightVisual(attackNumber){
                         <div id="attack2"><img style="cursor: not-allowed" src="./img/Skill_Aemeath.png"></div>
                     </div>
                     <div id="characterSprites">
-                        <img id="playerSprite" src="./img/Aemeath_Sprite.png">
+                      ${characterSprite(0)}
                         <div id="enemyHpBar"></div>
                         <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
                     </div>
@@ -1804,7 +1829,7 @@ function fightVisual(attackNumber){
                     <div id="attack2" onclick="damageCalculation(2)"><img src="./img/Skill_Aemeath.png"></div>
                 </div>
                 <div id="characterSprites">
-                    <img id="playerSprite" src="./img/Aemeath_Sprite.png">
+                     ${characterSprite(0)}
                     <div id="enemyHpBar"></div>
                     <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
                 </div>
@@ -1925,9 +1950,9 @@ characters[0].hp -= enemyAttack
                     <div id="attack2" onclick="fightVisual(2)"><img src="./img/Skill_Aemeath.png"></div>
                 </div>
                 <div id="characterSprites">
-                    <img id="playerSprite" src="./img/Aemeath_Sprite.png">
+                    ${characterSprite(0)}
                     <div id="enemyHpBar"></div>
-                    <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
+                    <img id="enemySprite" src="./img/Enemy_Stormbringer.png"></img>
                 </div>
                 <div id="skillPointBox">
                     <div id="skillPointBar"><p id="skillPointText">${skillPoints}</p></div>
@@ -1944,7 +1969,17 @@ characters[0].hp -= enemyAttack
             document.getElementById("enemySprite").classList.add("attackEnemy")
             document.getElementById("playerIcon").classList.add("takingHp")
         }, 2500);
+        fillEnemyHpBar()
         document.getElementById("playerSprite").classList.add("attack")
+
+        setTimeout(() => {
+            document.getElementById("characterSprites").innerHTML =`          
+                ${characterSprite(1)}
+                <div id="enemyHpBar"></div>
+                <img id="enemySprite" src="./img/Enemy_Stormbringer.png"></img>
+            `
+            fillEnemyHpBar()
+        }, 2800);
 
     }else if(attackNumber == 2){
         if(ultchargeC1 < 100){ ultchargeC1 += 35 }else{ ultchargeC1 = 100 }
@@ -1960,9 +1995,9 @@ characters[0].hp -= enemyAttack
                     <div id="attack2" onclick="fightVisual(2)"><img src="./img/Skill_Aemeath.png"></div>
                 </div>
                 <div id="characterSprites">
-                    <img id="playerSprite" src="./img/Aemeath_Sprite.png">
+                      ${characterSprite(0)}
                     <div id="enemyHpBar"></div>
-                    <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
+                    <img id="enemySprite" src="./img/Enemy_Stormbringer.png"></img>
                 </div>
                 <div id="skillPointBox">
                     <div id="skillPointBar"><p id="skillPointText">${skillPoints}</p></div>
@@ -1976,9 +2011,24 @@ characters[0].hp -= enemyAttack
             ultimateSkill.style.opacity = 1
             ultimateSkill.classList.add("ulitmateGLow")
         }
+        fillEnemyHpBar()
         let attackEffect = document.getElementById("attackEffect")
         attackEffect.innerHTML += `<img id="attackEffectSprite" src="${characters[0].attackSkill}.png">`
         document.getElementById("attackEffectSprite").classList.add("attackPos1")
+        setTimeout(() => {
+            document.getElementById("enemySprite").classList.add("attackEnemy")
+            document.getElementById("playerIcon").classList.add("takingHp")
+        }, 2500);
+
+        
+        setTimeout(() => {
+            document.getElementById("characterSprites").innerHTML =`          
+                ${characterSprite(1)}
+                <div id="enemyHpBar"></div>
+                <img id="enemySprite" src="./img/Enemy_Stormbringer.png"></img>
+            `
+            fillEnemyHpBar()
+        }, 2800);
 
     }else if(attackNumber == 3){
         enemys[0].hp -= characters[0].attack3
@@ -1994,7 +2044,7 @@ characters[0].hp -= enemyAttack
                     <div id="attack2" onclick="fightVisual(2)"><img src="./img/Skill_Aemeath.png"></div>
                 </div>
                 <div id="characterSprites">
-                    <img id="playerSprite" src="./img/Aemeath_Sprite.png">
+                        ${characterSprite(1)}
                     <div id="enemyHpBar"></div>
                     <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
                 </div>
@@ -2008,6 +2058,21 @@ characters[0].hp -= enemyAttack
         let attackEffect = document.getElementById("attackEffect")
         attackEffect.innerHTML += `<img id="attackEffectSprite" src="${characters[0].ultimateSkill}.png">`
         document.getElementById("attackEffectSprite").classList.add("ultimateAttack")
+        setTimeout(() => {
+            document.getElementById("enemySprite").classList.add("attackEnemy")
+            document.getElementById("playerIcon").classList.add("takingHp")
+        }, 2500);
+        fillEnemyHpBar()
+
+        setTimeout(() => {
+            document.getElementById("characterSprites").innerHTML =`          
+                ${characterSprite(1)}
+                <div id="enemyHpBar"></div>
+                <img id="enemySprite" src="./img/Enemy_Stormbringer.png"></img>
+            `
+            fillEnemyHpBar()
+        }, 2800);
+
     }
 
     for(let i = 0; i < 5; i++){
@@ -2018,10 +2083,6 @@ characters[0].hp -= enemyAttack
         let skillPointsCharged = document.getElementsByClassName("skillPoint")
         skillPointsCharged[i].innerHTML = `<img src="./img/SkillPoint_charged.png">`
         skillPointsCharged[i].style.filter = "grayscale(0%)"
-    }
-    for(let i = 0; i < enemys[0].hp; i++){
-        let enemyHpBar = document.getElementById("enemyHpBar");
-        enemyHpBar.innerHTML += `<div class="hpPointEnemy"><img src="./img/Icon_Hp.png"></div>`
     }
     for(let i = 0; i < characters[0].hp; i++){
         let playerHpBar = document.getElementById("playerHpBar");
