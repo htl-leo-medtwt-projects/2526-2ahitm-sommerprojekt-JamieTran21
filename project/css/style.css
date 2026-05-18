@@ -1295,16 +1295,36 @@ body{
     100% { filter: brightness(100%); transform: scale(1);}
 }
 
-#playerHpBar{
-    position: absolute;
-    top: 10vw;
+#playerHpBar {
     display: flex;
-    width: 20vw;
-    height: 10vh;
-    background-color: rgba(255, 255, 255);
-    border-radius: 5%;
-    text-align: center;
-    padding: 1%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 2px;
+    background-color: rgba(255,255,255,0.9);
+    border-radius: 4px;
+    padding: 2px 3px;
+    width: 100%;
+    position: static;
+    height: auto;
+    top: auto;
+}
+#playerHpBar .hpPoint img {
+    height: 3vh;
+}
+
+#char2HpBar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 2px;
+    background-color: rgba(255,255,255,0.9);
+    border-radius: 4px;
+    padding: 2px 3px;
+    width: 100%;
+}
+
+#char2HpBar .hpPoint img {
+    height: 3vh;
 }
 
 #skillPointBar{
@@ -1335,20 +1355,84 @@ body{
     height: 10vh;
 }
 
-#position1Box{
-    position: absolute;
+#characterBattleInfo {
+    position: fixed;
+    bottom: 8vh;
+    left: 15vw;
     display: flex;
-    left: 10vw;
+    flex-direction: row;
+    gap: 1vw;
+    transform: scale(1.4);
+    z-index: 10;
 }
-#playerIcon{
-    position: relative;
-    width: 10vw;
-    height: 20vh;
 
+#position1Box {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    position: static;
 }
-#playerUltimate{
+
+#position2Box {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    opacity: 1;
+    pointer-events: none;
+}
+
+#playerIcon {
+    width: 5vw;
+    height: 10vh;
+    border-radius: 8px;
+    object-fit: cover;
+    position: static;
+}
+
+#nextCharIcon {
+    width: 5vw;
+    height: 10vh;
+    border-radius: 8px;
+    object-fit: cover;
+    filter: grayscale(30%);
+}
+
+#playerUltimate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
-    bottom: 10vw;
+}
+
+#nextUltimate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    transform: scale(1.3);
+}
+
+#ultimateSkill {
+    width: 3vw;
+    height: 6vh;
+    border-radius: 50%;
+    background-color: rgba(207, 134, 165, 0.6);
+    object-fit: cover;
+    opacity: 0.4;
+    cursor: not-allowed;
+    position: static;
+}
+
+#nextUltimateSkill {
+    width: 3vw;
+    height: 6vh;
+    border-radius: 50%;
+    background-color: rgba(123, 55, 172, 0.6);
+    object-fit: cover;
+    opacity: 0.35;
+    cursor: not-allowed;
 }
 #ultimatePoint{
     width: 10vw;
@@ -1358,14 +1442,16 @@ body{
     filter: grayscale(100%);
 }
 
-#ultimateSkill{
-    position: relative;
-    top: 10vw;
-    opacity: 0.5;
-    background-color: rgba(207, 134, 165);
-    border-radius:50%;
-    width: 10vw;
-    height: 20vh;
+#ultimateSkill {
+    width: 4vw;
+    height: 8vh;
+    border-radius: 50%;
+    background-color: rgba(207, 134, 165, 0.6);
+    object-fit: cover;
+    opacity: 0.4;
+    cursor: not-allowed;
+    position: static;
+    top: auto;
 }
 
 .movetoUlitmate{
@@ -1394,15 +1480,37 @@ body{
     50% { filter: brightness(110%); }
     100% { filter: brightness(100%); }
 }
-#ultcharge{
+
+#ultcharge {
     position: absolute;
-    top: 6vw;
-    left: 10vw;
-    width: 10vw;
-    height: 4vh;
-    padding: 1%;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 0.6rem;
+    text-align: center;
+    background-color: rgba(0,0,0,0.6);
+    border-radius: 4px;
+    padding: 1px 3px;
+    z-index: 2;
+    width: auto;
+    height: auto;
+}
+
+#nextUltcharge {
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 0.6rem;
+    text-align: center;
+    background-color: rgba(0,0,0,0.6);
+    border-radius: 4px;
+    padding: 1px 3px;
     z-index: 2;
 }
+
 
 #enemySprite{
     position: relative;
@@ -1774,4 +1882,11 @@ body{
     margin-right: auto;
     text-align: center;
     z-index: 2;
+}
+
+#gameScreen {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 }
