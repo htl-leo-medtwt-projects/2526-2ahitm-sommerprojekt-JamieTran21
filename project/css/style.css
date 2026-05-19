@@ -62,6 +62,25 @@ body{
     background-color: gray;
     cursor: pointer;
 }
+#currencieBox{
+    position: absolute;
+    top: 1vw;
+    left: 80vw;
+    width: 10vw;
+    height: 10vh;
+    background-color: rgba(255, 255, 255, 0.514);
+    border-radius: 5%;
+    display: flex;
+    gap: 20%;
+    padding: 1%;
+    font-size: 3rem;
+}
+
+#tokenCurrency img{
+    position: relative;
+    bottom: 12vw;
+    transform: scale(0.5);
+}
 
 
 #WorldSelecter{

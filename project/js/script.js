@@ -37,10 +37,9 @@ let ultchargeC2 = 0;
 let ultchargeC3 = 0;
 let wishes = 20;
 let quickFarm = 1;
-
+let startCharacters = [Character1Name, Character2Name, Character3Name];
 
 if (localStorage.getItem("ownedCharacters") == null) {
-    let startCharacters = [Character1Name, Character2Name, Character3Name];
     localStorage.setItem("ownedCharacters", JSON.stringify(startCharacters));
 }
 
@@ -129,7 +128,8 @@ let characters = [
         gif: "./gif/DanHengHover.gif",
         gifPos: "center",
         backgroundColor: "rgba(42, 61, 69)",
-        backgroundSize: "300"
+        backgroundSize: "300",
+        owned: false
     },
     {
         name: `${Character6Name}`,
@@ -474,6 +474,10 @@ function navigateToTeamLineup(){
         <p>Confirm Team Lineup</p>
     </div>
     `
+if(localStorage.getItem("ownedCharacters").includes(Character5Name)){
+    document.getElementById("teamLineupCharacter5").style.filter = `grayscale(0%)`;
+    document.getElementById("teamPos5").innerHTML = `<p>${Character5Name}</p>`
+}
 }
 
 function navigateToCharacters(){
@@ -1644,6 +1648,9 @@ function navigateToEndScreen(){
 function navigateToPracticeRange() {
     overlay.innerHTML = `
     <div id="practiceRangeContent">
+        <div id="currencieBox">
+             <div id="tokenCurrency"><p>${quickFarm}</p><img src="./img/Item_Token_For_Practice Range.png"></div>
+        </div>
         <div id="textBox">
          <h1><img src="./img/Icon_Practice_Range.png">Practice <br> Range</h1>
         </div>
@@ -1653,7 +1660,7 @@ function navigateToPracticeRange() {
             <div id="practiceText">
                 <p>-Current Team Level: ${TeamLevelNumber}</p>
                 <p>-Team Level ${TeamLevelNumber} => ${TeamLevelNumber+1}</p>
-                <div id="currencyTaken"><p>Consume <img src="./img/Item_Token_For_Practice Range.png"></p>  
+                <div onclick="consumeCurrency()" id="currencyTaken"><p>Consume <img src="./img/Item_Token_For_Practice Range.png"></p>  
             </div>
         </div>
         </div>
@@ -1662,6 +1669,18 @@ function navigateToPracticeRange() {
     `
 
 
+
+
+}
+
+function consumeCurrency(){
+    if(quickFarm >= 1){
+        quickFarm--
+        TeamLevelNumber++
+        localStorage.setItem("quickFarm", quickFarm);
+        localStorage.setItem("teamLevel", TeamLevelNumber);
+        navigateToPracticeRange()
+    }
 
 
 }
