@@ -82,9 +82,14 @@ let characters = [
         image: "./img/Aemeath_Splash_Art.png",
         gif: "./gif/AemethHover.gif",
         gifPos: "center",
-        backgroundColor:"rgba(237, 166, 214)",
-        attackSkill: "./img/Aemeath_attackSkill",
-        ultimateSkill:"./img/Aemeath_Ultimate",
+        backgroundColor: "rgba(237, 166, 214)",
+        posSprite: "./img/Aemeath_Sprite.png",
+        skillSprite: "./img/Aemeath_attackSkill.png",
+        skillAttack: "./img/Skill_Aemeath.png",
+        basicAttack: "./img/Basic_Aemeath.png",
+        turnIcon: "./img/Aemeath_Icon.png",
+        attackSkill: "./img/Skill_Aemeath.png",
+        ultimateSkill: "./img/Aemeath_Ultimate.png",
         hp: 5,
         attack1: 1,
         attack2: 2,
@@ -95,33 +100,35 @@ let characters = [
         image: "./img/Castorice_Splash_Art.png",
         gif: "./gif/CastoriceHover.gif",
         gifPos: "center",
-        backgroundColor:"rgba(123, 55, 172)",
+        backgroundColor: "rgba(123, 55, 172)",
         backgroundSize: "200",
-        hp:4,
-        attack1: 2,
-        attack2: 3,
-        attack3: 4
+        posSprite: "./img/Castorice_Sprite.png",
+        skillSprite: "./img/Castorice_attackSkill.png",
+        skillAttack: "./img/Skill_Castorice.png",
+        basicAttack: "./img/Basic_Castorice.png",
+        turnIcon: "./img/Castorice_Icon.png",
+        hp: 4,
     },
     {
         name: `${Character3Name}`,
         image: "./img/Qiuyuan_Splash_Art.png",
         gif: "./gif/QiuyuanHover.gif",
         gifPos: "left",
-        backgroundColor:"rgba(48, 53, 62)"
+        backgroundColor: "rgba(48, 53, 62)"
     },
     {
         name: `${Character4Name}`,
         image: "./img/Hyacine_Splash_Art.png",
         gif: "./gif/HyacineHover.gif",
         gifPos: "center",
-        backgroundColor:"rgba(248, 204, 200)",
+        backgroundColor: "rgba(248, 204, 200)"
     },
     {
         name: `${Character5Name}`,
         image: "./img/Dan_Heng_Splash_Art.png",
         gif: "./gif/DanHengHover.gif",
         gifPos: "center",
-        backgroundColor:"rgba(42, 61, 69)",
+        backgroundColor: "rgba(42, 61, 69)",
         backgroundSize: "300"
     },
     {
@@ -129,10 +136,9 @@ let characters = [
         image: "./img/Shorekeeper_Splash_Art.png",
         gif: "./gif/ShorekeeperHover.gif",
         gifPos: "center",
-        backgroundColor:"rgba(21, 51, 153)",
+        backgroundColor: "rgba(21, 51, 153)",
         backgroundSize: "230"
     }
-
 ]
 
 
@@ -1694,23 +1700,28 @@ function fillEnemyHpBar(){
     }
 }
 
-let pos1Sprite = "./img/Aemeath_Sprite.png"
-let pos2Sprite = "./img/Castorice_Sprite.png"
+let pos1Sprite = characters[0].posSprite
+let pos2Sprite = characters[1].posSprite
 
 
-let skillChar1 = "./img/Aemeath_attackSkill.png"
-let skillChar2 = "./img/Castorice_attackSkill.png"
+let skillChar1 = characters[0].skillSprite
+let skillChar2 = characters[1].skillSprite
+let skillAttackChar1 = characters[0].skillAttack
+let skillAttackChar2 = characters[1].skillAttack
+let BasicAttackChar1 = characters[0].basicAttack
+let BasicAttackChar2 = characters[1].basicAttack
 
-
+let turn= characters[0].turnIcon
+let nextTurnCharacter = characters[1].turnIcon
 
 
 function characterSprite(switchNumber){
     let temp = ""
+    let temp2 = ""
     if(switchNumber == 1){
        temp = pos1Sprite
        pos1Sprite = pos2Sprite
        pos2Sprite = temp
-       attackSkill(1)
     }
     
     return `
@@ -1720,7 +1731,35 @@ function characterSprite(switchNumber){
 
       
 }
+function attackBoxBasic(switchNumber) {
+    let temp = ""
+    if(switchNumber == 1){
+        temp = BasicAttackChar1
+        BasicAttackChar1 = BasicAttackChar2
+        BasicAttackChar2 = temp
+    }
+    
+    return `
+       <img src="${BasicAttackChar1}">      
+    `
+        
 
+}
+
+function attackBoxSkill(switchNumber) {
+    let temp = ""
+    if(switchNumber == 1){
+       temp = skillAttackChar1
+       skillAttackChar1 = skillAttackChar2
+       skillAttackChar2 = temp
+    }
+    
+    return `
+       ${skillAttackChar1}      
+    `
+    
+    
+}
 
 function attackSkill(switchNumber){
     let temp = ""
@@ -1730,11 +1769,9 @@ function attackSkill(switchNumber){
        skillChar2 = temp
     }
     return `
-                    <img id="attackEffectSprite" src="${skillChar2}">
+            <img id="attackEffectSprite" src="${skillChar2}">
         
-            `
-
-      
+    `      
 }
 
 function fightVisual(attackNumber){
@@ -1745,8 +1782,8 @@ function fightVisual(attackNumber){
                   ${nextTurnChar(0)}
                 <div id="attacksBox">
                     <h1>Attacks</h1>
-                    <div id="attack1" onclick="fightVisual(1)"><img src="./img/Basic_Aemeath.png"></div>
-                    <div id="attack2" onclick="fightVisual(2)"><img src="./img/Skill_Aemeath.png"></div>
+                    <div id="attack1" onclick="fightVisual(1)">${attackBoxBasic(0)}</div>
+                    <div id="attack2" onclick="fightVisual(2)"><img src="${attackBoxSkill(0)}"></div>
                 </div>
                 <div id="characterSprites">
                    ${characterSprite(0)}
@@ -1773,8 +1810,8 @@ function fightVisual(attackNumber){
                   ${nextTurnChar(0)}
                 <div id="attacksBox">
                     <h1>Attacks</h1>
-                    <div id="attack1" onclick="damageCalculation(1)"><img src="./img/Basic_Aemeath.png"></div>
-                    <div id="attack2" onclick="fightVisual(2)"><img src="./img/Skill_Aemeath.png"></div>
+                    <div id="attack1" onclick="damageCalculation(1)">${attackBoxBasic(0)}</div>
+                    <div id="attack2" onclick="fightVisual(2)"><img src="${attackBoxSkill(0)}"></div>
                 </div>
                 <div id="characterSprites">
                     ${characterSprite(0)}
@@ -1800,8 +1837,8 @@ function fightVisual(attackNumber){
                        ${nextTurnChar(0)}
                     <div id="attacksBox">
                         <h1>Attacks</h1>
-                        <div id="attack1" onclick="fightVisual(1)"><img src="./img/Basic_Aemeath.png"></div>
-                        <div id="attack2" onclick="damageCalculation(2)"><img src="./img/Skill_Aemeath.png"></div>
+                        <div id="attack1" onclick="fightVisual(1)">${attackBoxBasic(0)}</div>
+                        <div id="attack2" onclick="damageCalculation(2)"><img src="${attackBoxSkill(0)}"></div>
                     </div>
                     <div id="characterSprites">
                        ${characterSprite(0)}
@@ -1826,8 +1863,8 @@ function fightVisual(attackNumber){
                        ${nextTurnChar(0)}
                     <div id="attacksBox">
                         <h1>Attacks</h1>
-                        <div id="attack1" onclick="fightVisual(1)"><img src="./img/Basic_Aemeath.png"></div>
-                        <div id="attack2"><img style="cursor: not-allowed" src="./img/Skill_Aemeath.png"></div>
+                        <div id="attack1" onclick="fightVisual(1)">${attackBoxBasic(0)}</div>
+                        <div id="attack2"><img style="cursor: not-allowed opacity: 0.5;" src="${attackBoxSkill(0)}"></div>
                     </div>
                     <div id="characterSprites">
                       ${characterSprite(0)}
@@ -1853,8 +1890,8 @@ function fightVisual(attackNumber){
                 ${nextTurnChar(0)}
                 <div id="attacksBox">
                     <h1>Attacks</h1>
-                    <div id="attack1" onclick="fightVisual(1)"><img src="./img/Basic_Aemeath.png"></div>
-                    <div id="attack2" onclick="damageCalculation(2)"><img src="./img/Skill_Aemeath.png"></div>
+                    <div id="attack1" onclick="fightVisual(1)">${attackBoxBasic(0)}</div>
+                    <div id="attack2" onclick="damageCalculation(2)"><img src="${attackBoxSkill(0)}"></div>
                 </div>
                 <div id="characterSprites">
                      ${characterSprite(0)}
@@ -1975,8 +2012,8 @@ console.log(chooseWhoToAttack)
                    ${nextTurnChar(1)}
                 <div id="attacksBox">
                     <h1>Attacks</h1>
-                    <div id="attack1" onclick="fightVisual(1)"><img src="./img/Basic_Aemeath.png"></div>
-                    <div id="attack2" onclick="fightVisual(2)"><img src="./img/Skill_Aemeath.png"></div>
+                    <div id="attack1" onclick="fightVisual(1)">${attackBoxBasic(1)}</div>
+                    <div id="attack2" onclick="fightVisual(2)"> <img src="${attackBoxSkill(1)}"> </div>
                 </div>
                 <div id="characterSprites">
                     ${characterSprite(0)}
@@ -2027,8 +2064,8 @@ console.log(chooseWhoToAttack)
                    ${nextTurnChar(1)}
                 <div id="attacksBox">
                     <h1>Attacks</h1>
-                    <div id="attack1" onclick="fightVisual(1)"><img src="./img/Basic_Aemeath.png"></div>
-                    <div id="attack2" onclick="fightVisual(2)"><img src="./img/Skill_Aemeath.png"></div>
+                    <div id="attack1" onclick="fightVisual(1)">${attackBoxBasic(1)}</div>
+                    <div id="attack2" onclick="fightVisual(2)"> <img src="${attackBoxSkill(1)}"> </div>
                 </div>
                 <div id="characterSprites">
                       ${characterSprite(0)}
@@ -2083,8 +2120,8 @@ console.log(chooseWhoToAttack)
                   ${nextTurnChar(1)}
                 <div id="attacksBox">
                     <h1>Attacks</h1>
-                    <div id="attack1" onclick="fightVisual(1)"><img src="./img/Basic_Aemeath.png"></div>
-                    <div id="attack2" onclick="fightVisual(2)"><img src="./img/Skill_Aemeath.png"></div>
+                    <div id="attack1" onclick="fightVisual(1)">${attackBoxBasic(1)}</div>
+                    <div id="attack2" onclick="fightVisual(2)"> <img src="${attackBoxSkill(1)}"> </div>
                 </div>
                 <div id="characterSprites">
                         ${characterSprite(1)}
@@ -2206,12 +2243,11 @@ function navigateToBattle() {
 }
 
 
-let turn= `./img/Aemeath_Icon.png`
-let nextTurnCharacter = "./img/Castorice_Icon.png"
-let temp = ""
+
+
 
 function nextTurnChar(switchNumber) {
-    
+    let temp = ""
     if(switchNumber == 1){
         temp = turn
         turn = nextTurnCharacter
