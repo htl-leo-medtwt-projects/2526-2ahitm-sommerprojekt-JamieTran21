@@ -54,7 +54,7 @@ body{
     width: 20vw;
     margin-left: auto ;
     margin-right: auto;
-    left: 50vw;
+    left:100vw;
     bottom: 25vw;
     font-size: 1.5rem;
     padding: 1%;
@@ -1096,13 +1096,87 @@ body{
     top:-5vw;
 }
 
+#characterBattleInfoTutorial {
+    position: relative;
+    bottom: 2.5vw;
+    left: 20vw;
+    gap: 1vw;
+    transform: scale(1.6);
+    z-index: 10;
+}
+
+#characterBattleInfoTutorial #position1Box {
+    display: flex;
+    align-items: stretch;
+    gap: 4px;
+    position: static;
+}
+
+
+#characterBattleInfoTutorial #playerIcon {
+    width: 5vw;
+    height: 10vh;
+    border-radius: 8px;
+    position: relative;
+    top: 4vw;
+    left: 3vw;
+}
+
+#characterBattleInfoTutorial #playerUltimate {
+    position: relative;
+}
+
+#characterBattleInfoTutorial #ultimateSkill {
+    width: 4vw;
+    height: 8vh;
+    border-radius: 50%;
+    background-color: rgba(207, 134, 165, 0.6);
+    object-fit: cover;
+    opacity: 0.4;
+    cursor: not-allowed;
+    position: static;
+    top: auto;
+}
+
+#characterBattleInfoTutorial #ultcharge {
+    bottom: 2vw;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 0.6rem;
+    text-align: center;
+    background-color: rgba(0,0,0,0.6);
+    border-radius: 4px;
+    padding: 1px 3px;
+    z-index: 2;
+    width: auto;
+    height: auto;
+}
+
+#characterBattleInfoTutorial #playerHpBar {
+    gap: 2px;
+    background-color: rgba(255,255,255,0.9);
+    border-radius: 4px;
+    padding: 2px 3px;
+    width:40%;
+    left: 3vw;
+    position: relative;
+    height: auto;
+    top: auto;
+}
+
+#characterBattleInfoTutorial #playerHpBar .hpPoint img {
+    height: 3vh;
+}
+
 #skillPointBoxTutorial{
-    position: absolute;
+    position: relative;
     transform: scale(0.5);
     display: flex;
     width: 75vw;
     height: 30vh;
-    left: 65vw;
+    bottom: 15vw;
+    left: 55vw;
     border-bottom: 5px solid white;
 }
 

@@ -54,7 +54,10 @@ if (localStorage.getItem("quickFarm") == null) {
 if (localStorage.getItem("teamLevel") == null) {
     localStorage.setItem("teamLevel", TeamLevelNumber);
 }
-localStorage.setItem("tutorialCompleted", false)
+if(!localStorage.getItem("tutorialCompleted")){
+   localStorage.setItem("tutorialCompleted", false) 
+}
+
 wishes = parseInt(localStorage.getItem("wishes"));
 quickFarm = parseInt(localStorage.getItem("quickFarm"));
 TeamLevelNumber = parseInt(localStorage.getItem("teamLevel"));
@@ -203,8 +206,8 @@ overlay.innerHTML = `
         <div id="tutorialQuestionBox">
             <h1>Would you like to play the Tutorial?</h1>
             <div id="yesOrNoBoxes">
+                <div onclick="removePopUp();" id="noButton" >No</div>
                 <div onclick="navigateToPreBattleChoiceTutorial()" id="yesButton">Yes</div>
-                <div onclick="removePopUp();" id="noButton">No</div>
             </div>
         </div>
     </div>
@@ -1472,7 +1475,7 @@ function navigateToDamageTutorial(attackNumber){
     leadingArrow.style.opacity = 0
     }else if(attackNumber == 0){
         skillPoints++
-        ultchargeC1+= 15
+        ultchargeC1Tut+= 15
         enemys[0].hp -= characters[0].attack1
          overlay.innerHTML = `
     <div id="tutorialContent">  
@@ -1633,6 +1636,7 @@ function navigateToDamageTutorial(attackNumber){
 }
 
 function navigateToEndScreen(){
+    localStorage.setItem("tutorialCompleted", true)  
     overlay.innerHTML = `
     <div id="endScreen">
         <h1>Tutorial Complete!</h1>
