@@ -16,11 +16,12 @@
 <body>
     <div id="overlay">
         <video id="startVideo" src="videos/startScreen.mp4" autoplay muted loop></video>
+        <audio id="startAudio" src="sfx/startScreen.mp3" autoplay loop></audio>
         <div id="startScreen">
         <h1 id="startTitle">Echoes of Frequency</h1>
 
         </div>
-        <p id="startText" onclick="navigateToLobby()">Press Click to Start</p>
+        <p id="startText" onclick="navigateToLobby(), startClick.play()">Press Click to Start</p>
     </div>
 
     

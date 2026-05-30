@@ -38,6 +38,28 @@ let ultchargeC3 = 0;
 let wishes = 20;
 let quickFarm = 1;
 let startCharacters = [Character1Name, Character2Name, Character3Name];
+let skilleffect = ""
+let skilleffect2 = ""
+
+let startClick = new Audio("./sfx/startClick.mp3");
+
+let basicEffect = new Audio("./sfx/basicAttack.mp3");
+
+let navigateToPlanet = new Audio("./sfx/PlanetScreen.mp3");
+let confirmPlanet = new Audio("./sfx/confirmPlanet.mp3");
+let switching = new Audio("./sfx/switchingSound.mp3");
+let navigateToWishes = new Audio("./sfx/navigateToWish.mp3");
+let clicking = new Audio("./sfx/clicking.mp3");
+let battleCards = new Audio("./sfx/battleCards.mp3");
+let back = new Audio("./sfx/back.mp3");
+let startScreen = new Audio("./sfx/startScreen.mp3");
+let characterBank = new Audio("./sfx/characterBank.mp3");
+let teamLineup = new Audio("./sfx/teamLineup.mp3");
+let practiceRange = new Audio("./sfx/practiceRange.mp3");
+let battleOver = new Audio("./sfx/battleOver.mp3");
+
+let aemeathSkill = new Audio("./sfx/AemeathSkill.mp3");
+let castoriceSkill = new Audio("./sfx/CastoriceSkill.mp3")
 
 if (localStorage.getItem("ownedCharacters") == null) {
     localStorage.setItem("ownedCharacters", JSON.stringify(startCharacters));
@@ -92,6 +114,7 @@ let characters = [
         turnIcon: "./img/Aemeath_Icon.png",
         attackSkill: "./img/Skill_Aemeath.png",
         ultimateSkill: "./img/Aemeath_Ultimate.png",
+        skillEffect: `${aemeathSkill}`,
         hp: 5,
         attack1: 1,
         attack2: 2,
@@ -109,6 +132,7 @@ let characters = [
         skillAttack: "./img/Skill_Castorice.png",
         basicAttack: "./img/Basic_Castorice.png",
         turnIcon: "./img/Castorice_Icon.png",
+        skillEffect: `${castoriceSkill}`,
         hp: 4,
     },
     {
@@ -206,19 +230,19 @@ overlay.innerHTML = `
         <div id="tutorialQuestionBox">
             <h1>Would you like to play the Tutorial?</h1>
             <div id="yesOrNoBoxes">
-                <div onclick="removePopUp();" id="noButton" >No</div>
-                <div onclick="navigateToPreBattleChoiceTutorial()" id="yesButton">Yes</div>
+                <div onclick="removePopUp(); clicking.play()" id="noButton" >No</div>
+                <div onclick="navigateToPreBattleChoiceTutorial(), clicking.play()" id="yesButton">Yes</div>
             </div>
         </div>
     </div>
     `}
         <div id="navbar">
             <img onclick="navigateToWish()" id="wishingIcon" src="./img/Icon_Wishing.png" alt="Wish">
-            <img onclick="navigateToTeamLineup()" id="teamLineupIcon" src="./img/Icon_TeamLineup.png" alt="Team Lineup">
-            <img onclick="navigateToCharacters()" id="charactersIcon" src="./img/Icon_Characters.png" alt="Characters">
+            <img onclick="navigateToTeamLineup(), teamLineup.play()" id="teamLineupIcon" src="./img/Icon_TeamLineup.png" alt="Team Lineup">
+            <img onclick="navigateToCharacters(), characterBank.play()" id="charactersIcon" src="./img/Icon_Characters.png" alt="Characters">
         </div>
         <div id="WorldSelecter">
-        <div onclick="navigateToPracticeRange()" id="PracticeRange"><p>Practice Range</p></div>
+        <div onclick="navigateToPracticeRange(), practiceRange.play()" id="PracticeRange"><p>Practice Range</p></div>
             <div id="worldIcon">
                 <img onclick="navigateToPlanets()" src="./img/World_The_Xianzhou_Luofu.png" alt="worldIcon">
             </div>
@@ -241,6 +265,7 @@ overlay.innerHTML = `
 }
 
 function navigateToWish(){
+    navigateToWishes.play();
     //? mit Ki
     overlay.innerHTML = `
     <div id="wishingScreen"></div>
@@ -282,9 +307,10 @@ function navigateToWish(){
         <div id="wishingCharacter2"></div>
     </div>
 
-    <div id="backToLobbyButton" onclick="navigateToLobby()">
+   <div id="backToLobbyButton" onclick="back.play(), navigateToLobby()">
         <p>Back to Lobby</p>
     </div>
+
 
     <div id="playerWishes">
         <h1>${wishes}</h1>
@@ -302,6 +328,7 @@ function navigateToWish(){
 }
 
 function wishingAnimation(){
+    navigateToWishes.play();
     wishes =wishes -10;
     localStorage.setItem("wishes", wishes);
 
@@ -344,7 +371,7 @@ function wishingAnimation(){
             </div>
             <div id="wishingCharacter2">
             </div> 
-             <div id="backToLobbyButton" onclick="navigateToLobby()">
+             <div id="backToLobbyButton" onclick="back.play(),navigateToLobby()">
             <p>Back to Lobby</p>
         </div>
         <div id="playerWishes"><h1>${wishes}</h1> <img src="./img/Item_Wishing_Style_1.png"</div> 
@@ -388,6 +415,7 @@ function wishingAnimation(){
 }
 
 function navigateToPlanets(){
+    navigateToPlanet.play();
     overlay.style.overflow = "hidden"; 
 
     overlay.innerHTML = `
@@ -422,11 +450,11 @@ function navigateToPlanets(){
         </div>
 
         <div class="swiper-pagination"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+        <div onclick="switching.play()" class="swiper-button-prev"></div>
+        <div onclick="switching.play()" class="swiper-button-next"></div>
     </div>
 
-    <div id="backToLobbyButton" onclick="navigateToLobby()">
+    <div id="backToLobbyButton" onclick="back.play(), navigateToLobby()">
         <p>Back to Lobby</p>
     </div>
     <div onclick="navigateToPreBattleChoice()" id="ConfirmButton"><p>Confirm Planet</p></div>
@@ -466,10 +494,10 @@ function navigateToTeamLineup(){
         <div id="teamLineupCharacter5"><div id="teamPos5"><p class="notIndexed">${notIndexedText}</p></div></div>
         <div id="teamLineupCharacter6"><div id="teamPos6"><p class="notIndexed">${notIndexedText}</p></div></div>
     </div>
-    <div id="backToLobbyButton" onclick="navigateToLobby()">
+    <div id="backToLobbyButton" onclick="back.play(), navigateToLobby()">
         <p>Back to Lobby</p>
     </div>
-    <div onclick="navigateToLobby()" id="confirmTeamLineupButton">
+    <div onclick="clicking.play(), navigateToLobby()" id="confirmTeamLineupButton">
         <p>Confirm Team Lineup</p>
     </div>
     `
@@ -489,11 +517,11 @@ function navigateToCharacters(){
         <div id="characterSlideshow"><div id="CharactersNameBox"><p>${Character1Name}</p></div></div>
     </div>
     <div id="switchButtonContainer">
-        <div id="left" onclick="toleft()"><img src="img/nav-arrow.png" alt="navLeftArrow"></div>
-        <div id="right" onclick="toright()"><img src="img/nav-arrow.png" alt="navRightArrow"></div>
+        <div id="left" onclick="toleft(),switching.play()"><img src="img/nav-arrow.png" alt="navLeftArrow"></div>
+        <div id="right" onclick="toright(),switching.play()"><img src="img/nav-arrow.png" alt="navRightArrow"></div>
     </div>
 
-    <div id="backToLobbyButton" onclick="navigateToLobby()">
+    <div id="backToLobbyButton" onclick="back.play(), navigateToLobby()">
         <p>Back to Lobby</p>
     </div>
     `
@@ -645,8 +673,8 @@ function toright(){
 
 function navigateToPreBattleChoice(){ 
 
-
-
+    confirmPlanet.play();
+    battleCards.play();
 
     overlay.innerHTML = `<div id="preBattleChoiceScreen">
     </div>
@@ -708,7 +736,7 @@ function navigateToPreBattleChoice(){
         vowBox.classList.add("vowBoxAnimation")
         preBattleCard.classList.add("preBattleCardAnimation")
         backToLobbyButton.style.display = "none";
-    }, 100)
+    }, 3300)
 
    
 }
@@ -719,16 +747,18 @@ function selectOption(option, optionNumber){
 
 
     if(optionNumber == 0){
+        clicking.play();
         optionBox[optionNumber].style.border ="2px solid #ffc870"
-        confirm[optionNumber].innerHTML = `<div onclick="navigateToBattle()">Confirm</div>`
+        confirm[optionNumber].innerHTML = `<div onclick="navigateToBattle(),confirmPlanet.play()">Confirm</div>`
 
         optionBox[1].style.border ="none"
         confirm[1].style.display = "none"
         confirm[1].innerHTML = ""
 
     }else if(optionNumber == 1){
+        clicking.play();
         optionBox[optionNumber].style.border ="2px solid #ffc870"
-        confirm[optionNumber].innerHTML =  `<div onclick="navigateToBattle()">Confirm</div>`
+        confirm[optionNumber].innerHTML =  `<div onclick="navigateToBattle(),confirmPlanet.play()">Confirm</div>`
 
         optionBox[0].style.border ="none"
         confirm[0].style.display = "none"
@@ -832,7 +862,7 @@ function navigateToPreBattleChoiceTutorial(){
             option1.innerHTML = `
             <h1><img class="choiceIcon" src="./img/Icon_Choice.png"> ${options[randomNumber].title}</h1>
             <p>${options[randomNumber].description}</p>
-            <div onclick="navigateToTutorial()" class="confirmOptionBattleCards"></div>
+            <div onclick="navigateToTutorial(),confirmPlanet.play()" class="confirmOptionBattleCards"></div>
             `
             option2.innerHTML = `
             <h1><img class="choiceIcon" src="./img/Icon_Choice.png"> ${options[randomNumber2].title}</h1>
@@ -1664,7 +1694,9 @@ function navigateToPracticeRange() {
             </div>
         </div>
         </div>
-        <div id="backToLobbyButton" onclick="navigateToLobby()">Back To Lobby</div>
+       <div id="backToLobbyButton" onclick="back.play(), navigateToLobby()">
+        <p>Back to Lobby</p>
+        </div>
     </div>
     `
 
@@ -1765,9 +1797,14 @@ function attackBoxBasic(switchNumber) {
 
 }
 
+
+skillEffect = characters[0].skillEffect
+skillEffect2 = characters[1].skillEffect
 function attackBoxSkill(switchNumber) {
     let temp = ""
+    let temp2 = ""
     if(switchNumber == 1){
+
        temp = skillAttackChar1
        skillAttackChar1 = skillAttackChar2
        skillAttackChar2 = temp
@@ -1778,6 +1815,21 @@ function attackBoxSkill(switchNumber) {
     `
     
     
+}
+
+function skillEffectVisual(switchNumber){
+    let temp = ""
+    if(switchNumber == 1){
+        if(pos1Sprite == characters[0].posSprite ){
+            aemeathSkill.play()
+     
+        }else if (pos1Sprite == characters[1].posSprite){
+            castoriceSkill.play()
+        }
+        temp = skillEffect
+        skillEffect = skillEffect2
+        skillEffect2 = temp
+        }
 }
 
 function attackSkill(switchNumber){
@@ -2019,8 +2071,16 @@ if (enemyAttack == 0){ enemyAttack = 1 }
 let enemyHpGain = Math.floor(Math.random()*3)
 let chanceToHeal = Math.random()
 
-let chooseWhoToAttack = Math.floor(Math.random() * 2)+1
-console.log(chooseWhoToAttack)
+let target
+if(characters[0].hp > 0 && characters[1].hp > 0){
+    target = Math.floor(Math.random() * 2)
+}else if(characters[0].hp > 0){
+    target = 0
+}else{
+    target = 1
+}
+
+console.log(target)
     if(attackNumber == 1){
         if(ultchargeC1 < 100){ ultchargeC1 += 15 }else{ ultchargeC1 = 100 }
         enemys[0].hp -= characters[0].attack1
@@ -2050,20 +2110,21 @@ console.log(chooseWhoToAttack)
             ultimateSkill.style.opacity = 1
             ultimateSkill.classList.add("ulitmateGLow")
         }
+    
         setTimeout(() => {
-            if(chooseWhoToAttack == 1){
-                characters[0].hp -= enemyAttack
-                document.getElementById("playerIcon").classList.add("takingHp")
-            }else{
-                characters[1].hp -= enemyAttack
-                document.getElementById("nextCharIcon").classList.add("takingHp")
-            }
-            document.getElementById("enemySprite").classList.add("attackEnemy")
+          if(target == 0){
+            characters[0].hp -= enemyAttack
+            document.getElementById("playerIcon").classList.add("takingHp")
+        }else{
+            characters[1].hp -= enemyAttack
+            document.getElementById("nextCharIcon").classList.add("takingHp")
+        }
+        document.getElementById("enemySprite").classList.add("attackEnemy")
 
         }, 2500);
         fillEnemyHpBar()
         document.getElementById("playerSprite").classList.add("attack")
-
+         basicEffect.play()
         setTimeout(() => {
             document.getElementById("characterSprites").innerHTML =`          
                 ${characterSprite(1)}
@@ -2107,8 +2168,9 @@ console.log(chooseWhoToAttack)
         let attackEffect = document.getElementById("attackEffect")
         attackEffect.innerHTML += `${attackSkill(1)}`
         document.getElementById("attackEffectSprite").classList.add("attackPos1")
+        skillEffectVisual(1)
         setTimeout(() => {
-            if(chooseWhoToAttack == 0){
+            if(target == 0){
                 characters[0].hp -= enemyAttack
                 document.getElementById("playerIcon").classList.add("takingHp")
             }else{
@@ -2158,7 +2220,7 @@ console.log(chooseWhoToAttack)
         attackEffect.innerHTML += `<img id="attackEffectSprite" src="${characters[0].ultimateSkill}.png">`
         document.getElementById("attackEffectSprite").classList.add("ultimateAttack")
         setTimeout(() => {
-            if(chooseWhoToAttack == 0){
+            if(target == 0){
                 characters[0].hp -= enemyAttack
                 document.getElementById("playerIcon").classList.add("takingHp")
             }else{
@@ -2312,11 +2374,10 @@ function checkIfDefeatedOrWin(){
         clearInterval(ultInterval)
     }
     if(enemys[0].hp <= 0){
-        navigateResult(2);
+        victoryAnimation()
         clearInterval(ultInterval)
     }
 }
-
 function navigateResult(number){
     clearInterval(interval)
     characters[0].hp  = 5
@@ -2333,7 +2394,7 @@ function navigateResult(number){
                 <img id="navArrowToPractice" src="./img/nav-arrow.png">
             </div>
             <div id="resartOrNotBox"> 
-                <div id="backToLobbyButtonResult" onclick="navigateToLobby()">
+                <div id="backToLobbyButtonResult" onclick="back.play(), navigateToLobby()">
                         <p>Back to Lobby</p>
                 </div>
                 <div id="restartBox" onclick="resetGame(2); navigateToBattle();">
@@ -2362,7 +2423,7 @@ function navigateResult(number){
                 <div id="rewards"><p class="rewardAmount">30x</p><img id="reward1" src="./img/Item_Wishing_Style_1.png"><p class="rewardAmount">3x</p><img id="reward2" src="./img/Item_Token_For_Practice Range.png"><p class="rewardAmount">+1</p> <img id="reward3" src="./img/Item_EXP.png"></div>
                   
             </div> 
-                <div id="backToLobbyButtonResultWin" onclick="navigateToLobby(); resetGame(2)">
+                <div id="backToLobbyButtonResultWin" onclick="navigateToLobby(); resetGame(2); back.play()">
                         <p>Back to Lobby</p>
                 </div>   
             </div>
