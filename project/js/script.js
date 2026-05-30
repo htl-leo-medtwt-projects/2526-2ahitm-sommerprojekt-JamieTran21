@@ -54,7 +54,7 @@ if (localStorage.getItem("quickFarm") == null) {
 if (localStorage.getItem("teamLevel") == null) {
     localStorage.setItem("teamLevel", TeamLevelNumber);
 }
-
+localStorage.setItem("tutorialCompleted", false)
 wishes = parseInt(localStorage.getItem("wishes"));
 quickFarm = parseInt(localStorage.getItem("quickFarm"));
 TeamLevelNumber = parseInt(localStorage.getItem("teamLevel"));
@@ -196,8 +196,9 @@ let preBattleCards = [
 
 
 function navigateToLobby(){
-
-    overlay.innerHTML = `
+    
+overlay.innerHTML = `
+    ${localStorage.getItem("tutorialCompleted") === "true" ? "" : `
     <div id="popUpScreen">
         <div id="tutorialQuestionBox">
             <h1>Would you like to play the Tutorial?</h1>
@@ -207,6 +208,7 @@ function navigateToLobby(){
             </div>
         </div>
     </div>
+    `}
         <div id="navbar">
             <img onclick="navigateToWish()" id="wishingIcon" src="./img/Icon_Wishing.png" alt="Wish">
             <img onclick="navigateToTeamLineup()" id="teamLineupIcon" src="./img/Icon_TeamLineup.png" alt="Team Lineup">
@@ -221,18 +223,12 @@ function navigateToLobby(){
         <div id="CharactersLineup">
             <div id="Character1"><div id="Character1NameBox"><p>${Character1Name}</p></div></div>
             <div id="Character2"><div id="Character2NameBox"><p>${Character2Name}</p></div></div>
-            <div id="Character3"><div id="Character3NameBox"><p>${Character3Name}</p></div></div>
         </div>
         <div id="TeamLevel">
             <p>Team Level</p>
             <p id="TeamLevelNumber">${TeamLevelNumber}</p>
-
         </div>
-        
-  
-    
-    
-   ` 
+`
  
     overlay.style.backgroundImage = "url('./img/lobbyScreen.png')"
 

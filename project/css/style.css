@@ -54,8 +54,8 @@ body{
     width: 20vw;
     margin-left: auto ;
     margin-right: auto;
-    left: 1vw;
-    bottom: 1vw;
+    left: 50vw;
+    bottom: 25vw;
     font-size: 1.5rem;
     padding: 1%;
     text-align: center;
@@ -138,11 +138,11 @@ body{
     position: relative;
     background-color: rgba(12, 24, 62, 0.3);
     backdrop-filter: blur(5px);
-    width: 50vw;
+    width: 40vw;
     display: flex;
     border-radius: 3%;
-    gap: 5%;
-    left: 32vw;
+    gap: 20%;
+    left: 35vw;
     bottom: 12.5vw;
     transform: scale(1.3);
 
@@ -679,7 +679,7 @@ body{
 
 #confirmTeamLineupButton{
     position: absolute;
-    bottom: 5vw;
+    bottom: 1vw;
     right: 1vw;
     background-color: #37474d;
     color: white;
@@ -1681,6 +1681,7 @@ body{
 #rewardBox h1{
     position: relative;
     bottom: 1vw;
+    color: white;
 }
 
 #rewardBox #rewards{
