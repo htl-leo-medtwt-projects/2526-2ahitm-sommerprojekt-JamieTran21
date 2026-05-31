@@ -112,6 +112,10 @@ let enemy = {
     attack: 1
 }
 
+let attack1 = 1;
+let attack2 = 2;
+let attack3 = 3;
+
 let planets = [
     {
         id: 1,
@@ -149,9 +153,6 @@ let characters = [
         ultimateSkill: "./img/Aemeath_Ultimate.png",
         skillEffect: `${aemeathSkill}`,
         hp: 5,
-        attack1: 1,
-        attack2: 2,
-        attack3: 3
     },
     {
         name: `${Character2Name}`,
@@ -832,6 +833,12 @@ function selectOption(option, optionNumber){
    
 }
 
+function getCharHpIconSize(hp){
+    if(hp >= 8) return "5vh"
+    if(hp >= 6) return "6vh"
+    return "8vh"
+}
+
 
 function removePopUp(){
     let popUpScreen = document.getElementById("popUpScreen");
@@ -1496,7 +1503,7 @@ function navigateToDamageTutorial(attackNumber){
     if(attackNumber == 1){
         skillPoints--
         ultchargeC1Tut+= 65 
-        enemy.hp -= characters[0].attack2
+        enemy.hp -= attack2
          overlay.innerHTML = `
     <div id="tutorialContent">  
         <div id="turnBoxTutorial">
@@ -1555,7 +1562,7 @@ function navigateToDamageTutorial(attackNumber){
     }else if(attackNumber == 0){
         skillPoints++
         ultchargeC1Tut+= 15
-        enemy.hp -= characters[0].attack1
+        enemy.hp -= attack1
          overlay.innerHTML = `
     <div id="tutorialContent">  
         <div id="turnBoxTutorial">
@@ -1620,7 +1627,7 @@ function navigateToDamageTutorial(attackNumber){
         leadingArrow.style.left = "25vw"
     }
     if(attackNumber == 2){
-                enemy.hp -= characters[0].attack3
+                enemy.hp -= attack3
 
                 overlay.innerHTML = `
     <div id="tutorialContent">  
@@ -2068,8 +2075,9 @@ function fightVisual(attackNumber){
         enemyHpBar.innerHTML += `<div class="hpPointEnemy"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
     }
     for(let i = 0; i < characters[0].hp; i++){
+        let iconSize = getCharHpIconSize(characters[0].hp)
         let playerHpBar = document.getElementById("playerHpBar");
-        playerHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
+        playerHpBar.innerHTML += `<div class="hpPoint"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
     }
     for(let i = 0; i < characters[1].hp; i++){
         let char2HpBar = document.getElementById("char2HpBar");
@@ -2143,7 +2151,7 @@ if(characters[0].hp > 0 && characters[1].hp > 0){
 console.log(target)
     if(attackNumber == 1){
         if(ultchargeC1 < 100){ ultchargeC1 += 15 }else{ ultchargeC1 = 100 }
-        enemy.hp -= characters[0].attack1
+        enemy.hp -= attack1
         if(skillPoints < 5){ skillPoints++ }
         overlay.innerHTML = `
         <div id="gameScreen">  
@@ -2196,7 +2204,7 @@ console.log(target)
 
     }else if(attackNumber == 2){
         if(ultchargeC1 < 100){ ultchargeC1 += 35 }else{ ultchargeC1 = 100 }
-        enemy.hp -= characters[0].attack2
+        enemy.hp -= attack2
         if(skillPoints > 0){ skillPoints-- }
         overlay.innerHTML = `
         <div id="gameScreen">  
@@ -2252,7 +2260,7 @@ console.log(target)
         }, 2800);
 
     }else if(attackNumber == 3){
-        enemy.hp -= characters[0].attack3
+        enemy.hp -= attack3
         ultchargeC1 = 0
         ultInterval = setInterval(() => { checkIfUlt() }, 1000);
         overlay.innerHTML = `
@@ -2313,12 +2321,14 @@ console.log(target)
         skillPointsCharged[i].style.filter = "grayscale(0%)"
     }
     for(let i = 0; i < characters[0].hp; i++){
+        let iconSize = getCharHpIconSize(characters[0].hp)
         let playerHpBar = document.getElementById("playerHpBar");
-        playerHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
+        playerHpBar.innerHTML += `<div class="hpPoint"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
     }
     for(let i = 0; i < characters[1].hp; i++){
+        let iconSize = getCharHpIconSize(characters[1].hp)
         let char2HpBar = document.getElementById("char2HpBar");
-        char2HpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
+        char2HpBar.innerHTML += `<div class="hpPoint"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
     }
 
     if(chanceToHeal < 0.3){
@@ -2376,12 +2386,14 @@ function navigateToBattle() {
         enemyHpBar.innerHTML += `<div class="hpPointEnemy"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
     }
     for(let i = 0; i < characters[0].hp; i++){
+        let iconSize = getCharHpIconSize(characters[0].hp)
         let playerHpBar = document.getElementById("playerHpBar");
-        playerHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
+        playerHpBar.innerHTML += `<div class="hpPoint"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
     }
     for(let i = 0; i < characters[1].hp; i++){
+        let iconSize = getCharHpIconSize(characters[1].hp)
         let char2HpBar = document.getElementById("char2HpBar");
-        char2HpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
+        char2HpBar.innerHTML += `<div class="hpPoint"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
     }
     let playerTurn = document.getElementById("playerTurn");
     let enemyTurn = document.getElementById("enemyTurn");
