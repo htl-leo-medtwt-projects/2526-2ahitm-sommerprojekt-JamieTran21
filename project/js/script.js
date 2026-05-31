@@ -64,6 +64,13 @@ let battleOver = new Audio("./sfx/battleOver.mp3");
 let aemeathSkill = new Audio("./sfx/AemeathSkill.mp3");
 let castoriceSkill = new Audio("./sfx/CastoriceSkill.mp3")
 
+let lobbytheme = new Audio("./audio/lobbyTheme.mp3");
+
+
+let attack1 = 1;
+let attack2 = 2;
+let attack3 = 3;
+
 if (localStorage.getItem("ownedCharacters") == null) {
     localStorage.setItem("ownedCharacters", JSON.stringify(startCharacters));
 }
@@ -95,9 +102,12 @@ if(!localStorage.getItem("planet3")){
    localStorage.setItem("planet3", false) 
 }
 
+
+fighstsRemaining = parseInt(localStorage.getItem("fightsRemaining"));
 wishes = parseInt(localStorage.getItem("wishes"));
 quickFarm = parseInt(localStorage.getItem("quickFarm"));
 TeamLevelNumber = parseInt(localStorage.getItem("teamLevel"));
+
 
 
 let goToNextStep = false
@@ -112,28 +122,29 @@ let enemy = {
     attack: 1
 }
 
-let attack1 = 1;
-let attack2 = 2;
-let attack3 = 3;
+
 
 let planets = [
     {
         id: 1,
         enemy: { name: 'Stormbringer', hp: 6, attack: 1 },
         enemySprite: "./img/Enemy_Stormbringer.png",
-        battleBackground: "./img/lobbyScreen.png"
+        battleBackground: "./img/lobbyScreen.png",
+        battleTheme: "./audio/StormBattleTheme.mp3"
     },
     {
         id: 2,
         enemy: { name: 'Squadron', hp: 8, attack: 2 },
         enemySprite: "./img/Enemy_Squadron.png",
-        battleBackground: "./img/background_jarilo.png"
+        battleBackground: "./img/background_jarilo.png",
+        battleTheme: "./audio/SquadronBattleTheme.mp3"
     },
     {
         id: 3,
         enemy: { name: 'First Genius, Entelechy, Zandar', hp: 10, attack: 3 },
         enemySprite: "./img/Enemy_Lygus.png",
-        battleBackground: "./img/background_penacony.png"
+        battleBackground: "./img/background_penacony.png",
+        battleTheme: "./audio/LygusBattleTheme.mp3"
     }
 ]
 
@@ -257,7 +268,9 @@ let preBattleCards = [
 
 
 function navigateToLobby(){
-    
+    lobbytheme.play();
+    lobbytheme.loop = true;
+    lobbytheme.volume = 0.3;
 overlay.innerHTML = `
     ${localStorage.getItem("tutorialCompleted") === "true" ? "" : `
     <div id="popUpScreen">
@@ -1801,7 +1814,7 @@ function getCharacterBox() {
 }
 
 function fillEnemyHpBar(){
-    // Größe je nach HP anpassen
+
     let iconSize = "8vh"
     if(enemy.hp >= 8) iconSize = "6vh"
     if(enemy.hp >= 10) iconSize = "5vh"
@@ -2067,8 +2080,6 @@ function fightVisual(attackNumber){
             skillPointsCharged[skillPoints].style.filter = "grayscale(0%)"
         }
     }
-
-    // In navigateToBattle und fightVisual — diese Zeilen ersetzen:
     for(let i = 0; i < enemy.hp; i++){
         let iconSize = enemy.hp >= 10 ? "5vh" : enemy.hp >= 8 ? "6vh" : "8vh"
         let enemyHpBar = document.getElementById("enemyHpBar");
@@ -2080,13 +2091,14 @@ function fightVisual(attackNumber){
         playerHpBar.innerHTML += `<div class="hpPoint"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
     }
     for(let i = 0; i < characters[1].hp; i++){
+        let iconSize = getCharHpIconSize(characters[1].hp)
         let char2HpBar = document.getElementById("char2HpBar");
-        char2HpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
+        char2HpBar.innerHTML += `<div class="hpPoint"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
     }
 
     let enemyHpBar = document.getElementsByClassName("hpPointEnemy");
     if(attackNumber == 2){
-        for (let i = 0; i < characters[0].attack2; i++) {
+        for (let i = 0; i < attack2; i++) {
             let index = enemyHpBar.length - 1 - i;
             if (enemyHpBar[index]) {
                 enemyHpBar[index].innerHTML = `<img id="losingHp" src="./img/Icon_Hp_losing.png">`;
@@ -2095,7 +2107,7 @@ function fightVisual(attackNumber){
         }
         document.getElementById("attack2").style.transform = "scale(1.3)"
     }else if(attackNumber == 1){
-        for (let i = 0; i < characters[0].attack1; i++) {
+        for (let i = 0; i < attack1; i++) {
             let index = enemyHpBar.length - 1 - i;
             if (enemyHpBar[index]) {
                 enemyHpBar[index].innerHTML = `<img id="losingHp" src="./img/Icon_Hp_losing.png">`;
@@ -2104,7 +2116,7 @@ function fightVisual(attackNumber){
         }
         document.getElementById("attack1").style.transform = "scale(1.3)"
     }else if(attackNumber == 3){
-        for (let i = 0; i < characters[0].attack3; i++) {
+        for (let i = 0; i < attack3; i++) {
             let index = enemyHpBar.length - 1 - i;
             if (enemyHpBar[index]) {
                 enemyHpBar[index].innerHTML = `<img id="losingHp" src="./img/Icon_Hp_losing.png">`;
@@ -2340,7 +2352,20 @@ console.log(target)
 }
 
 function navigateToBattle() {
-    
+    let battleMusic = new Audio(`${planets[currentPlanet - 1].battleTheme}`)
+    lobbytheme.pause()
+    battleMusic.play()
+    battleMusic.loop = true
+    battleMusic.volume = 0.025
+    attack1 = 1
+    attack2 = 2
+    attack3 = 4
+
+    for(let i = 3; i < TeamLevelNumber; i++){
+        attack1 ++
+        attack2 ++
+        attack3 ++
+    }
     overlay.style.backgroundImage = `url('${planets[currentPlanet - 1].battleBackground}')`
     if (defeatCheckInterval !== null) {
         clearInterval(defeatCheckInterval);
@@ -2379,7 +2404,6 @@ function navigateToBattle() {
         skillPointsCharged[i].innerHTML = `<img src="./img/SkillPoint_charged.png">`
         skillPointsCharged[i].style.filter = "grayscale(0%)"
     }
-   // In navigateToBattle und fightVisual — diese Zeilen ersetzen:
     for(let i = 0; i < enemy.hp; i++){
         let iconSize = enemy.hp >= 10 ? "5vh" : enemy.hp >= 8 ? "6vh" : "8vh"
         let enemyHpBar = document.getElementById("enemyHpBar");

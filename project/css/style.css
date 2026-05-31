@@ -1393,6 +1393,8 @@ body{
 }
 
 #playerHpBar {
+    position: relative;
+    left: -2vw;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -1401,15 +1403,18 @@ body{
     border-radius: 4px;
     padding: 2px 3px;
     width: 100%;
-    position: static;
     height: auto;
-    top: auto;
+    top: -1vw;
+    transform: scale(0.6);
 }
 #playerHpBar .hpPoint img {
     height: 3vh;
 }
 
 #char2HpBar {
+    position: relative;
+    left: -3vw;
+    top: -1vw;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -1418,6 +1423,7 @@ body{
     border-radius: 4px;
     padding: 2px 3px;
     width: 100%;
+    transform: scale(0.6);
 }
 
 #char2HpBar .hpPoint img {
