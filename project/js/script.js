@@ -19,6 +19,9 @@ let teamPos2 = 2;
 let teamPos3 = 3;
 let notIndexedText = "Not Indexed";
 
+let defeatCheckInterval = null
+let ultInterval = null
+
 
 let currentIndex = 0;
 
@@ -80,6 +83,18 @@ if(!localStorage.getItem("tutorialCompleted")){
    localStorage.setItem("tutorialCompleted", false) 
 }
 
+if(localStorage.getItem("fightsRemaining") == null){
+   localStorage.setItem("fightsRemaining", fightsRemaining) 
+}
+
+if(!localStorage.getItem("planet2")){
+   localStorage.setItem("planet2", false) 
+}
+
+if(!localStorage.getItem("planet3")){
+   localStorage.setItem("planet3", false) 
+}
+
 wishes = parseInt(localStorage.getItem("wishes"));
 quickFarm = parseInt(localStorage.getItem("quickFarm"));
 TeamLevelNumber = parseInt(localStorage.getItem("teamLevel"));
@@ -89,15 +104,33 @@ let goToNextStep = false
 
 let understand = false
 
-let enemys = [
+let currentPlanet = 1
+
+let enemy = {
+    name: 'Stormbringer',
+    hp: 6,
+    attack: 1
+}
+
+let planets = [
     {
-        name: 'Stormbringer',
-        hp: 6,
-        attack:1
+        id: 1,
+        enemy: { name: 'Stormbringer', hp: 6, attack: 1 },
+        enemySprite: "./img/Enemy_Stormbringer.png",
+        battleBackground: "./img/lobbyScreen.png"
+    },
+    {
+        id: 2,
+        enemy: { name: 'Squadron', hp: 8, attack: 2 },
+        enemySprite: "./img/Enemy_Squadron.png",
+        battleBackground: "./img/background_jarilo.png"
+    },
+    {
+        id: 3,
+        enemy: { name: 'First Genius, Entelechy, Zandar', hp: 10, attack: 3 },
+        enemySprite: "./img/Enemy_Lygus.png",
+        battleBackground: "./img/background_penacony.png"
     }
-
-
-
 ]
 
 let characters = [
@@ -450,8 +483,8 @@ function navigateToPlanets(){
         </div>
 
         <div class="swiper-pagination"></div>
-        <div onclick="switching.play()" class="swiper-button-prev"></div>
-        <div onclick="switching.play()" class="swiper-button-next"></div>
+        <div onclick="switching.play(), switchingPlanet(1)" class="swiper-button-prev"></div>
+        <div onclick="switching.play(), switchingPlanet(2)" class="swiper-button-next"></div>
     </div>
 
     <div id="backToLobbyButton" onclick="back.play(), navigateToLobby()">
@@ -480,6 +513,22 @@ function navigateToPlanets(){
      // <div id="planet3"></div>
         // <div id="planet4"></div>
         // <div id="planet5"></div>
+function switchingPlanet(direction){
+    if(direction == 2){
+        currentPlanet++
+        if(currentPlanet > planets.length) currentPlanet = 1
+    }else if(direction == 1){
+        currentPlanet--
+        if(currentPlanet < 1) currentPlanet = planets.length
+    }
+
+    enemy.name = planets[currentPlanet - 1].enemy.name
+    enemy.hp = planets[currentPlanet - 1].enemy.hp
+    enemy.attack = planets[currentPlanet - 1].enemy.attack
+
+    console.log("Planet: " + currentPlanet + " | Gegner: " + enemy.name)
+}
+
 function navigateToTeamLineup(){
     overlay.innerHTML = `<div id="teamLineupScreen">
     </div>
@@ -983,7 +1032,7 @@ function navigateToTutorial() {
             skillPointsCharged[i].style.filter = "grayscale(0%)"
             
         }
-    for(let i = 0; i < enemys[0].hp;i++){
+    for(let i = 0; i < enemy.hp;i++){
         let enemyHpBar = document.getElementById("enemyHpBar");
         enemyHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
     }
@@ -1103,7 +1152,7 @@ function navigateToTutorialAttacks(){
             skillPointsCharged[i].style.filter = "grayscale(0%)"
             
         }
-    for(let i = 0; i < enemys[0].hp;i++){
+    for(let i = 0; i < enemy.hp;i++){
         let enemyHpBar = document.getElementById("enemyHpBar");
         enemyHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
     }
@@ -1381,8 +1430,8 @@ function navigateToSkillPointsTutorial(attackNumber){
 
             
         }
-    console.log(enemys[0].hp)
-    for(let i = 0; i < enemys[0].hp;i++){
+    console.log(enemy.hp)
+    for(let i = 0; i < enemy.hp;i++){
         let enemyHpBar = document.getElementById("enemyHpBar");
         enemyHpBar.innerHTML += `<div class="hpPointEnemy"><img src="./img/Icon_Hp.png"></div>`
     }
@@ -1447,7 +1496,7 @@ function navigateToDamageTutorial(attackNumber){
     if(attackNumber == 1){
         skillPoints--
         ultchargeC1Tut+= 65 
-        enemys[0].hp -= characters[0].attack2
+        enemy.hp -= characters[0].attack2
          overlay.innerHTML = `
     <div id="tutorialContent">  
         <div id="turnBoxTutorial">
@@ -1506,7 +1555,7 @@ function navigateToDamageTutorial(attackNumber){
     }else if(attackNumber == 0){
         skillPoints++
         ultchargeC1Tut+= 15
-        enemys[0].hp -= characters[0].attack1
+        enemy.hp -= characters[0].attack1
          overlay.innerHTML = `
     <div id="tutorialContent">  
         <div id="turnBoxTutorial">
@@ -1571,7 +1620,7 @@ function navigateToDamageTutorial(attackNumber){
         leadingArrow.style.left = "25vw"
     }
     if(attackNumber == 2){
-                enemys[0].hp -= characters[0].attack3
+                enemy.hp -= characters[0].attack3
 
                 overlay.innerHTML = `
     <div id="tutorialContent">  
@@ -1631,7 +1680,7 @@ function navigateToDamageTutorial(attackNumber){
     tutorialTextBox.style.display = "none"
     }
 
-    characters[0].hp -= (dotDamage+ enemys[0].attack);
+    characters[0].hp -= (dotDamage + enemy.attack);
    
 
     for(let i = 0; i < 5;i++){
@@ -1645,7 +1694,7 @@ function navigateToDamageTutorial(attackNumber){
             skillPointsCharged[i].innerHTML = `<img src="./img/SkillPoint_charged.png">`
             skillPointsCharged[i].style.filter = "grayscale(0%)" 
     }
-    for(let i = 0; i < enemys[0].hp;i++){
+    for(let i = 0; i < enemy.hp;i++){
         let enemyHpBar = document.getElementById("enemyHpBar");
         enemyHpBar.innerHTML += `<div class="hpPointEnemy"><img src="./img/Icon_Hp.png"></div>`
     }
@@ -1745,9 +1794,14 @@ function getCharacterBox() {
 }
 
 function fillEnemyHpBar(){
-    for(let i = 0; i < enemys[0].hp; i++){
+    // Größe je nach HP anpassen
+    let iconSize = "8vh"
+    if(enemy.hp >= 8) iconSize = "6vh"
+    if(enemy.hp >= 10) iconSize = "5vh"
+
+    for(let i = 0; i < enemy.hp; i++){
         let enemyHpBar = document.getElementById("enemyHpBar");
-        enemyHpBar.innerHTML += `<div class="hpPointEnemy"><img src="./img/Icon_Hp.png"></div>`
+        enemyHpBar.innerHTML += `<div class="hpPointEnemy"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
     }
 }
 
@@ -1846,6 +1900,9 @@ function attackSkill(switchNumber){
 }
 
 function fightVisual(attackNumber){
+    overlay.style.backgroundImage = `url('${planets[currentPlanet - 1].battleBackground}')`
+
+
     if(attackNumber == -1){
         overlay.innerHTML = `
         <div id="gameScreen">  
@@ -1859,7 +1916,7 @@ function fightVisual(attackNumber){
                 <div id="characterSprites">
                    ${characterSprite(0)}
                     <div id="enemyHpBar"></div>
-                    <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
+                    <img id="enemySprite" src="${planets[currentPlanet - 1].enemySprite}">
                 </div>
                 <div id="skillPointBox">
                     <div id="skillPointBar"><p id="skillPointText">${skillPoints}</p></div>
@@ -1887,7 +1944,7 @@ function fightVisual(attackNumber){
                 <div id="characterSprites">
                     ${characterSprite(0)}
                     <div id="enemyHpBar"></div>
-                    <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
+                    <img id="enemySprite" src="${planets[currentPlanet - 1].enemySprite}">
                 </div>
                 <div id="skillPointBox">
                     <div id="skillPointBar"><p id="skillPointText">${skillPoints}</p></div>
@@ -1914,7 +1971,7 @@ function fightVisual(attackNumber){
                     <div id="characterSprites">
                        ${characterSprite(0)}
                         <div id="enemyHpBar"></div>
-                        <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
+                        <img id="enemySprite" src="${planets[currentPlanet - 1].enemySprite}">
                     </div>
                     <div id="skillPointBox">
                         <div id="skillPointBar"><p id="skillPointText">${skillPoints}</p></div>
@@ -1940,7 +1997,7 @@ function fightVisual(attackNumber){
                     <div id="characterSprites">
                       ${characterSprite(0)}
                         <div id="enemyHpBar"></div>
-                        <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
+                      <img id="enemySprite" src="${planets[currentPlanet - 1].enemySprite}">
                     </div>
                     <div id="skillPointBox">
                         <div id="skillPointBar"><p id="skillPointText">${skillPoints}</p></div>
@@ -1967,7 +2024,7 @@ function fightVisual(attackNumber){
                 <div id="characterSprites">
                      ${characterSprite(0)}
                     <div id="enemyHpBar"></div>
-                    <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
+                    <img id="enemySprite" src="${planets[currentPlanet - 1].enemySprite}">
                 </div>
                 <div id="skillPointBox">
                     <div id="skillPointBar"><p id="skillPointText">${skillPoints}</p></div>
@@ -2004,9 +2061,11 @@ function fightVisual(attackNumber){
         }
     }
 
-    for(let i = 0; i < enemys[0].hp; i++){
+    // In navigateToBattle und fightVisual — diese Zeilen ersetzen:
+    for(let i = 0; i < enemy.hp; i++){
+        let iconSize = enemy.hp >= 10 ? "5vh" : enemy.hp >= 8 ? "6vh" : "8vh"
         let enemyHpBar = document.getElementById("enemyHpBar");
-        enemyHpBar.innerHTML += `<div class="hpPointEnemy"><img src="./img/Icon_Hp.png"></div>`
+        enemyHpBar.innerHTML += `<div class="hpPointEnemy"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
     }
     for(let i = 0; i < characters[0].hp; i++){
         let playerHpBar = document.getElementById("playerHpBar");
@@ -2066,8 +2125,9 @@ function fightVisual(attackNumber){
 
 
 function damageCalculation(attackNumber){
-let enemyAttack = Math.floor(Math.random()*3)
-if (enemyAttack == 0){ enemyAttack = 1 }
+    
+overlay.style.backgroundImage = `url('${planets[currentPlanet - 1].battleBackground}')`
+let enemyAttack = Math.floor(Math.random() * enemy.attack) + 1
 let enemyHpGain = Math.floor(Math.random()*3)
 let chanceToHeal = Math.random()
 
@@ -2083,7 +2143,7 @@ if(characters[0].hp > 0 && characters[1].hp > 0){
 console.log(target)
     if(attackNumber == 1){
         if(ultchargeC1 < 100){ ultchargeC1 += 15 }else{ ultchargeC1 = 100 }
-        enemys[0].hp -= characters[0].attack1
+        enemy.hp -= characters[0].attack1
         if(skillPoints < 5){ skillPoints++ }
         overlay.innerHTML = `
         <div id="gameScreen">  
@@ -2129,14 +2189,14 @@ console.log(target)
             document.getElementById("characterSprites").innerHTML =`          
                 ${characterSprite(1)}
                 <div id="enemyHpBar"></div>
-                <img id="enemySprite" src="./img/Enemy_Stormbringer.png"></img>
+                <img id="enemySprite" src="${planets[currentPlanet - 1].enemySprite}">
             `
             fillEnemyHpBar()
         }, 2800);
 
     }else if(attackNumber == 2){
         if(ultchargeC1 < 100){ ultchargeC1 += 35 }else{ ultchargeC1 = 100 }
-        enemys[0].hp -= characters[0].attack2
+        enemy.hp -= characters[0].attack2
         if(skillPoints > 0){ skillPoints-- }
         overlay.innerHTML = `
         <div id="gameScreen">  
@@ -2150,7 +2210,7 @@ console.log(target)
                 <div id="characterSprites">
                       ${characterSprite(0)}
                     <div id="enemyHpBar"></div>
-                    <img id="enemySprite" src="./img/Enemy_Stormbringer.png"></img>
+               <img id="enemySprite" src="${planets[currentPlanet - 1].enemySprite}">
                 </div>
                 <div id="skillPointBox">
                     <div id="skillPointBar"><p id="skillPointText">${skillPoints}</p></div>
@@ -2186,15 +2246,15 @@ console.log(target)
             document.getElementById("characterSprites").innerHTML =`          
                 ${characterSprite(1)}
                 <div id="enemyHpBar"></div>
-                <img id="enemySprite" src="./img/Enemy_Stormbringer.png"></img>
+                <img id="enemySprite" src="${planets[currentPlanet - 1].enemySprite}">
             `
             fillEnemyHpBar()
         }, 2800);
 
     }else if(attackNumber == 3){
-        enemys[0].hp -= characters[0].attack3
+        enemy.hp -= characters[0].attack3
         ultchargeC1 = 0
-        let ultInterval = setInterval(() => { checkIfUlt() }, 1000);
+        ultInterval = setInterval(() => { checkIfUlt() }, 1000);
         overlay.innerHTML = `
         <div id="gameScreen">  
             <div id="turnBox">
@@ -2207,7 +2267,7 @@ console.log(target)
                 <div id="characterSprites">
                         ${characterSprite(1)}
                     <div id="enemyHpBar"></div>
-                    <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
+                 <img id="enemySprite" src="${planets[currentPlanet - 1].enemySprite}">
                 </div>
                 <div id="skillPointBox">
                     <div id="skillPointBar"><p id="skillPointText">${skillPoints}</p></div>
@@ -2236,7 +2296,7 @@ console.log(target)
             document.getElementById("characterSprites").innerHTML =`          
                 ${characterSprite(1)}
                 <div id="enemyHpBar"></div>
-                <img id="enemySprite" src="./img/Enemy_Stormbringer.png"></img>
+                <img id="enemySprite" src="${planets[currentPlanet - 1].enemySprite}">
             `
             fillEnemyHpBar()
         }, 2800);
@@ -2262,7 +2322,7 @@ console.log(target)
     }
 
     if(chanceToHeal < 0.3){
-        if(enemys[0].hp < 6){ enemys[0].hp += enemyHpGain }
+        if(enemy.hp < planets[currentPlanet - 1].enemy.hp){ enemy.hp += enemyHpGain }
     }
 
          enemyTurn.classList.add("nextTurn");
@@ -2270,6 +2330,15 @@ console.log(target)
 }
 
 function navigateToBattle() {
+    
+    overlay.style.backgroundImage = `url('${planets[currentPlanet - 1].battleBackground}')`
+    if (defeatCheckInterval !== null) {
+        clearInterval(defeatCheckInterval);
+    }
+    defeatCheckInterval = setInterval(() => {
+        checkIfDefeatedOrWin()
+    }, 100)
+
     overlay.innerHTML = `
     <div id="gameScreen">  
         <div id="turnBox">
@@ -2282,7 +2351,7 @@ function navigateToBattle() {
             <div id="characterSprites">
                 <img id="playerSprite" src="./img/Aemeath_Sprite.png">
                 <div id="enemyHpBar"></div>
-                <img id="enemySprite" src="./img/Enemy_Stormbringer.png">
+            <img id="enemySprite" src="${planets[currentPlanet - 1].enemySprite}">
             </div>
             <div id="skillPointBox">
                 <div id="skillPointBar"><p id="skillPointText">${skillPoints}</p></div>
@@ -2300,9 +2369,11 @@ function navigateToBattle() {
         skillPointsCharged[i].innerHTML = `<img src="./img/SkillPoint_charged.png">`
         skillPointsCharged[i].style.filter = "grayscale(0%)"
     }
-    for(let i = 0; i < enemys[0].hp; i++){
+   // In navigateToBattle und fightVisual — diese Zeilen ersetzen:
+    for(let i = 0; i < enemy.hp; i++){
+        let iconSize = enemy.hp >= 10 ? "5vh" : enemy.hp >= 8 ? "6vh" : "8vh"
         let enemyHpBar = document.getElementById("enemyHpBar");
-        enemyHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
+        enemyHpBar.innerHTML += `<div class="hpPointEnemy"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
     }
     for(let i = 0; i < characters[0].hp; i++){
         let playerHpBar = document.getElementById("playerHpBar");
@@ -2348,15 +2419,6 @@ function nextTurnChar(switchNumber) {
 
 }
 
-let interval = 100
-// let ultInterval =
-// setInterval(() => {
-//     checkIfUlt()
-// }, 1000);
-
-setInterval(() => {
-    checkIfDefeatedOrWin()
-}, interval);
 
 
 
@@ -2370,19 +2432,79 @@ setInterval(() => {
 
 function checkIfDefeatedOrWin(){
     if(characters[0].hp <= 0 && characters[1].hp <= 0){
+        clearInterval(defeatCheckInterval)
         navigateResult(1);
         clearInterval(ultInterval)
     }
-    if(enemys[0].hp <= 0){
+    if(enemy.hp <= 0){
+        clearInterval(defeatCheckInterval)
         victoryAnimation()
         clearInterval(ultInterval)
     }
 }
+function victoryAnimation(){
+    battleOver.play()
+    let gameScreen = document.getElementById("gameScreen")
+    if(gameScreen){
+        gameScreen.style.pointerEvents = "none"
+    }
+
+        let victoryOverlay = document.createElement("div")
+    victoryOverlay.id = "victoryOverlay"
+    victoryOverlay.innerHTML = `
+        <div id="victoryText">Battle Over!</div>
+    `
+    victoryOverlay.style.cssText = `
+        position: absolute;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        background-color: rgba(207, 179, 129, 0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 99;
+        animation: victoryFadeIn 1.5s forwards ease-in;
+        pointer-events: none;
+    `
+    victoryOverlay.querySelector("#victoryText").style.cssText = `
+        font-family: amoria;
+        font-size: 8rem;
+        color: rgba(207, 179, 129);
+        text-transform: uppercase;
+        text-shadow: 4px 8px 12px rgba(207, 179, 129, 0.8);
+        opacity: 0;
+        animation: victoryTextPop 1.5s forwards ease-out;
+    `
+
+    let style = document.createElement("style")
+    style.innerHTML = `
+        @keyframes victoryFadeIn {
+            0%  { background-color: rgba(207, 179, 129, 0); }
+            100%{ background-color: rgba(207, 179, 129, 0.15); }
+        }
+        @keyframes victoryTextPop {
+            0%  { opacity: 0; transform: scale(0.5); }
+            60% { opacity: 1; transform: scale(1.2); }
+            100%{ opacity: 1; transform: scale(1); }
+        }
+    `
+    document.head.appendChild(style)
+    document.getElementById("overlay").appendChild(victoryOverlay)
+
+
+   
+    setTimeout(() => {
+        navigateResult(2)
+    }, 2000)
+}
+
 function navigateResult(number){
-    clearInterval(interval)
+    clearInterval(defeatCheckInterval)
+    defeatCheckInterval = null   
     characters[0].hp  = 5
     characters[1].hp  = 4
-    enemys[0].hp = 6
+    enemy.hp = planets[currentPlanet - 1].enemy.hp
+    enemy.attack = planets[currentPlanet - 1].enemy.attack
     if(number == 1){
     overlay.innerHTML = `
         <div id="resultScreenLose">  
@@ -2409,7 +2531,9 @@ function navigateResult(number){
         wishes = wishes + 30;
         quickFarm = quickFarm + 3;
         TeamLevelNumber = TeamLevelNumber + 1;
+        fightsRemaining--;
 
+        localStorage.setItem("fightsRemaining", fightsRemaining);
         localStorage.setItem("wishes", wishes);
         localStorage.setItem("quickFarm", quickFarm);
         localStorage.setItem("teamLevel", TeamLevelNumber);
