@@ -659,7 +659,7 @@ body{
     filter: grayscale(100%);
 }
 
-#teamPos1 , #teamPos2 , #teamPos3{
+#teamPos1 , #teamPos2{
     position: absolute;
     background-color: rgba(255, 255, 255);
     height: 10vh;
@@ -1703,6 +1703,7 @@ body{
     gap: 2vw;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 #currencyTaken img{

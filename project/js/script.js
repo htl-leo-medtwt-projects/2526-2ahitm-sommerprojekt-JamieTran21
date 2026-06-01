@@ -270,7 +270,7 @@ let preBattleCards = [
 function navigateToLobby(){
     lobbytheme.play();
     lobbytheme.loop = true;
-    lobbytheme.volume = 0.3;
+    lobbytheme.volume = 0.1;
 overlay.innerHTML = `
     ${localStorage.getItem("tutorialCompleted") === "true" ? "" : `
     <div id="popUpScreen">
@@ -339,10 +339,9 @@ function navigateToWish(){
                 </p>
             </div>
         </div>
-
         <div id="wishing"
-            onclick="${wishes >= 10 ? 'wishingAnimation()' : ''}"
-            style="cursor: ${wishes >= 10 ? 'pointer' : 'not-allowed'}; opacity: ${wishes >= 10 ? 1 : 0.5};"
+            onclick="${wishes >= 10 && !JSON.parse(localStorage.getItem('ownedCharacters')).includes(Character5Name) ? 'wishingAnimation()' : ''}"
+            style="cursor: ${wishes >= 10 && !JSON.parse(localStorage.getItem('ownedCharacters')).includes(Character5Name) ? 'pointer' : 'not-allowed'}; opacity: ${wishes >= 10 && !JSON.parse(localStorage.getItem('ownedCharacters')).includes(Character5Name) ? 1 : 0.5};"
         >
             <p>10x</p>
             <img src="./img/Item_Wishing_Style_1.png">
@@ -552,7 +551,7 @@ function navigateToTeamLineup(){
     <div id="teamLineupCharacters">
         <div id="teamLineupCharacter1"><div id="teamPos1"><p>${teamPos1}</p></div></div>
         <div id="teamLineupCharacter2"><div id="teamPos2"><p>${teamPos2}</p></div></div>
-        <div id="teamLineupCharacter3"><div id="teamPos3"><p>${teamPos3}</p></div></div>
+        <div id="teamLineupCharacter3"><div id="teamPos3"></div></div>
         <div id="teamLineupCharacter4"><div id="teamPos4"><p class="notIndexed">${notIndexedText}</p></div></div>
         <div id="teamLineupCharacter5"><div id="teamPos5"><p class="notIndexed">${notIndexedText}</p></div></div>
         <div id="teamLineupCharacter6"><div id="teamPos6"><p class="notIndexed">${notIndexedText}</p></div></div>
@@ -564,10 +563,10 @@ function navigateToTeamLineup(){
         <p>Confirm Team Lineup</p>
     </div>
     `
-if(localStorage.getItem("ownedCharacters").includes(Character5Name)){
-    document.getElementById("teamLineupCharacter5").style.filter = `grayscale(0%)`;
-    document.getElementById("teamPos5").innerHTML = `<p>${Character5Name}</p>`
-}
+    if(localStorage.getItem("ownedCharacters").includes(Character5Name)){
+        document.getElementById("teamLineupCharacter5").style.filter = `grayscale(0%)`;
+        document.getElementById("teamPos5").innerHTML = `<p></p>`
+    }
 }
 
 function navigateToCharacters(){
@@ -2177,7 +2176,7 @@ console.log(target)
                 <div id="characterSprites">
                     ${characterSprite(0)}
                     <div id="enemyHpBar"></div>
-                    <img id="enemySprite" src="./img/Enemy_Stormbringer.png"></img>
+                    <img id="enemySprite" src="${planets[currentPlanet - 1].enemySprite}">
                 </div>
                 <div id="skillPointBox">
                     <div id="skillPointBar"><p id="skillPointText">${skillPoints}</p></div>
