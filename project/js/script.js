@@ -38,7 +38,7 @@ let ultchargeC1 = 20;
 let ultchargeC1Tut = 20;
 let ultchargeC2 = 0;
 let ultchargeC3 = 0;
-let wishes = 20;
+let wishes = 430;
 let quickFarm = 1;
 let startCharacters = [Character1Name, Character2Name, Character3Name];
 let skilleffect = ""
@@ -65,6 +65,10 @@ let aemeathSkill = new Audio("./sfx/AemeathSkill.mp3");
 let castoriceSkill = new Audio("./sfx/CastoriceSkill.mp3")
 
 let lobbytheme = new Audio("./audio/lobbyTheme.mp3");
+
+let hyacineAnimation = new Audio("./audio/hyacineAnimationSound.mp3");
+let danHengAnimation = new Audio("./audio/danHengAnimationSound.mp3");
+let shorekeeperAnimation = new Audio("./audio/shorekeeperAnimationSound.mp3");
 
 
 let attack1 = 1;
@@ -284,7 +288,7 @@ overlay.innerHTML = `
     </div>
     `}
         <div id="navbar">
-            <img onclick="navigateToWish()" id="wishingIcon" src="./img/Icon_Wishing.png" alt="Wish">
+            <img onclick="navigateToWish(1)" id="wishingIcon" src="./img/Icon_Wishing.png" alt="Wish">
             <img onclick="navigateToTeamLineup(), teamLineup.play()" id="teamLineupIcon" src="./img/Icon_TeamLineup.png" alt="Team Lineup">
             <img onclick="navigateToCharacters(), characterBank.play()" id="charactersIcon" src="./img/Icon_Characters.png" alt="Characters">
         </div>
@@ -311,9 +315,11 @@ overlay.innerHTML = `
 
 }
 
-function navigateToWish(){
+function navigateToWish(characterNumber){
     navigateToWishes.play();
     //? mit Ki
+    if(characterNumber == 1){
+        featuredCharacterName = Character5Name
     overlay.innerHTML = `
     <div id="wishingScreen"></div>
 
@@ -325,7 +331,7 @@ function navigateToWish(){
         <div id="featuredCharacter"></div>
 
         <div id="wishingInfo">
-            <h1>${featuredCharacterName}</h1>
+            <h1 id="titleFeaturedCharacterName">${featuredCharacterName}</h1>
 
             <p id="infoText">
                 Every <mark>10x</mark> Wish gives a chance to obtain a 5-star character!
@@ -334,13 +340,10 @@ function navigateToWish(){
             <div id="pityCounter">
                 <p>Guaranteed 5-star character after <mark>80</mark> wishes</p>
                 <hr>
-                <p id="wishRemaining">
-                    Wishes Till 5-Star: <mark>${wishRemaining}</mark>
-                </p>
             </div>
         </div>
         <div id="wishing"
-            onclick="${wishes >= 10 && !JSON.parse(localStorage.getItem('ownedCharacters')).includes(Character5Name) ? 'wishingAnimation()' : ''}"
+            onclick="${wishes >= 10 && !JSON.parse(localStorage.getItem('ownedCharacters')).includes(Character5Name) ? 'wishingAnimation(1)' : ''}"
             style="cursor: ${wishes >= 10 && !JSON.parse(localStorage.getItem('ownedCharacters')).includes(Character5Name) ? 'pointer' : 'not-allowed'}; opacity: ${wishes >= 10 && !JSON.parse(localStorage.getItem('ownedCharacters')).includes(Character5Name) ? 1 : 0.5};"
         >
             <p>10x</p>
@@ -349,8 +352,8 @@ function navigateToWish(){
     </div>
 
     <div id="wishingCharacters">
-        <div id="wishingCharacter1"></div>
-        <div id="wishingCharacter2"></div>
+            <div id="wishingCharacter1" onclick="navigateToWish(2)"></div>
+            <div id="wishingCharacter2" onclick="navigateToWish(3)"></div>
     </div>
 
    <div id="backToLobbyButton" onclick="back.play(), navigateToLobby()">
@@ -362,25 +365,130 @@ function navigateToWish(){
         <h1>${wishes}</h1>
         <img src="./img/Item_Wishing_Style_1.png">
     </div>
-`;
- 
-    
+    `;
+        document.getElementById("titleFeaturedCharacterName").style.backgroundColor = "rgb(217, 193, 143)"
+        document.getElementById("featuredCharacter").style.backgroundImage = "url('./img/Dan_Heng_Splash_Art.png')";
+        document.getElementById("wishingCharacter1").style.backgroundImage = "url('./img/Shorekeeper_Splash_Art.png')"
+        document.getElementById("wishingCharacter2").style.backgroundPosition = "50% 40%"
+    }else if(characterNumber == 2){
+      
+        featuredCharacterName = Character6Name
+                overlay.innerHTML = `
+            <div id="wishingScreen"></div>
 
-        
-  
+            <div id="textBox">
+                <h1><img src="./img/Icon_Wishing.png">Wish</h1>
+            </div>
+
+            <div id="wishingBox">
+                <div id="featuredCharacter"></div>
+
+                <div id="wishingInfo">
+                    <h1 id="titleFeaturedCharacterName">${featuredCharacterName}</h1>
+
+                    <p id="infoText">
+                        Every <mark>10x</mark> Wish gives a chance to obtain a 5-star character!
+                        <hr>
+
+                    <div id="pityCounter">
+                        <p>Guaranteed 5-star character after <mark>80</mark> wishes</p>
+                        <hr>
+                    </div>
+                </div>
+                <div id="wishing"
+                    onclick="${wishes >= 10 && !JSON.parse(localStorage.getItem('ownedCharacters')).includes(Character6Name) ? 'wishingAnimation(2)' : ''}"
+                    style="cursor: ${wishes >= 10 && !JSON.parse(localStorage.getItem('ownedCharacters')).includes(Character6Name) ? 'pointer' : 'not-allowed'}; opacity: ${wishes >= 10 && !JSON.parse(localStorage.getItem('ownedCharacters')).includes(Character6Name) ? 1 : 0.5};"
+                >
+                    <p>10x</p>
+                    <img src="./img/Item_Wishing_Style_1.png">
+                </div>
+            </div>
+
+            <div id="wishingCharacters">
+                <div id="wishingCharacter1" onclick="navigateToWish(1)"></div>
+                <div id="wishingCharacter2" onclick="navigateToWish(3)"></div>
+            </div>
+
+        <div id="backToLobbyButton" onclick="back.play(), navigateToLobby()">
+                <p>Back to Lobby</p>
+            </div>
 
 
+            <div id="playerWishes">
+                <h1>${wishes}</h1>
+                <img src="./img/Item_Wishing_Style_1.png">
+            </div>
+        `;  
+           document.getElementById("titleFeaturedCharacterName").style.backgroundColor = "rgb(19, 48, 141)"
+          document.getElementById("featuredCharacter").style.backgroundImage = "url('./img/Shorekeeper_Splash_Art.png')";
+        document.getElementById("wishingCharacter1").style.backgroundImage = "url('./img/Dan_Heng_Splash_Art.png')"
+              document.getElementById("wishingCharacter2").style.backgroundImage = "url('./img/hyacine_Splash_Art.png')"
+    }else if(characterNumber == 3){
+        featuredCharacterName = Character4Name
+                overlay.innerHTML = `
+            <div id="wishingScreen"></div>
+
+            <div id="textBox">
+                <h1><img src="./img/Icon_Wishing.png">Wish</h1>
+            </div>
+
+            <div id="wishingBox">
+                <div id="featuredCharacter"></div>
+
+                <div id="wishingInfo">
+                    <h1 id="titleFeaturedCharacterName">${featuredCharacterName}</h1>
+
+                    <p id="infoText">
+                        Every <mark>10x</mark> Wish gives a chance to obtain a 5-star character!
+                        <hr>
+
+                    <div id="pityCounter">
+                        <p>Guaranteed 5-star character after <mark>80</mark> wishes</p>
+                        <hr>
+                    </div>
+                </div>
+                <div id="wishing"
+                    onclick="${wishes >= 10 && !JSON.parse(localStorage.getItem('ownedCharacters')).includes(Character4Name) ? 'wishingAnimation(3)' : ''}"
+                    style="cursor: ${wishes >= 10 && !JSON.parse(localStorage.getItem('ownedCharacters')).includes(Character4Name) ? 'pointer' : 'not-allowed'}; opacity: ${wishes >= 10 && !JSON.parse(localStorage.getItem('ownedCharacters')).includes(Character4Name) ? 1 : 0.5};"
+                >
+                    <p>10x</p>
+                    <img src="./img/Item_Wishing_Style_1.png">
+                </div>
+            </div>
+
+            <div id="wishingCharacters">
+                <div id="wishingCharacter1" onclick="navigateToWish(1)"></div>
+                <div id="wishingCharacter2" onclick="navigateToWish(2)"></div>
+            </div>
+
+        <div id="backToLobbyButton" onclick="back.play(), navigateToLobby()">
+                <p>Back to Lobby</p>
+            </div>
+
+
+            <div id="playerWishes">
+                <h1>${wishes}</h1>
+                <img src="./img/Item_Wishing_Style_1.png">
+            </div>
+        `;
+        document.getElementById("titleFeaturedCharacterName").style.backgroundColor = "rgb(238, 175, 170)"
+        document.getElementById("featuredCharacter").style.backgroundImage = "url('./img/Hyacine_Splash_Art.png')";
+         document.getElementById("wishingCharacter1").style.backgroundImage = "url('./img/Dan_Heng_Splash_Art.png')"
+         document.getElementById("wishingCharacter2").style.backgroundImage = "url('./img/Shorekeeper_Splash_Art.png')"
+         document.getElementById("wishingCharacter2").style.backgroundPosition = "50% 40%"
+    }
 
 }
 
-function wishingAnimation(){
+function wishingAnimation(characterNumber){
     navigateToWishes.play();
-    wishes =wishes -10;
+    wishes -= 10;
     localStorage.setItem("wishes", wishes);
 
 
     let chanceOfChar = Math.floor(Math.random() * 2) 
     console.log(chanceOfChar)
+  
     if(chanceOfChar == 0){
             overlay.innerHTML = 
             
@@ -401,7 +509,7 @@ function wishingAnimation(){
             </div>
             <div id="wishingInfo">
         
-            <h1>${featuredCharacterName}</h1>
+            <h1 style="color: #fff;">${featuredCharacterName}</h1>
             <p id="infoText">Every <mark>10x</mark> Wish gives a chance to obtain a 5-star character!<hr>
                 <div id="pityCounter">
                     <p>Guranteed 5-star character after <mark> 80 </mark> wishes</p><hr>
@@ -435,11 +543,13 @@ function wishingAnimation(){
         if(loadingUp == 100){
             clearInterval(loading)
             wishes-= 10
-            navigateToWish()
+            navigateToWish(characterNumber)
         }
     }, 200);
 
-    }else {
+    }else {  
+        if(characterNumber == 1){
+        danHengAnimation.play();
         overlay.innerHTML = `<video id="animationVideo" src="./videos/danHengAnimation.mp4" autoplay muted></video>`;
         setTimeout(() => {
             let ownedCharacters = JSON.parse(localStorage.getItem("ownedCharacters"));
@@ -453,9 +563,45 @@ function wishingAnimation(){
                 ownedCharacters.push(Character5Name);
                 localStorage.setItem("ownedCharacters", JSON.stringify(ownedCharacters));
             }
-            navigateToWish();
+            navigateToWish(characterNumber);
         }, 4500);
+    }else if(characterNumber == 2){
+        shorekeeperAnimation.play();
+        overlay.innerHTML = `<video id="animationVideo" src="./videos/ShorekeeperAnimation.mp4" autoplay muted></video>`;
+        setTimeout(() => {
+            let ownedCharacters = JSON.parse(localStorage.getItem("ownedCharacters"));
+            let alreadyOwned = false;
+            for (let i = 0; i < ownedCharacters.length; i++) {
+                if (ownedCharacters[i] == Character6Name) {
+                    alreadyOwned = true;
+                }
+            }
+            if (alreadyOwned == false) {
+                ownedCharacters.push(Character6Name);
+                localStorage.setItem("ownedCharacters", JSON.stringify(ownedCharacters));
+            }
+            navigateToWish(characterNumber);
+        }, 3000);
+    }else if(characterNumber == 3){
+        hyacineAnimation.play();
+        overlay.innerHTML = `<video id="animationVideo" src="./videos/hyacineAnimation.mp4" autoplay muted></video>`;
+        setTimeout(() => {
+            let ownedCharacters = JSON.parse(localStorage.getItem("ownedCharacters"));
+            let alreadyOwned = false;
+            for (let i = 0; i < ownedCharacters.length; i++) {
+                if (ownedCharacters[i] == Character4Name) {
+                    alreadyOwned = true;
+                }
+            }
+            if (alreadyOwned == false) {
+                ownedCharacters.push(Character4Name);
+                localStorage.setItem("ownedCharacters", JSON.stringify(ownedCharacters));
+            }
+            navigateToWish(characterNumber);
+        }, 2000);
     }
+
+}
 
 
 }
@@ -563,9 +709,17 @@ function navigateToTeamLineup(){
         <p>Confirm Team Lineup</p>
     </div>
     `
+    if(localStorage.getItem("ownedCharacters").includes(Character4Name)){
+        document.getElementById("teamLineupCharacter4").style.filter = `grayscale(0%)`;
+        document.getElementById("teamPos4").innerHTML = `<p></p>`
+    }
     if(localStorage.getItem("ownedCharacters").includes(Character5Name)){
         document.getElementById("teamLineupCharacter5").style.filter = `grayscale(0%)`;
         document.getElementById("teamPos5").innerHTML = `<p></p>`
+    }
+    if(localStorage.getItem("ownedCharacters").includes(Character6Name)){
+        document.getElementById("teamLineupCharacter6").style.filter = `grayscale(0%)`;
+        document.getElementById("teamPos6").innerHTML = `<p></p>`
     }
 }
 
