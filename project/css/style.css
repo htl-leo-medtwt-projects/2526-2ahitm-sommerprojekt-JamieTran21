@@ -1398,7 +1398,7 @@ body{
 
 #playerHpBar {
     position: relative;
-    left: -2vw;
+    right: 3.5vw;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
