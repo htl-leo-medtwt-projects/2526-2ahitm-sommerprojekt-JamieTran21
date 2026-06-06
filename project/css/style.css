@@ -1427,7 +1427,17 @@ body{
     0%{transform: translateY(0) scale(1);}
     50%{transform: translateY(-1vw) scale(1.1);}
     100%{transform: translateY(0) scale(1);}
-    
+
+}
+
+.healingHp{
+    animation: healingHp 1.5s infinite both ease-in-out;
+}
+
+@keyframes healingHp {
+    0%{transform: translateY(0) scale(1); filter: brightness(1.5);}
+    50%{transform: translateY(-0.5vw) scale(1.2); filter:  brightness(2);}
+    100%{transform: translateY(0) scale(1); filter:  brightness(1.5);}
 }
 
 .attack{
@@ -1487,6 +1497,30 @@ body{
     100%{transform: scale(1); opacity: 0;}
 }
 
+#ultimateSplash{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50vw;
+    height: 25vh;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.ultimateSplashAnim{
+    animation: ultimateSplashAnim 2.2s forwards ease-out;
+}
+
+@keyframes ultimateSplashAnim{
+    0%  { opacity: 0.3; transform: scale(0.8); }
+    40% { opacity: 1;   transform: scale(1); }
+    75% { opacity: 1;   transform: scale(1); }
+    100%{ opacity: 0;   transform: scale(1.05); }
+}
+
 .attackPos1{
     position: relative;
     bottom: 30vw;
@@ -1503,47 +1537,44 @@ body{
 
 }
 
+.healEffectIcon{
+    position: relative;
+    bottom: 25vw;
+    left: 20vw;
+    height: 20vh;
+    filter: hue-rotate(100deg) brightness(1.8) saturate(2);
+    animation: healFloat 2.5s 1 forwards ease-out;
+}
+
+@keyframes healFloat{
+    0%{transform: translateY(0) scale(1); opacity: 1;}
+    50%{transform: translateY(-8vw) scale(2); opacity: 1;}
+    100%{transform: translateY(-14vw) scale(2.5); opacity: 0;}
+}
+
 @keyframes ultimateGlow {
     0% { filter: brightness(100%); transform: scale(1); }
     50% { filter: brightness(110%); transform: scale(1.1); }
     100% { filter: brightness(100%); transform: scale(1);}
 }
 
-#playerHpBar {
+#playerHpBar, #char2HpBar {
     position: relative;
-    right: 3.5vw;
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 2px;
     background-color: rgba(255,255,255,0.9);
     border-radius: 4px;
     padding: 2px 3px;
-    width: 100%;
+    width: 12vw;
     height: auto;
     top: -1vw;
     transform: scale(0.6);
-}
-#playerHpBar .hpPoint img {
-    height: 3vh;
+    transform-origin: left center;
 }
 
-#char2HpBar {
-    position: relative;
-    left: -3vw;
-    top: -1vw;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 2px;
-    background-color: rgba(255,255,255,0.9);
-    border-radius: 4px;
-    padding: 2px 3px;
-    width: 100%;
-    transform: scale(0.6);
-}
-
-#char2HpBar .hpPoint img {
+#playerHpBar .hpPoint img, #char2HpBar .hpPoint img {
     height: 3vh;
 }
 
@@ -1565,6 +1596,10 @@ body{
     height: 20vh;
     border-right: 5px solid white;
     font-size: 10rem;
+}
+
+.hpPointHealed img{
+    filter: hue-rotate(100deg) brightness(1.6) saturate(2);
 }
 
 .skillPoint{

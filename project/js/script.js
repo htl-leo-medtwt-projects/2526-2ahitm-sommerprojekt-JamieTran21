@@ -14,13 +14,17 @@ let wishRemaining = 70;
 
 let fightsRemaining = 2;
 
-let teamPos1= 1;
-let teamPos2 = 2;
+let teamPos1 = localStorage.getItem("teamPos1") ? parseInt(localStorage.getItem("teamPos1")) : 1
+let teamPos2 = localStorage.getItem("teamPos2") ? parseInt(localStorage.getItem("teamPos2")) : 2
 let teamPos3 = 3;
+let baseHpChar1 = 5
+let baseHpChar2 = 4
 let notIndexedText = "Not Indexed";
+let currentActivePos = teamPos1
 
 let defeatCheckInterval = null
 let ultInterval = null
+let animPlaying = false
 
 
 let currentIndex = 0;
@@ -63,6 +67,10 @@ let battleOver = new Audio("./sfx/battleOver.mp3");
 
 let aemeathSkill = new Audio("./sfx/AemeathSkill.mp3");
 let castoriceSkill = new Audio("./sfx/CastoriceSkill.mp3")
+let qiuyuanSkill = new Audio("./sfx/QiuyuanSkill.mp3")
+let hyacineSkill = new Audio("./sfx/HyacineSkill.mp3")
+let danHengSkill = new Audio("./sfx/DanHengSkill.mp3")
+let shorekeeperSkill = new Audio("./sfx/ShorekeeperSkill.mp3")
 
 let lobbytheme = new Audio("./audio/lobbyTheme.mp3");
 
@@ -122,7 +130,7 @@ let currentPlanet = 1
 
 let enemy = {
     name: 'Stormbringer',
-    hp: 6,
+    hp: 20,
     attack: 1
 }
 
@@ -131,21 +139,21 @@ let enemy = {
 let planets = [
     {
         id: 1,
-        enemy: { name: 'Stormbringer', hp: 6, attack: 1 },
+        enemy: { name: 'Stormbringer', hp: 20, attack: 1 },
         enemySprite: "./img/Enemy_Stormbringer.png",
         battleBackground: "./img/lobbyScreen.png",
         battleTheme: "./audio/StormBattleTheme.mp3"
     },
     {
         id: 2,
-        enemy: { name: 'Squadron', hp: 8, attack: 2 },
+        enemy: { name: 'Squadron', hp: 30, attack: 2 },
         enemySprite: "./img/Enemy_Squadron.png",
         battleBackground: "./img/background_jarilo.png",
         battleTheme: "./audio/SquadronBattleTheme.mp3"
     },
     {
         id: 3,
-        enemy: { name: 'First Genius, Entelechy, Zandar', hp: 10, attack: 3 },
+        enemy: { name: 'First Genius, Entelechy, Zandar', hp: 50, attack: 3 },
         enemySprite: "./img/Enemy_Lygus.png",
         battleBackground: "./img/background_penacony.png",
         battleTheme: "./audio/LygusBattleTheme.mp3"
@@ -165,8 +173,8 @@ let characters = [
         basicAttack: "./img/Basic_Aemeath.png",
         turnIcon: "./img/Aemeath_Icon.png",
         attackSkill: "./img/Skill_Aemeath.png",
-        ultimateSkill: "./img/Aemeath_Ultimate.png",
-        skillEffect: `${aemeathSkill}`,
+        ultimateSkill: "./img/Ultimate_Aemeath.png",
+        skillEffect: aemeathSkill,
         teamposIcon: "./img/Aemeath_Icon.png",
         hp: 5,
     },
@@ -182,7 +190,8 @@ let characters = [
         skillAttack: "./img/Skill_Castorice.png",
         basicAttack: "./img/Basic_Castorice.png",
         turnIcon: "./img/Castorice_Icon.png",
-        skillEffect: `${castoriceSkill}`,
+        ultimateSkill: "./img/Ultimate_Castorice.png",
+        skillEffect: castoriceSkill,
         teamposIcon: "./img/Castorice_Icon.png",
         hp: 4,
     },
@@ -192,6 +201,14 @@ let characters = [
         gif: "./gif/QiuyuanHover.gif",
         gifPos: "left",
         backgroundColor: "rgba(48, 53, 62)",
+        posSprite: "./img/Qiuyuan_Sprite.png",
+        skillSprite: "./gif/Qiuyuan_attackSkill.gif",
+        skillAttack: "./img/Skill_Qiuyuan.png",
+        basicAttack: "./img/Basic_Qiuyuan.png",
+        turnIcon: "./img/Qiuyuan_Icon.png",
+        attackSkill: "./img/Skill_Qiuyuan.png",
+        ultimateSkill: "./img/Ultimate_Qiuyuan.png",
+        skillEffect: qiuyuanSkill,
         teamposIcon: "./img/Qiuyuan_Icon.png",
         hp: 5
     },
@@ -201,6 +218,14 @@ let characters = [
         gif: "./gif/HyacineHover.gif",
         gifPos: "center",
         backgroundColor: "rgba(248, 204, 200)",
+        posSprite: "./img/Hyacine_Sprite.png",
+        skillSprite: "./img/Hyacine_attackSkill.png",
+        skillAttack: "./img/Skill_Hyacine.png",
+        basicAttack: "./img/Basic_Hyacine.png",
+        turnIcon: "./img/Hyacine_Icon.png",
+        attackSkill: "./img/Skill_Hyacine.png",
+        ultimateSkill: "./img/Ultimate_Hyacine.png",
+        skillEffect: hyacineSkill,
         teamposIcon: "./img/Hyacine_Icon.png",
         hp: 4
     },
@@ -212,7 +237,15 @@ let characters = [
         backgroundColor: "rgba(42, 61, 69)",
         backgroundSize: "300",
         owned: false,
-        teamposIcon: "./img/DanHeng_Icon.png",
+        posSprite: "./img/DanHeng_Sprite.png",
+        skillSprite: "./img/DanHeng_attackSkill.png",
+        skillAttack: "./img/Skill_DanHeng.png",
+        basicAttack: "./img/Basic_DanHeng.png",
+        turnIcon: "./img/Dan_Heng_Icon2.png",
+        attackSkill: "./img/Skill_DanHeng.png",
+        ultimateSkill: "./img/Ultimate_DanHeng.png",
+        skillEffect: danHengSkill,
+        teamposIcon: "./img/Dan_Heng_Icon2.png",
         hp: 7
     },
     {
@@ -223,6 +256,14 @@ let characters = [
         backgroundColor: "rgba(21, 51, 153)",
         backgroundSize: "230",
         owned: false,
+        posSprite: "./img/Shorekeeper_Sprite.png",
+        skillSprite: "./img/Shorekeeper_attackSkill.png",
+        skillAttack: "./img/Skill_Shorekeeper.png",
+        basicAttack: "./img/Basic_Shorekeeper.png",
+        turnIcon: "./img/Shorekeeper_Icon.png",
+        attackSkill: "./img/Skill_Shorekeeper.png",
+        ultimateSkill: "./img/Ultimate_Shorekeeper.png",
+        skillEffect: shorekeeperSkill,
         teamposIcon: "./img/Shorekeeper_Icon.png",
         hp: 6
     }
@@ -853,6 +894,25 @@ function assignPosition(charSlot, position){
     if(position === 1) teamPos1 = charSlot
     if(position === 2) teamPos2 = charSlot
 
+    localStorage.setItem("teamPos1", teamPos1)
+    localStorage.setItem("teamPos2", teamPos2)
+
+    baseHpChar1 = characters[teamPos1 - 1].hp
+    baseHpChar2 = characters[teamPos2 - 1].hp
+
+    pos1Sprite = characters[teamPos1 - 1].posSprite
+    pos2Sprite = characters[teamPos2 - 1].posSprite
+    skillChar1 = characters[teamPos1 - 1].skillSprite
+    skillChar2 = characters[teamPos2 - 1].skillSprite
+    skillAttackChar1 = characters[teamPos1 - 1].skillAttack
+    skillAttackChar2 = characters[teamPos2 - 1].skillAttack
+    BasicAttackChar1 = characters[teamPos1 - 1].basicAttack
+    BasicAttackChar2 = characters[teamPos2 - 1].basicAttack
+    turn = characters[teamPos1 - 1].turnIcon
+    nextTurnCharacter = characters[teamPos2 - 1].turnIcon
+    skillEffect = characters[teamPos1 - 1].skillEffect
+    skillEffect2 = characters[teamPos2 - 1].skillEffect
+
     closeCharacterSelect()
     navigateToTeamLineup()
 }
@@ -1348,7 +1408,7 @@ function navigateToTutorial() {
         let enemyHpBar = document.getElementById("enemyHpBar");
         enemyHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
     }
-    for(let i = 0; i < characters[0].hp;i++){
+    for(let i = 0; i < characters[teamPos1 - 1].hp;i++){
         let playerHpBar = document.getElementById("playerHpBar");
         playerHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
     }
@@ -1468,7 +1528,7 @@ function navigateToTutorialAttacks(){
         let enemyHpBar = document.getElementById("enemyHpBar");
         enemyHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
     }
-    for(let i = 0; i < characters[0].hp;i++){
+    for(let i = 0; i < characters[teamPos1 - 1].hp;i++){
         let playerHpBar = document.getElementById("playerHpBar");
         playerHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
     }
@@ -1747,7 +1807,7 @@ function navigateToSkillPointsTutorial(attackNumber){
         let enemyHpBar = document.getElementById("enemyHpBar");
         enemyHpBar.innerHTML += `<div class="hpPointEnemy"><img src="./img/Icon_Hp.png"></div>`
     }
-    for(let i = 0; i < characters[0].hp;i++){
+    for(let i = 0; i < characters[teamPos1 - 1].hp;i++){
         let playerHpBar = document.getElementById("playerHpBar");
         playerHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
     }
@@ -1992,7 +2052,7 @@ function navigateToDamageTutorial(attackNumber){
     tutorialTextBox.style.display = "none"
     }
 
-    characters[0].hp -= (dotDamage + enemy.attack);
+    characters[teamPos1 - 1].hp -= (dotDamage + enemy.attack);
    
 
     for(let i = 0; i < 5;i++){
@@ -2010,7 +2070,7 @@ function navigateToDamageTutorial(attackNumber){
         let enemyHpBar = document.getElementById("enemyHpBar");
         enemyHpBar.innerHTML += `<div class="hpPointEnemy"><img src="./img/Icon_Hp.png"></div>`
     }
-    for(let i = 0; i < characters[0].hp;i++){
+    for(let i = 0; i < characters[teamPos1 - 1].hp;i++){
         let playerHpBar = document.getElementById("playerHpBar");
         playerHpBar.innerHTML += `<div class="hpPoint"><img src="./img/Icon_Hp.png"></div>`
     }
@@ -2078,14 +2138,21 @@ function consumeCurrency(){
 
 }
 
-function getCharacterBox() {
+function getCharacterBox(){
+    let activeIdx = currentActivePos - 1
+    let waitIdx = (currentActivePos === teamPos1 ? teamPos2 : teamPos1) - 1
+    let activeColor = characters[activeIdx].backgroundColor
+    let waitColor = characters[waitIdx].backgroundColor
+    let ultClick = ultchargeC1 >= 100
+        ? `onclick="fightVisual(3)" style="background-color:${activeColor};"`
+        : `style="background-color:${activeColor}; opacity:0.4; cursor:not-allowed;"`
     return `
     <div id="characterBattleInfo">
         <div id="position1Box">
             <div style="display:flex; flex-direction:row; gap:4px; align-items:center;">
-                <img id="playerIcon" src="./img/Aemeath_Icon.png">
+                <img id="playerIcon" src="${characters[activeIdx].turnIcon}">
                 <div id="playerUltimate" style="position:relative;">
-                    <img onclick="fightVisual(3)" id="ultimateSkill" src="./img/Ultimate_Aemeath.png">
+                    <img ${ultClick} id="ultimateSkill" src="${characters[activeIdx].ultimateSkill}">
                     <p id="ultcharge">${ultchargeC1}%</p>
                 </div>
             </div>
@@ -2093,9 +2160,9 @@ function getCharacterBox() {
         </div>
         <div id="position2Box">
             <div style="display:flex; flex-direction:row; gap:4px; align-items:center;">
-                <img id="nextCharIcon" src="./img/Castorice_Icon.png">
+                <img id="nextCharIcon" src="${characters[waitIdx].turnIcon}">
                 <div id="nextUltimate" style="position:relative;">
-                    <img id="nextUltimateSkill" src="./img/Ultimate_Castorice.png">
+                    <img id="nextUltimateSkill" style="background-color:${waitColor};" src="${characters[waitIdx].ultimateSkill}">
                     <p id="nextUltcharge">${ultchargeC2}%</p>
                 </div>
             </div>
@@ -2117,19 +2184,19 @@ function fillEnemyHpBar(){
     }
 }
 
-let pos1Sprite = characters[0].posSprite
-let pos2Sprite = characters[1].posSprite
+let pos1Sprite = characters[teamPos1 - 1].posSprite
+let pos2Sprite = characters[teamPos2 - 1].posSprite
 
 
-let skillChar1 = characters[0].skillSprite
-let skillChar2 = characters[1].skillSprite
-let skillAttackChar1 = characters[0].skillAttack
-let skillAttackChar2 = characters[1].skillAttack
-let BasicAttackChar1 = characters[0].basicAttack
-let BasicAttackChar2 = characters[1].basicAttack
+let skillChar1 = characters[teamPos1 - 1].skillSprite
+let skillChar2 = characters[teamPos2 - 1].skillSprite
+let skillAttackChar1 = characters[teamPos1 - 1].skillAttack
+let skillAttackChar2 = characters[teamPos2 - 1].skillAttack
+let BasicAttackChar1 = characters[teamPos1 - 1].basicAttack
+let BasicAttackChar2 = characters[teamPos2 - 1].basicAttack
 
-let turn= characters[0].turnIcon
-let nextTurnCharacter = characters[1].turnIcon
+let turn = characters[teamPos1 - 1].turnIcon
+let nextTurnCharacter = characters[teamPos2 - 1].turnIcon
 
 
 function characterSprite(switchNumber){
@@ -2164,8 +2231,8 @@ function attackBoxBasic(switchNumber) {
 }
 
 
-skillEffect = characters[0].skillEffect
-skillEffect2 = characters[1].skillEffect
+skillEffect = characters[teamPos1 - 1].skillEffect
+skillEffect2 = characters[teamPos2 - 1].skillEffect
 function attackBoxSkill(switchNumber) {
     let temp = ""
     let temp2 = ""
@@ -2186,16 +2253,11 @@ function attackBoxSkill(switchNumber) {
 function skillEffectVisual(switchNumber){
     let temp = ""
     if(switchNumber == 1){
-        if(pos1Sprite == characters[0].posSprite ){
-            aemeathSkill.play()
-     
-        }else if (pos1Sprite == characters[1].posSprite){
-            castoriceSkill.play()
-        }
+        skillEffect.play()
         temp = skillEffect
         skillEffect = skillEffect2
         skillEffect2 = temp
-        }
+    }
 }
 
 function attackSkill(switchNumber){
@@ -2212,6 +2274,9 @@ function attackSkill(switchNumber){
 }
 
 function fightVisual(attackNumber){
+    let isHealer = (pos1Sprite == characters[3].posSprite || pos1Sprite == characters[4].posSprite || pos1Sprite == characters[5].posSprite)
+    let isHealerSkill = isHealer && attackNumber == 2
+
     overlay.style.backgroundImage = `url('${planets[currentPlanet - 1].battleBackground}')`
 
 
@@ -2304,7 +2369,7 @@ function fightVisual(attackNumber){
                     <div id="attacksBox">
                         <h1>Attacks</h1>
                         <div id="attack1" onclick="fightVisual(1)">${attackBoxBasic(0)}</div>
-                        <div id="attack2"><img style="cursor: not-allowed opacity: 0.5;" src="${attackBoxSkill(0)}"></div>
+                        <div id="attack2"><img style="cursor: not-allowed; opacity: 0.1; filter: hue-rotate(0deg) grayscale(100%);" src="${attackBoxSkill(0)}"></div>
                     </div>
                     <div id="characterSprites">
                       ${characterSprite(0)}
@@ -2331,7 +2396,7 @@ function fightVisual(attackNumber){
                 <div id="attacksBox">
                     <h1>Attacks</h1>
                     <div id="attack1" onclick="fightVisual(1)">${attackBoxBasic(0)}</div>
-                    <div id="attack2" onclick="damageCalculation(2)"><img src="${attackBoxSkill(0)}"></div>
+                    <div id="attack2" onclick="fightVisual(2)"><img src="${attackBoxSkill(0)}"></div>
                 </div>
                 <div id="characterSprites">
                      ${characterSprite(0)}
@@ -2377,27 +2442,55 @@ function fightVisual(attackNumber){
         let enemyHpBar = document.getElementById("enemyHpBar");
         enemyHpBar.innerHTML += `<div class="hpPointEnemy"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
     }
-    for(let i = 0; i < characters[0].hp; i++){
-        let iconSize = getCharHpIconSize(characters[0].hp)
-        let playerHpBar = document.getElementById("playerHpBar");
-        playerHpBar.innerHTML += `<div class="hpPoint"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
+    let playerHpBar = document.getElementsByClassName("hpPoint")
+    let char2HpBar = document.getElementsByClassName("hpPoint")
+
+    let sharedIconSize = getCharHpIconSize(Math.max(characters[teamPos1 - 1].hp, characters[teamPos2 - 1].hp))
+
+    for(let i = 0; i < characters[teamPos1 - 1].hp; i++){
+        let bar = document.getElementById("playerHpBar");
+        bar.innerHTML += `<div class="hpPoint"><img style="height:${sharedIconSize}" src="./img/Icon_Hp.png"></div>`
     }
-    for(let i = 0; i < characters[1].hp; i++){
-        let iconSize = getCharHpIconSize(characters[1].hp)
-        let char2HpBar = document.getElementById("char2HpBar");
-        char2HpBar.innerHTML += `<div class="hpPoint"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
+    playerHpBar = document.getElementById("playerHpBar").getElementsByClassName("hpPoint")
+
+    for(let i = 0; i < characters[teamPos2 - 1].hp; i++){
+        let bar = document.getElementById("char2HpBar");
+        bar.innerHTML += `<div class="hpPoint"><img style="height:${sharedIconSize}" src="./img/Icon_Hp.png"></div>`
     }
+    char2HpBar = document.getElementById("char2HpBar").getElementsByClassName("hpPoint")
 
     let enemyHpBar = document.getElementsByClassName("hpPointEnemy");
     if(attackNumber == 2){
-        for (let i = 0; i < attack2; i++) {
-            let index = enemyHpBar.length - 1 - i;
-            if (enemyHpBar[index]) {
-                enemyHpBar[index].innerHTML = `<img id="losingHp" src="./img/Icon_Hp_losing.png">`;
-                document.getElementById("losingHp").classList.add("losingHp")
+        if(!isHealerSkill){
+            for (let i = 0; i < attack2; i++) {
+                let index = enemyHpBar.length - 1 - i;
+                if (enemyHpBar[index]) {
+                    enemyHpBar[index].innerHTML = `<img id="losingHp" src="./img/Icon_Hp_losing.png">`;
+                    document.getElementById("losingHp").classList.add("losingHp")
+                }
+                document.getElementById("attack2").style.transform = "scale(1.3)"
+            }
+        }else{
+            let healTarget = Math.random() < 0.5 ? 1 : 2
+            let healAmount = 1 + TeamLevelNumber
+            if(healTarget == 1){
+                let iconSize1 = getCharHpIconSize(characters[teamPos1 - 1].hp)
+                let previewCount = Math.min(healAmount, baseHpChar1 - characters[teamPos1 - 1].hp)
+                let bar1 = document.getElementById("playerHpBar")
+                for(let i = 0; i < previewCount; i++){
+                    bar1.innerHTML += `<div class="hpPoint"><img class="healingHp" style="height:${iconSize1}" src="./img/Icon_Hp_healing.png"></div>`
+                }
+                document.getElementById("attack2").style.transform = "scale(1.3)"
+            }else{
+                let iconSize2 = getCharHpIconSize(characters[teamPos2 - 1].hp)
+                let previewCount = Math.min(healAmount, baseHpChar2 - characters[teamPos2 - 1].hp)
+                let bar2 = document.getElementById("char2HpBar")
+                for(let i = 0; i < previewCount; i++){
+                    bar2.innerHTML += `<div class="hpPoint"><img class="healingHp" style="height:${iconSize2}" src="./img/Icon_Hp_healing.png"></div>`
+                }
+                                        document.getElementById("attack2").style.transform = "scale(1.3)"
             }
         }
-        document.getElementById("attack2").style.transform = "scale(1.3)"
     }else if(attackNumber == 1){
         for (let i = 0; i < attack1; i++) {
             let index = enemyHpBar.length - 1 - i;
@@ -2419,6 +2512,7 @@ function fightVisual(attackNumber){
         ultimateSkill.style.opacity = 1
         ultimateSkill.classList.add("ulitmateGLow")
         ultimateSkill.style.transform = "scale(1.3)"
+        ultimateSkill.setAttribute("onclick", "damageCalculation(3)")
     }
 
     let playerTurn = document.getElementById("playerTurn");
@@ -2437,16 +2531,35 @@ function fightVisual(attackNumber){
 
 
 function damageCalculation(attackNumber){
-    
+    if(animPlaying) return
+    animPlaying = true
+
+    let isHealer = (pos1Sprite == characters[3].posSprite || pos1Sprite == characters[4].posSprite || pos1Sprite == characters[5].posSprite)
+    let isHealerSkill = isHealer && attackNumber == 2
+
+    let hpBeforeHeal1 = characters[teamPos1 - 1].hp
+    let hpBeforeHeal2 = characters[teamPos2 - 1].hp
+
+    if(isHealerSkill){
+        let healAmount = 1 + TeamLevelNumber
+        let healTarget = Math.random() < 0.5 ? 1 : 2
+        if(healTarget == 1 && characters[teamPos1 - 1].hp < baseHpChar1){
+            characters[teamPos1 - 1].hp = Math.min(characters[teamPos1 - 1].hp + healAmount, baseHpChar1)
+        }
+        if(healTarget == 2 && characters[teamPos2 - 1].hp < baseHpChar2){
+            characters[teamPos2 - 1].hp = Math.min(characters[teamPos2 - 1].hp + healAmount, baseHpChar2)
+        }
+    }
+
 overlay.style.backgroundImage = `url('${planets[currentPlanet - 1].battleBackground}')`
 let enemyAttack = Math.floor(Math.random() * enemy.attack) + 1
 let enemyHpGain = Math.floor(Math.random()*3)
 let chanceToHeal = Math.random()
 
 let target
-if(characters[0].hp > 0 && characters[1].hp > 0){
+if(characters[teamPos1 - 1].hp > 0 && characters[teamPos2 - 1].hp > 0){
     target = Math.floor(Math.random() * 2)
-}else if(characters[0].hp > 0){
+}else if(characters[teamPos1 - 1].hp > 0){
     target = 0
 }else{
     target = 1
@@ -2454,9 +2567,13 @@ if(characters[0].hp > 0 && characters[1].hp > 0){
 
 console.log(target)
     if(attackNumber == 1){
-        if(ultchargeC1 < 100){ ultchargeC1 += 15 }else{ ultchargeC1 = 100 }
+        if(ultchargeC1 < 100){ ultchargeC1 += 100 }else{ ultchargeC1 = 100 }
         enemy.hp -= attack1
         if(skillPoints < 5){ skillPoints++ }
+        let tempUlt1 = ultchargeC1
+        ultchargeC1 = ultchargeC2
+        ultchargeC2 = tempUlt1
+        currentActivePos = currentActivePos === teamPos1 ? teamPos2 : teamPos1
         overlay.innerHTML = `
         <div id="gameScreen">  
             <div id="turnBox">
@@ -2485,10 +2602,10 @@ console.log(target)
     
         setTimeout(() => {
           if(target == 0){
-            characters[0].hp -= enemyAttack
+            characters[teamPos1 - 1].hp -= enemyAttack
             document.getElementById("playerIcon").classList.add("takingHp")
         }else{
-            characters[1].hp -= enemyAttack
+            characters[teamPos2 - 1].hp -= enemyAttack
             document.getElementById("nextCharIcon").classList.add("takingHp")
         }
         document.getElementById("enemySprite").classList.add("attackEnemy")
@@ -2496,20 +2613,31 @@ console.log(target)
         }, 2500);
         fillEnemyHpBar()
         document.getElementById("playerSprite").classList.add("attack")
-         basicEffect.play()
+        basicEffect.play()
+        let tempSkill = skillEffect
+        skillEffect = skillEffect2
+        skillEffect2 = tempSkill
+        let tempSprite = skillChar1
+        skillChar1 = skillChar2
+        skillChar2 = tempSprite
         setTimeout(() => {
-            document.getElementById("characterSprites").innerHTML =`          
+            document.getElementById("characterSprites").innerHTML =`
                 ${characterSprite(1)}
                 <div id="enemyHpBar"></div>
                 <img id="enemySprite" src="${planets[currentPlanet - 1].enemySprite}">
             `
             fillEnemyHpBar()
+            animPlaying = false
         }, 2800);
 
     }else if(attackNumber == 2){
         if(ultchargeC1 < 100){ ultchargeC1 += 35 }else{ ultchargeC1 = 100 }
-        enemy.hp -= attack2
+        if(!isHealerSkill) enemy.hp -= attack2
         if(skillPoints > 0){ skillPoints-- }
+        let tempUlt2 = ultchargeC1
+        ultchargeC1 = ultchargeC2
+        ultchargeC2 = tempUlt2
+        currentActivePos = currentActivePos === teamPos1 ? teamPos2 : teamPos1
         overlay.innerHTML = `
         <div id="gameScreen">  
             <div id="turnBox">
@@ -2538,15 +2666,17 @@ console.log(target)
         }
         fillEnemyHpBar()
         let attackEffect = document.getElementById("attackEffect")
-        attackEffect.innerHTML += `${attackSkill(1)}`
-        document.getElementById("attackEffectSprite").classList.add("attackPos1")
-        skillEffectVisual(1)
+        if(!isHealerSkill){
+            attackEffect.innerHTML += `${attackSkill(1)}`
+            document.getElementById("attackEffectSprite").classList.add("attackPos1")
+            skillEffectVisual(1)
+        }
         setTimeout(() => {
             if(target == 0){
-                characters[0].hp -= enemyAttack
+                characters[teamPos1 - 1].hp -= enemyAttack
                 document.getElementById("playerIcon").classList.add("takingHp")
             }else{
-                characters[1].hp -= enemyAttack
+                characters[teamPos2 - 1].hp -= enemyAttack
                 document.getElementById("nextCharIcon").classList.add("takingHp")
             }
             document.getElementById("enemySprite").classList.add("attackEnemy")
@@ -2555,20 +2685,26 @@ console.log(target)
 
         
         setTimeout(() => {
-            document.getElementById("characterSprites").innerHTML =`          
+            document.getElementById("characterSprites").innerHTML =`
                 ${characterSprite(1)}
                 <div id="enemyHpBar"></div>
                 <img id="enemySprite" src="${planets[currentPlanet - 1].enemySprite}">
             `
             fillEnemyHpBar()
+            animPlaying = false
         }, 2800);
 
     }else if(attackNumber == 3){
-        enemy.hp -= attack3
+        if(!isHealer) enemy.hp -= attack3
         ultchargeC1 = 0
+        let ultUser = characters.find(c => c.posSprite === pos1Sprite) || characters[teamPos1 - 1]
+        let tempUlt3 = ultchargeC1
+        ultchargeC1 = ultchargeC2
+        ultchargeC2 = tempUlt3
+        currentActivePos = currentActivePos === teamPos1 ? teamPos2 : teamPos1
         ultInterval = setInterval(() => { checkIfUlt() }, 1000);
         overlay.innerHTML = `
-        <div id="gameScreen">  
+        <div id="gameScreen">
             <div id="turnBox">
                   ${nextTurnChar(1)}
                 <div id="attacksBox">
@@ -2589,14 +2725,14 @@ console.log(target)
             ${getCharacterBox()}
         </div>`
         let attackEffect = document.getElementById("attackEffect")
-        attackEffect.innerHTML += `<img id="attackEffectSprite" src="${characters[0].ultimateSkill}.png">`
+        attackEffect.innerHTML += `<img id="attackEffectSprite" src="${ultUser.image}">`
         document.getElementById("attackEffectSprite").classList.add("ultimateAttack")
         setTimeout(() => {
             if(target == 0){
-                characters[0].hp -= enemyAttack
+                characters[teamPos1 - 1].hp -= enemyAttack
                 document.getElementById("playerIcon").classList.add("takingHp")
             }else{
-                characters[1].hp -= enemyAttack
+                characters[teamPos2 - 1].hp -= enemyAttack
                 document.getElementById("nextCharIcon").classList.add("takingHp")
             }
             document.getElementById("enemySprite").classList.add("attackEnemy")
@@ -2605,12 +2741,13 @@ console.log(target)
         fillEnemyHpBar()
 
         setTimeout(() => {
-            document.getElementById("characterSprites").innerHTML =`          
+            document.getElementById("characterSprites").innerHTML =`
                 ${characterSprite(1)}
                 <div id="enemyHpBar"></div>
                 <img id="enemySprite" src="${planets[currentPlanet - 1].enemySprite}">
             `
             fillEnemyHpBar()
+            animPlaying = false
         }, 2800);
 
     }
@@ -2624,15 +2761,23 @@ console.log(target)
         skillPointsCharged[i].innerHTML = `<img src="./img/SkillPoint_charged.png">`
         skillPointsCharged[i].style.filter = "grayscale(0%)"
     }
-    for(let i = 0; i < characters[0].hp; i++){
-        let iconSize = getCharHpIconSize(characters[0].hp)
+    for(let i = 0; i < characters[teamPos1 - 1].hp; i++){
+        let iconSize = getCharHpIconSize(characters[teamPos1 - 1].hp)
         let playerHpBar = document.getElementById("playerHpBar");
-        playerHpBar.innerHTML += `<div class="hpPoint"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
+        if(isHealerSkill && i >= hpBeforeHeal1){
+            playerHpBar.innerHTML += `<div class="hpPoint hpPointHealed"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
+        }else{
+            playerHpBar.innerHTML += `<div class="hpPoint"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
+        }
     }
-    for(let i = 0; i < characters[1].hp; i++){
-        let iconSize = getCharHpIconSize(characters[1].hp)
+    for(let i = 0; i < characters[teamPos2 - 1].hp; i++){
+        let iconSize = getCharHpIconSize(characters[teamPos2 - 1].hp)
         let char2HpBar = document.getElementById("char2HpBar");
-        char2HpBar.innerHTML += `<div class="hpPoint"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
+        if(isHealerSkill && i >= hpBeforeHeal2){
+            char2HpBar.innerHTML += `<div class="hpPoint hpPointHealed"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
+        }else{
+            char2HpBar.innerHTML += `<div class="hpPoint"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
+        }
     }
 
     if(chanceToHeal < 0.3){
@@ -2654,9 +2799,12 @@ function navigateToBattle() {
     attack3 = 4
 
     for(let i = 3; i < TeamLevelNumber; i++){
-        attack1 ++
-        attack2 ++
-        attack3 ++
+        if(i % 2 == 0){
+            attack1 ++
+            attack2 ++
+            attack3 ++
+        }
+
     }
     overlay.style.backgroundImage = `url('${planets[currentPlanet - 1].battleBackground}')`
     if (defeatCheckInterval !== null) {
@@ -2672,11 +2820,11 @@ function navigateToBattle() {
             ${nextTurnChar(0)}
             <div id="attacksBox">
                 <h1>Attacks</h1>
-                <div onclick="fightVisual(1)" id="attack1"><img src="./img/Basic_Aemeath.png"></div>
-                <div onclick="fightVisual(2)" id="attack2"><img src="./img/Skill_Aemeath.png"></div>
+                <div onclick="fightVisual(1)" id="attack1"><img src="${BasicAttackChar1}"></div>
+                <div onclick="fightVisual(2)" id="attack2"><img src="${skillAttackChar1}"></div>
             </div>
             <div id="characterSprites">
-                <img id="playerSprite" src="./img/Aemeath_Sprite.png">
+                <img id="playerSprite" src="${pos1Sprite}">
                 <div id="enemyHpBar"></div>
             <img id="enemySprite" src="${planets[currentPlanet - 1].enemySprite}">
             </div>
@@ -2701,13 +2849,13 @@ function navigateToBattle() {
         let enemyHpBar = document.getElementById("enemyHpBar");
         enemyHpBar.innerHTML += `<div class="hpPointEnemy"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
     }
-    for(let i = 0; i < characters[0].hp; i++){
-        let iconSize = getCharHpIconSize(characters[0].hp)
+    for(let i = 0; i < characters[teamPos1 - 1].hp; i++){
+        let iconSize = getCharHpIconSize(characters[teamPos1 - 1].hp)
         let playerHpBar = document.getElementById("playerHpBar");
         playerHpBar.innerHTML += `<div class="hpPoint"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
     }
-    for(let i = 0; i < characters[1].hp; i++){
-        let iconSize = getCharHpIconSize(characters[1].hp)
+    for(let i = 0; i < characters[teamPos2 - 1].hp; i++){
+        let iconSize = getCharHpIconSize(characters[teamPos2 - 1].hp)
         let char2HpBar = document.getElementById("char2HpBar");
         char2HpBar.innerHTML += `<div class="hpPoint"><img style="height:${iconSize}" src="./img/Icon_Hp.png"></div>`
     }
@@ -2759,7 +2907,7 @@ function nextTurnChar(switchNumber) {
 // }
 
 function checkIfDefeatedOrWin(){
-    if(characters[0].hp <= 0 && characters[1].hp <= 0){
+    if(characters[teamPos1 - 1].hp <= 0 && characters[teamPos2 - 1].hp <= 0){
         clearInterval(defeatCheckInterval)
         navigateResult(1);
         clearInterval(ultInterval)
@@ -2829,8 +2977,11 @@ function victoryAnimation(){
 function navigateResult(number){
     clearInterval(defeatCheckInterval)
     defeatCheckInterval = null   
-    characters[0].hp  = 5
-    characters[1].hp  = 4
+    characters[teamPos1 - 1].hp = baseHpChar1
+    characters[teamPos2 - 1].hp = baseHpChar2
+    ultchargeC1 = 20
+    ultchargeC2 = 0
+    currentActivePos = teamPos1
     enemy.hp = planets[currentPlanet - 1].enemy.hp
     enemy.attack = planets[currentPlanet - 1].enemy.attack
     if(number == 1){
