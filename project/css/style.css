@@ -680,6 +680,119 @@ body{
     text-align: center;
 }
 
+.teamPosBadge{
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.9);
+    height: 4vw;
+    width: 4vw;
+    border-radius: 50%;
+    bottom: 0.5vw;
+    right: 0.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.teamPosBadge p{
+    color: black;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+#characterSelectPopup{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#characterSelectBox{
+    background-color: rgba(30, 36, 55, 0.97);
+    border-radius: 3%;
+    padding: 2vw;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1vw;
+}
+
+#characterSelectBox h2{
+    color: white;
+    font-family: amoria;
+    font-size: 2rem;
+    margin: 0;
+}
+
+#characterSelectBox p{
+    color: rgba(200, 200, 200, 1);
+    font-size: 1rem;
+    margin: 0;
+}
+
+#characterSelectPortrait{
+    width: 100%;
+    height: 25vh;
+    border-radius: 3%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#characterSelectPositions{
+    display: flex;
+    gap: 1vw;
+    justify-content: center;
+}
+
+.posBtn{
+    background-color: #37474d;
+    color: white;
+    padding: 0.5vw 1vw;
+    border-radius: 5%;
+    cursor: pointer;
+    font-family: lemon_Tea;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.posBtn:hover{
+    background-color: #2596be;
+    transform: scale(1.05);
+}
+
+.activePosBtn{
+    background-color: #C4B34C !important;
+    color: black;
+}
+
+#closeSelectButton{
+    background-color: #37474d;
+    color: white;
+    padding: 0.5vw 2vw;
+    border-radius: 5%;
+    cursor: pointer;
+    font-family: lemon_Tea;
+    transition: all 0.2s ease;
+}
+
+#closeSelectButton:hover{
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
+#closeSelectButton p{
+    color: white;
+    font-size: 1rem;
+    margin: 0;
+}
+
 
 #confirmTeamLineupButton{
     position: absolute;

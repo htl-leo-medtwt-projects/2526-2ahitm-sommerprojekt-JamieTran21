@@ -167,6 +167,7 @@ let characters = [
         attackSkill: "./img/Skill_Aemeath.png",
         ultimateSkill: "./img/Aemeath_Ultimate.png",
         skillEffect: `${aemeathSkill}`,
+        teamposIcon: "./img/Aemeath_Icon.png",
         hp: 5,
     },
     {
@@ -182,6 +183,7 @@ let characters = [
         basicAttack: "./img/Basic_Castorice.png",
         turnIcon: "./img/Castorice_Icon.png",
         skillEffect: `${castoriceSkill}`,
+        teamposIcon: "./img/Castorice_Icon.png",
         hp: 4,
     },
     {
@@ -189,14 +191,18 @@ let characters = [
         image: "./img/Qiuyuan_Splash_Art.png",
         gif: "./gif/QiuyuanHover.gif",
         gifPos: "left",
-        backgroundColor: "rgba(48, 53, 62)"
+        backgroundColor: "rgba(48, 53, 62)",
+        teamposIcon: "./img/Qiuyuan_Icon.png",
+        hp: 5
     },
     {
         name: `${Character4Name}`,
         image: "./img/Hyacine_Splash_Art.png",
         gif: "./gif/HyacineHover.gif",
         gifPos: "center",
-        backgroundColor: "rgba(248, 204, 200)"
+        backgroundColor: "rgba(248, 204, 200)",
+        teamposIcon: "./img/Hyacine_Icon.png",
+        hp: 4
     },
     {
         name: `${Character5Name}`,
@@ -205,7 +211,9 @@ let characters = [
         gifPos: "center",
         backgroundColor: "rgba(42, 61, 69)",
         backgroundSize: "300",
-        owned: false
+        owned: false,
+        teamposIcon: "./img/DanHeng_Icon.png",
+        hp: 7
     },
     {
         name: `${Character6Name}`,
@@ -213,7 +221,10 @@ let characters = [
         gif: "./gif/ShorekeeperHover.gif",
         gifPos: "center",
         backgroundColor: "rgba(21, 51, 153)",
-        backgroundSize: "230"
+        backgroundSize: "230",
+        owned: false,
+        teamposIcon: "./img/Shorekeeper_Icon.png",
+        hp: 6
     }
 ]
 
@@ -310,9 +321,61 @@ overlay.innerHTML = `
  
     overlay.style.backgroundImage = "url('./img/lobbyScreen.png')"
 
+    updateLobbyCharacterLineup();
 
+}
 
-
+function updateLobbyCharacterLineup(){
+    if(teamPos1 > 0){
+        let char1 = characters[teamPos1 - 1]
+        document.getElementById("Character1").style.backgroundImage = `url('${char1.image}')`
+        document.getElementById("Character1").style.backgroundPosition = char1.gifPos || "center"
+        if(char1.backgroundSize){
+            document.getElementById("Character1").style.backgroundSize = char1.backgroundSize + "%"
+        }else{
+            document.getElementById("Character1").style.backgroundSize = "cover"
+        }
+        document.getElementById("Character1NameBox").innerHTML = `<p>${char1.name}</p>`
+        document.getElementById("Character1").addEventListener("mouseover", () => {
+            document.getElementById("Character1").style.backgroundImage = `url('${char1.gif}')`
+            document.getElementById("Character1").style.backgroundSize = "cover"
+            document.getElementById("Character1").style.backgroundPosition = char1.gifPos || "center"
+        })
+        document.getElementById("Character1").addEventListener("mouseout", () => {
+            document.getElementById("Character1").style.backgroundImage = `url('${char1.image}')`
+            if(char1.backgroundSize){
+                document.getElementById("Character1").style.backgroundSize = char1.backgroundSize + "%"
+            }else{
+                document.getElementById("Character1").style.backgroundSize = "cover"
+            }
+            document.getElementById("Character1").style.backgroundPosition = char1.gifPos || "center"
+        })
+    }
+    if(teamPos2 > 0){
+        let char2 = characters[teamPos2 - 1]
+        document.getElementById("Character2").style.backgroundImage = `url('${char2.image}')`
+        document.getElementById("Character2").style.backgroundPosition = char2.gifPos || "center"
+        if(char2.backgroundSize){
+            document.getElementById("Character2").style.backgroundSize = char2.backgroundSize + "%"
+        }else{
+            document.getElementById("Character2").style.backgroundSize = "cover"
+        }
+        document.getElementById("Character2NameBox").innerHTML = `<p>${char2.name}</p>`
+        document.getElementById("Character2").addEventListener("mouseover", () => {
+            document.getElementById("Character2").style.backgroundImage = `url('${char2.gif}')`
+            document.getElementById("Character2").style.backgroundSize = "cover"
+            document.getElementById("Character2").style.backgroundPosition = char2.gifPos || "center"
+        })
+        document.getElementById("Character2").addEventListener("mouseout", () => {
+            document.getElementById("Character2").style.backgroundImage = `url('${char2.image}')`
+            if(char2.backgroundSize){
+                document.getElementById("Character2").style.backgroundSize = char2.backgroundSize + "%"
+            }else{
+                document.getElementById("Character2").style.backgroundSize = "cover"
+            }
+            document.getElementById("Character2").style.backgroundPosition = char2.gifPos || "center"
+        })
+    }
 }
 
 function navigateToWish(characterNumber){
@@ -688,6 +751,16 @@ function switchingPlanet(direction){
     console.log("Planet: " + currentPlanet + " | Gegner: " + enemy.name)
 }
 
+function getCharacterTeamPos(charSlot){
+    if(teamPos1 === charSlot){
+        return 1
+    } 
+    if(teamPos2 === charSlot){
+            return 2
+    }
+    return 0
+}
+
 function navigateToTeamLineup(){
     overlay.innerHTML = `<div id="teamLineupScreen">
     </div>
@@ -695,9 +768,9 @@ function navigateToTeamLineup(){
      <h1><img src="./img/Icon_TeamLineup.png">Team Lineup</h1>
     </div>
     <div id="teamLineupCharacters">
-        <div id="teamLineupCharacter1"><div id="teamPos1"><p>${teamPos1}</p></div></div>
-        <div id="teamLineupCharacter2"><div id="teamPos2"><p>${teamPos2}</p></div></div>
-        <div id="teamLineupCharacter3"><div id="teamPos3"></div></div>
+        <div id="teamLineupCharacter1" onclick="openCharacterSelect(1)" style="cursor:pointer"></div>
+        <div id="teamLineupCharacter2" onclick="openCharacterSelect(2)" style="cursor:pointer"></div>
+        <div id="teamLineupCharacter3" onclick="openCharacterSelect(3)" style="cursor:pointer"></div>
         <div id="teamLineupCharacter4"><div id="teamPos4"><p class="notIndexed">${notIndexedText}</p></div></div>
         <div id="teamLineupCharacter5"><div id="teamPos5"><p class="notIndexed">${notIndexedText}</p></div></div>
         <div id="teamLineupCharacter6"><div id="teamPos6"><p class="notIndexed">${notIndexedText}</p></div></div>
@@ -709,18 +782,84 @@ function navigateToTeamLineup(){
         <p>Confirm Team Lineup</p>
     </div>
     `
+
+    if(getCharacterTeamPos(1) > 0){
+        document.getElementById("teamLineupCharacter1").innerHTML = `<div class="teamPosBadge"><p>${getCharacterTeamPos(1)}</p></div>`
+    }
+    if(getCharacterTeamPos(2) > 0){
+        document.getElementById("teamLineupCharacter2").innerHTML = `<div class="teamPosBadge"><p>${getCharacterTeamPos(2)}</p></div>`
+    }
+    if(getCharacterTeamPos(3) > 0){
+        document.getElementById("teamLineupCharacter3").innerHTML = `<div class="teamPosBadge"><p>${getCharacterTeamPos(3)}</p></div>`
+    }
+
     if(localStorage.getItem("ownedCharacters").includes(Character4Name)){
-        document.getElementById("teamLineupCharacter4").style.filter = `grayscale(0%)`;
-        document.getElementById("teamPos4").innerHTML = `<p></p>`
+        document.getElementById("teamLineupCharacter4").style.filter = `grayscale(0%)`
+        document.getElementById("teamLineupCharacter4").style.cursor = `pointer`
+        document.getElementById("teamLineupCharacter4").onclick = () => openCharacterSelect(4)
+        if(getCharacterTeamPos(4) > 0){
+            document.getElementById("teamLineupCharacter4").innerHTML = `<div class="teamPosBadge"><p>${getCharacterTeamPos(4)}</p></div>`
+        }else{
+            document.getElementById("teamLineupCharacter4").innerHTML = ``
+        }
     }
     if(localStorage.getItem("ownedCharacters").includes(Character5Name)){
-        document.getElementById("teamLineupCharacter5").style.filter = `grayscale(0%)`;
-        document.getElementById("teamPos5").innerHTML = `<p></p>`
+        document.getElementById("teamLineupCharacter5").style.filter = `grayscale(0%)`
+        document.getElementById("teamLineupCharacter5").style.cursor = `pointer`
+        document.getElementById("teamLineupCharacter5").onclick = () => openCharacterSelect(5)
+        if(getCharacterTeamPos(5) > 0){
+            document.getElementById("teamLineupCharacter5").innerHTML = `<div class="teamPosBadge"><p>${getCharacterTeamPos(5)}</p></div>`
+        }else{
+            document.getElementById("teamLineupCharacter5").innerHTML = ``
+        }
     }
     if(localStorage.getItem("ownedCharacters").includes(Character6Name)){
-        document.getElementById("teamLineupCharacter6").style.filter = `grayscale(0%)`;
-        document.getElementById("teamPos6").innerHTML = `<p></p>`
+        document.getElementById("teamLineupCharacter6").style.filter = `grayscale(0%)`
+        document.getElementById("teamLineupCharacter6").style.cursor = `pointer`
+        document.getElementById("teamLineupCharacter6").onclick = () => openCharacterSelect(6)
+        if(getCharacterTeamPos(6) > 0){
+            document.getElementById("teamLineupCharacter6").innerHTML = `<div class="teamPosBadge"><p>${getCharacterTeamPos(6)}</p></div>`
+        }else{
+            document.getElementById("teamLineupCharacter6").innerHTML = ``
+        }
     }
+}
+
+function openCharacterSelect(charSlot){
+    let char = characters[charSlot - 1]
+    let currentPos = getCharacterTeamPos(charSlot)
+
+    let popup = document.createElement("div")
+    popup.id = "characterSelectPopup"
+    popup.innerHTML = `
+        <div id="characterSelectBox">
+            <div id="characterSelectPortrait" style="background-image: url('${char.teamposIcon}'); background-color: ${char.backgroundColor}; width: 10vw; height: 10vw; border-radius: 50%; background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+            <h2>${char.name}</h2>
+            <p>Team Position: <strong>${currentPos > 0 ? currentPos : "None"}</strong></p>
+            <div id="characterSelectPositions">
+                <div class="posBtn${currentPos === 1 ? " activePosBtn" : ""}" onclick="assignPosition(${charSlot}, 1)">Position 1</div>
+                <div class="posBtn${currentPos === 2 ? " activePosBtn" : ""}" onclick="assignPosition(${charSlot}, 2)">Position 2</div>
+            </div>
+            <div onclick="closeCharacterSelect()" id="closeSelectButton"><p>Close</p></div>
+        </div>
+    `
+    overlay.appendChild(popup)
+}
+
+function assignPosition(charSlot, position){
+    if(teamPos1 === charSlot) teamPos1 = 0
+    if(teamPos2 === charSlot) teamPos2 = 0
+
+    if(position === 1) teamPos1 = charSlot
+    if(position === 2) teamPos2 = charSlot
+
+    closeCharacterSelect()
+    navigateToTeamLineup()
+}
+
+function closeCharacterSelect(){
+    let popup = document.getElementById("characterSelectPopup")
+    if(popup) popup.remove()
 }
 
 function navigateToCharacters(){
