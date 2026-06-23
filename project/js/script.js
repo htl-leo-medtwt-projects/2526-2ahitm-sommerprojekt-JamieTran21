@@ -130,7 +130,7 @@ let currentPlanet = 1
 
 let enemy = {
     name: 'Stormbringer',
-    hp: 20,
+    hp: 10,
     attack: 1
 }
 
@@ -139,7 +139,7 @@ let enemy = {
 let planets = [
     {
         id: 1,
-        enemy: { name: 'Stormbringer', hp: 20, attack: 1 },
+        enemy: { name: 'Stormbringer', hp: 10, attack: 1 },
         enemySprite: "./img/Enemy_Stormbringer.png",
         battleBackground: "./img/lobbyScreen.png",
         battleTheme: "./audio/StormBattleTheme.mp3"
